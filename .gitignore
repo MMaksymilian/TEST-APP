@@ -1,0 +1,13 @@
+
+/.idea
+*.iml
+/src/core/target
+/src/webTRI/target
+/src/webTRI/src/main/webapp/WEB-INF/lib
+/src/webTRI/src/main/webapp/WEB-INF/classes
+/target
+/core/target
+/webTRI/target
+/webTRI/src/main/webapp/WEB-INF/classes
+/webTRI/src/main/webapp/WEB-INF/lib
+/excelImporter/target
