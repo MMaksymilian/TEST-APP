@@ -1,13 +1,10 @@
 
-/.idea
+.idea/
+*.iws
 *.iml
-/src/core/target
-/src/test/target
-/src/test/src/main/webapp/WEB-INF/lib
-/src/test/src/main/webapp/WEB-INF/classes
-/target
-/core/target
-//target
-/test/src/main/webapp/WEB-INF/classes
-/test/src/main/webapp/WEB-INF/lib
-/excelImporter/target
+*.ipr
+
+*.lpm
+
+target/
+bin-release/

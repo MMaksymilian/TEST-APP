@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<faces-config
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+        version="2.0">
+
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+    <lifecycle>
+        <phase-listener>app.security.LoginErrorPhaseListener</phase-listener>
+    </lifecycle>
+
+    <!--<converter>-->
+        <!--<converter-id>projectConverter</converter-id>-->
+        <!--<converter-class>tri.controllers.converter.ProjectConverter</converter-class>-->
+    <!--</converter>-->
+    <!--<converter>-->
+        <!--<converter-id>projectConverterForManager</converter-id>-->
+        <!--<converter-class>tri.controllers.converter.ProjectConverterForManager</converter-class>-->
+    <!--</converter>-->
+    <!--<converter>-->
+        <!--<converter-id>userConverter</converter-id>-->
+        <!--<converter-class>tri.controllers.converter.UserConverter</converter-class>-->
+    <!--</converter>-->
+
+</faces-config>
