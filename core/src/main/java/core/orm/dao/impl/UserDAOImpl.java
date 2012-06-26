@@ -4,7 +4,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import core.orm.dao.UserDAO;
-import orm.entities.User;
+import core.orm.entities.User;
 
 import java.util.List;
 

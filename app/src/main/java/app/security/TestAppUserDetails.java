@@ -1,9 +1,8 @@
 package app.security;
 
+import core.orm.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import orm.entities.User;
-import orm.entities.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

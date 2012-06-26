@@ -1,6 +1,6 @@
 package core.orm.dao;
 
-import orm.entities.User;
+import core.orm.entities.User;
 
 import java.util.List;
 

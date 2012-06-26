@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import orm.dao.UserDAO;
-import orm.entities.User;
+import core.orm.dao.UserDAO;
+import core.orm.entities.User;
 
 import java.util.LinkedList;
 import java.util.List;
