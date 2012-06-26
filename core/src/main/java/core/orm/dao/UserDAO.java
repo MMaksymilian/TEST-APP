@@ -1,4 +1,4 @@
-package orm.dao;
+package core.orm.dao;
 
 import orm.entities.User;
 

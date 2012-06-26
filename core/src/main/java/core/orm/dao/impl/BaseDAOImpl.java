@@ -1,4 +1,4 @@
-package orm.dao.impl;
+package core.orm.dao.impl;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

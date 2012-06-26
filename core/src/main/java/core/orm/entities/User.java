@@ -1,4 +1,4 @@
-package orm.entities;
+package core.orm.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

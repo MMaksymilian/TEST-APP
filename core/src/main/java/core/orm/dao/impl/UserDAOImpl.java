@@ -1,9 +1,9 @@
-package orm.dao.impl;
+package core.orm.dao.impl;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import orm.dao.UserDAO;
+import core.orm.dao.UserDAO;
 import orm.entities.User;
 
 import java.util.List;
