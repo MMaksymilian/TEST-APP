@@ -5,12 +5,10 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-    <title>YOU ARE LOGGED</title>
+    <title>USER</title>
 </h:head>
 <h:body>
-  Hello you are logged.
-  <h:form>
-    <h:commandLink value="Logout" outcome="j_spring_security_logout"/>
-  </h:form>
+    Hello this is users list<br/>
+    <h:outputText value="#{userDAOImpl.getUserByLogin('Rambo').id}"/>
 </h:body>
 </html>

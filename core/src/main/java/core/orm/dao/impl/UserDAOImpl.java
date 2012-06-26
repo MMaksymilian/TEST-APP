@@ -1,22 +1,25 @@
 package core.orm.dao.impl;
 
-import org.springframework.dao.support.DataAccessUtils;
+import core.orm.dao.UserDAO;
+import core.orm.entities.AppUser;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import core.orm.dao.UserDAO;
-import core.orm.entities.User;
 
 import java.util.List;
 
 @Component
 @Transactional
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
-    public User getUserByLogin(String login) {
-        User u = (User) DataAccessUtils.uniqueResult(getHibernateTemplate().find("from User as u where u.login = ?", login));
-        return u;
+    public AppUser getUserByLogin(String login) {
+        Criteria criteria = getSession().createCriteria(AppUser.class);
+        criteria.add(Restrictions.like("login", login));
+        return (AppUser) criteria.uniqueResult();
     }
 
-    public List<User> getAllUsers() {
-        return (List<User>)(getHibernateTemplate().find("from User"));
+    public List<AppUser> getAllUsers() {
+        Criteria criteria = getSession().createCriteria(AppUser.class);
+        return (List<AppUser>)criteria.list();
     }
 }

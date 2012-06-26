@@ -96,7 +96,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>app</finalName>
         <testResources>
             <testResource>
                 <directory>${basedir}/src/test/resources</directory>

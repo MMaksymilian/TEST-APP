@@ -1,6 +1,6 @@
 package app.security;
 
-import core.orm.entities.User;
+import core.orm.entities.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,19 +9,19 @@ import java.util.Collection;
 import java.util.List;
 
 public class TestAppUserDetails implements UserDetails {
-    private User user;
+    private AppUser appUser;
     private boolean accountNonExpried = true;
     private boolean accountNonLocked = true;
     private boolean creditentialsNonExpired = true;
     private boolean enabled = true;
 
 
-    public TestAppUserDetails(User user){
-        this.user = user;
+    public TestAppUserDetails(AppUser appUser){
+        this.appUser = appUser;
     }
-    public TestAppUserDetails(User user, boolean accountNonExpired, boolean accountNonLocked, boolean creditentialsNonExpired,
+    public TestAppUserDetails(AppUser appUser, boolean accountNonExpired, boolean accountNonLocked, boolean creditentialsNonExpired,
                           boolean enabled, List<GrantedAuthority> list){
-        this.user = user;
+        this.appUser = appUser;
         this.accountNonExpried = accountNonExpired;
         this.accountNonLocked = accountNonLocked;
         this.creditentialsNonExpired = creditentialsNonExpired;
@@ -33,11 +33,11 @@ public class TestAppUserDetails implements UserDetails {
     }
 
     public String getPassword() {
-        return user.getPassword();
+        return appUser.getPassword();
     }
 
     public String getUsername() {
-        return user.getLogin();
+        return appUser.getLogin();
     }
 
     public boolean isAccountNonExpired() {
@@ -56,7 +56,7 @@ public class TestAppUserDetails implements UserDetails {
         return true;
     }
 
-    public User getUser() {
-        return user;
+    public AppUser getAppUser() {
+        return appUser;
     }
 }

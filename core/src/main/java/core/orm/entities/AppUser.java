@@ -1,27 +1,29 @@
 package core.orm.entities;
 
-import javax.persistence.Column;
+import core.orm.entities.core.BaseEntity;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Maksymilian Małek
+ * AppUser: Maksymilian Małek
  * Date: 25.06.12
  * Time: 16:37
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "TRI_USERS")
-public class User {
+public class AppUser extends BaseEntity {
 
     String login;
 
     String password;
 
-    @Id
-    @Column(name = "LOGIN")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    Set<Declaration> declarations;
+
     public String getLogin() {
         return login;
     }
@@ -30,12 +32,19 @@ public class User {
         this.login = login;
     }
 
-    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Declaration> getDeclarations() {
+        return declarations;
+    }
+
+    public void setDeclarations(Set<Declaration> declarations) {
+        this.declarations = declarations;
     }
 }
