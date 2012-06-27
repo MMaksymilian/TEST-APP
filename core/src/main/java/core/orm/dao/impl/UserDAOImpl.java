@@ -4,12 +4,12 @@ import core.orm.dao.UserDAO;
 import core.orm.entities.AppUser;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Component
+@Repository
 @Transactional
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     public AppUser getUserByLogin(String login) {

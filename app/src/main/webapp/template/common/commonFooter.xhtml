@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<body>
+<h:head>
+    <h:outputStylesheet name="footer.css" library="style" />
+</h:head>
+<ui:composition>
+    <p:panelGrid columns="3" style="margin:auto;">
+        <f:facet name="header">
+            <p:row>
+                <p:column colspan="3">#{msgs['template.footer.podsumowanie']}</p:column>
+            </p:row>
+        </f:facet>
+        <p:column>#{msgs['template.footer.zabezpieczenie']}</p:column>
+        <p:column>#{msgs['template.footer.kredyt']}</p:column>
+        <p:column>#{msgs['template.footer.oprocentowanie']}</p:column>
+        <p:column styleClass="numbers">#{userSession.totalDecalarations}</p:column>
+        <p:column styleClass="numbers">#{userSession.credit}</p:column>
+        <p:column styleClass="numbers">#{userSession.interest}</p:column>
+    </p:panelGrid>
+</ui:composition>
+</body>
+</html>

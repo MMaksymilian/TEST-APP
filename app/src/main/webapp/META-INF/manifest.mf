@@ -1,0 +1,4 @@
+Extension-List: WeblogicSpring
+WeblogicSpring-Extension-Name: weblogic-spring
+WeblogicSpring-Specification-Version: 12.1.1.0
+WeblogicSpring-Implementation-Version: 12.1.1.0
