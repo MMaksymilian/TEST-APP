@@ -87,18 +87,26 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
 
     @Override
     public List<List<List<String>>> getEstateChildTreeForUser(String login) {
-        List<List<List<String>>> resultList = new ArrayList<List<List<String>>>();
-        Criteria declarationCriteria = getSession().createCriteria(Declaration.class);
-        declarationCriteria.createAlias("user", "u");
-        declarationCriteria.createAlias("declartionRecords", "dr");
-        declarationCriteria.createAlias("dr.indemnity", "ind");
-        declarationCriteria.add(Restrictions.like("u.login", login));
-//        declarationCriteria.add(Restrictions.like("dr.id", declarationId));
-        declarationCriteria.add(Restrictions.isNotNull("dr.parentRecordId"));
-        /*może być źle!*/
-        declarationCriteria.addOrder(Order.asc("id"));
-        declarationCriteria.addOrder(Order.asc("dr.parentRecordId"));
-        declarationCriteria.addOrder(Order.asc("ind.value"));
+
+        String hql = "select dr.id, dr.parentRecordId, ind.value from Declaration d join d.declarationRecords dr " +
+                " join dr.indemnity ind where d.user.login = :Slogin ";
+        List result = getSession().createQuery(hql)
+                .setString("Slogin", login).list();
+//        setString!!!!
+//        setPatam!!!!
+
+//        List<List<List<String>>> resultList = new ArrayList<List<List<String>>>();
+//        Criteria declarationCriteria = getSession().createCriteria(DictIndemnity.class);
+//        declarationCriteria.createAlias("declartionRecords", "dr");
+//        declarationCriteria.createAlias("dr.declaration", "d");
+//        declarationCriteria.createAlias("d.user", "u");
+//        declarationCriteria.add(Restrictions.like("u.login", login));
+////        declarationCriteria.add(Restrictions.like("dr.id", declarationId));
+//        declarationCriteria.add(Restrictions.isNotNull("dr.parentRecordId"));
+//        /*może być źle!*/
+//        declarationCriteria.addOrder(Order.asc("id"));
+//        declarationCriteria.addOrder(Order.asc("dr.parentRecordId"));
+//        declarationCriteria.addOrder(Order.asc("ind.value"));
 
         return null;
     }

@@ -37,7 +37,6 @@ public class DeclarationServiceImpl implements DeclarationService {
     public List<List<List<String>>> getDeclarationIndemnityTreeForUser(String login) {
         List<List<List<String>>> childTree = declarationDAO.getEstateChildTreeForUser(login);
         List<List<List<String>>> parentTree = declarationDAO.getEstateParentTreeForUser(login);
-        System.out.println("ddd");
         return null;
     }
 }
