@@ -1,6 +1,7 @@
 package core.orm.entities.core;
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +11,7 @@ import javax.persistence.MappedSuperclass;
  * To change this template use File | Settings | File Templates.
  */
 @MappedSuperclass
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="app_user_seq")
 public abstract class DictionaryEntity extends BaseEntity {
 
     String value;

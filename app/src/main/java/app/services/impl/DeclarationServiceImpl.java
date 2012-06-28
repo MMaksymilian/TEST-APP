@@ -33,4 +33,11 @@ public class DeclarationServiceImpl implements DeclarationService {
         }
         return declarationDAO.saveDeclaration(declaration);
     }
+
+    public List<List<List<String>>> getDeclarationIndemnityTreeForUser(String login) {
+        List<List<List<String>>> childTree = declarationDAO.getEstateChildTreeForUser(login);
+        List<List<List<String>>> parentTree = declarationDAO.getEstateParentTreeForUser(login);
+        System.out.println("ddd");
+        return null;
+    }
 }

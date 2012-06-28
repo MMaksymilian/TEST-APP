@@ -1,5 +1,6 @@
 package core.orm.entities.indemnity;
 
+import core.orm.entities.DeclarationRecord;
 import core.orm.entities.core.DictionaryEntity;
 
 import javax.persistence.*;
@@ -19,7 +20,11 @@ import java.util.Set;
         discriminatorType= DiscriminatorType.STRING
 )
 @DiscriminatorValue("MAIN")
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="dict_indemnity_seq")
 public class DictIndemnity  extends DictionaryEntity {
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "indemnity")
+    Set<DeclarationRecord> declarationRecords;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentIndemnity")
     Set<DictIndemnityChild> dictIndemnityChildren;

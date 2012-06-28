@@ -15,10 +15,11 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="declaration_seq")
 public class Declaration extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     AppUser user;
 
     @Column

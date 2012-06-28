@@ -11,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @DiscriminatorValue("CHILD")
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="dict_indemnity_seq")
 public class DictIndemnityChild extends DictIndemnity {
 
     //TODO - sprawdź czy nullable musi być true czy może być false

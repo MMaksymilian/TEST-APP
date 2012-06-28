@@ -14,4 +14,9 @@ import java.util.List;
 public interface DeclarationDAO {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declaration);
+//    TODO można ew. zmienić na drzewko
+    public List<List<String>> getEstateParentTreeForUserAndDeclaration(String login, Long declarationId);
+    public List<List<List<String>>> getEstateParentTreeForUser(String login);
+    public List<List<String>> getEstateChildTreeForUserAndDeclaration(String login, Long declarationId);
+    public List<List<List<String>>> getEstateChildTreeForUser(String login);
 }

@@ -5,6 +5,7 @@ import core.orm.entities.core.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
 /**
@@ -15,6 +16,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="app_user_seq")
 public class AppUser extends BaseEntity {
 
     String login;

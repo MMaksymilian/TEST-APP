@@ -2,6 +2,7 @@ package core.orm.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +12,7 @@ import javax.persistence.Id;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="config_standard_seq")
 public class ConfigStandard {
 
     @Id

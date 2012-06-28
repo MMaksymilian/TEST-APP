@@ -13,7 +13,7 @@
 	<version>1.0-SNAPSHOT</version>
 </parent>
   <properties>
-	<org.hibernate.version>3.5.1-Final</org.hibernate.version>
+	<org.hibernate.version>	3.6.10.Final</org.hibernate.version>
   </properties>
     <dependencies>
         <dependency>
@@ -31,6 +31,11 @@
             <artifactId>hibernate-annotations</artifactId>
             <version>${org.hibernate.version}</version>
         </dependency>
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time-hibernate</artifactId>
+        <version>1.3</version>
+      </dependency>
         <!--<dependency>
             <groupId>TR</groupId>
             <artifactId>core-test</artifactId>
@@ -48,14 +53,14 @@
         </testResources>
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<source>1.6</source>-->
+                    <!--<target>1.6</target>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 </project>

@@ -14,4 +14,5 @@ import java.util.List;
 public interface DeclarationService {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declartion);
+    public List<List<List<String>>> getDeclarationIndemnityTreeForUser(String login);
 }

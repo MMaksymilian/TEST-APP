@@ -14,7 +14,7 @@
     <ui:composition template="/template/commonLayout.xhtml">
     <ui:define name="content">
         <h3>#{msgs['total.wnioskowane_kredyty']}</h3>
-        <p:carousel id="basicCarousel" value="#{declarationService.getDeclarationsForUser('Rambo')}" var="declaration">
+        <p:carousel id="basicCarousel" value="#{declarationService.getDeclarationIndemnityTreeForUser('Rambo')}" var="declaration">
             <!--itemStyleClass="carItem"-->
             <f:facet name="header">
                 #{msgs['total.wnioskowana_kwota']}
