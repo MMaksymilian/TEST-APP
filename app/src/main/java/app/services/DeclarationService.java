@@ -3,6 +3,7 @@ package app.services;
 import core.orm.entities.Declaration;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,5 +15,5 @@ import java.util.List;
 public interface DeclarationService {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declartion);
-    public List<List<List<String>>> getDeclarationIndemnityTreeForUser(String login);
+    public Map<Long, Map<Long, List<String[]>>> getDeclarationIndemnityTreeForUser(String login);
 }

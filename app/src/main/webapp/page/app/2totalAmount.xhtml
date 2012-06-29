@@ -28,6 +28,15 @@
                 oooooooooooooooooooooooo
             </f:facet>
         </p:carousel>
+
+
+        <h:form>
+                <p:inputText style="position:absolute;left:500px;" id="input" value="#{declarationBean.name}"/>
+                <h:message style="position:absolute;left:500px;color:red" for="input"/>
+            <p:commandButton action="#{declarationBean.process}"/>
+        </h:form>
+
+
     </ui:define>
     </ui:composition>
 </h:body>

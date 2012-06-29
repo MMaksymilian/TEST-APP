@@ -2,16 +2,12 @@ package core.orm.dao.impl;
 
 import core.orm.dao.DeclarationDAO;
 import core.orm.entities.Declaration;
-import core.orm.entities.indemnity.DictIndemnity;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,81 +30,19 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
         return (Declaration)getHibernateTemplate().save(declaration);
     }
 
-    @Override
-    public List<List<String>> getEstateParentTreeForUserAndDeclaration(String login, Long declarationId) {
-        List<List<String>> resultList = new ArrayList<List<String>>();
-        Criteria declarationCriteria = getSession().createCriteria(DictIndemnity.class, "ind");
-        declarationCriteria.createAlias("user", "u");
-        declarationCriteria.createAlias("declartionRecords", "dr");
-        declarationCriteria.createAlias("dr.indemnity", "ind");
-        declarationCriteria.add(Restrictions.like("u.login", login));
-        declarationCriteria.add(Restrictions.like("dr.id", declarationId));
-        declarationCriteria.add(Restrictions.isNull("dr.parentRecordId"));
-        /*może być źle!*/
-        declarationCriteria.addOrder(Order.asc("id"));
-        declarationCriteria.addOrder(Order.asc("dr.id"));
-        declarationCriteria.addOrder(Order.asc("ind.value"));
-        return resultList;
+    public List<Object[]> getEstateParentTreeForUser(String login) {
+        String hql = "select d.id, dr.id, ind.value from Declaration d join d.declarationRecords dr " +
+                " join dr.indemnity ind where d.user.login = :Slogin and dr.parentRecordId.id is null " +
+                " order by d.id, dr.id , ind.value ";
+        List<Object[]> parentRecords = getSession().createQuery(hql).setString("Slogin", login).list();
+        return parentRecords;
     }
 
-    @Override
-    public List<List<List<String>>> getEstateParentTreeForUser(String login) {
-        List<List<List<String>>> resultList = new ArrayList<List<List<String>>>();
-        Criteria declarationCriteria = getSession().createCriteria(Declaration.class);
-        declarationCriteria.createAlias("user", "u");
-        declarationCriteria.createAlias("declartionRecords", "dr");
-        declarationCriteria.createAlias("dr.indemnity", "ind");
-        declarationCriteria.add(Restrictions.like("u.login", login));
-//        declarationCriteria.add(Restrictions.like("dr.id", declarationId));
-        declarationCriteria.add(Restrictions.isNull("dr.parentRecordId"));
-        /*może być źle!*/
-        declarationCriteria.addOrder(Order.asc("id"));
-        declarationCriteria.addOrder(Order.asc("dr.id"));
-        declarationCriteria.addOrder(Order.asc("ind.value"));
-        return resultList;
+    public List<Object[]> getEstateChildTreeForUser(String login) {
+        String hql = "select d.id, dr.parentRecordId.id , ind.value from Declaration d join d.declarationRecords dr " +
+                " join dr.indemnity ind where d.user.login = :Slogin and dr.parentRecordId.id is not null " +
+                " order by d.id, dr.parentRecordId.id , ind.value ";
+        List<Object[]> childRecords = getSession().createQuery(hql).setString("Slogin", login).list();
+        return childRecords;
     }
-
-    @Override
-    public List<List<String>> getEstateChildTreeForUserAndDeclaration(String login, Long declarationId) {
-        List<List<String>> resultList = new ArrayList<List<String>>();
-        Criteria declarationCriteria = getSession().createCriteria(Declaration.class);
-        declarationCriteria.createAlias("user", "u");
-        declarationCriteria.createAlias("declartionRecords", "dr");
-        declarationCriteria.createAlias("dr.indemnity", "ind");
-        declarationCriteria.add(Restrictions.like("u.login", login));
-        declarationCriteria.add(Restrictions.like("dr.id", declarationId));
-        declarationCriteria.add(Restrictions.isNotNull("dr.parentRecordId"));
-        /*może być źle!*/
-        declarationCriteria.addOrder(Order.asc("id"));
-        declarationCriteria.addOrder(Order.asc("dr.parentRecordId"));
-        declarationCriteria.addOrder(Order.asc("ind.value"));
-        return resultList;
-    }
-
-    @Override
-    public List<List<List<String>>> getEstateChildTreeForUser(String login) {
-
-        String hql = "select dr.id, dr.parentRecordId, ind.value from Declaration d join d.declarationRecords dr " +
-                " join dr.indemnity ind where d.user.login = :Slogin ";
-        List result = getSession().createQuery(hql)
-                .setString("Slogin", login).list();
-//        setString!!!!
-//        setPatam!!!!
-
-//        List<List<List<String>>> resultList = new ArrayList<List<List<String>>>();
-//        Criteria declarationCriteria = getSession().createCriteria(DictIndemnity.class);
-//        declarationCriteria.createAlias("declartionRecords", "dr");
-//        declarationCriteria.createAlias("dr.declaration", "d");
-//        declarationCriteria.createAlias("d.user", "u");
-//        declarationCriteria.add(Restrictions.like("u.login", login));
-////        declarationCriteria.add(Restrictions.like("dr.id", declarationId));
-//        declarationCriteria.add(Restrictions.isNotNull("dr.parentRecordId"));
-//        /*może być źle!*/
-//        declarationCriteria.addOrder(Order.asc("id"));
-//        declarationCriteria.addOrder(Order.asc("dr.parentRecordId"));
-//        declarationCriteria.addOrder(Order.asc("ind.value"));
-
-        return null;
-    }
-
 }

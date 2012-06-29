@@ -15,6 +15,14 @@
       <base-name>message.messages</base-name>
       <var>msgs</var>
     </resource-bundle>
+    <resource-bundle>
+      <base-name>ValidationMessages</base-name>
+      <var>ValidationMessages</var>
+    </resource-bundle>
+    <locale-config>
+      <default-locale>pl</default-locale>
+      <!--<supported-locale>en</supported-locale>-->
+    </locale-config>
   </application>
   <lifecycle>
     <phase-listener>app.security.LoginErrorPhaseListener</phase-listener>
