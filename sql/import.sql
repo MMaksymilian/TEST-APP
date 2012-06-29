@@ -1,6 +1,41 @@
 --------------------------------------------------------
---  File created - wtorek-czerwiec-26-2012   
+--  File created - piątek-czerwiec-29-2012   
 --------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence APP_USER_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."APP_USER_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence CONFIG_STANDARD_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."CONFIG_STANDARD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence DECLARATION_RECORD_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."DECLARATION_RECORD_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence DECLARATION_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."DECLARATION_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence DICT_INDEMNITY_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."DICT_INDEMNITY_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence DICT_OWNERSHIP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."DICT_OWNERSHIP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence DICT_SHARE_TYPE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."DICT_SHARE_TYPE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Table APP_USER
 --------------------------------------------------------
@@ -24,8 +59,11 @@
 
   CREATE TABLE "TEST_APP"."DECLARATION" 
    (	"ID" NUMBER(20,0), 
-	"USER" NUMBER(20,0), 
-	"COMMIT_DATE" TIMESTAMP (6)
+	"USER_ID" NUMBER(20,0), 
+	"COMMIT_DATE" TIMESTAMP (6), 
+	"CREDIT" NUMBER(20,2), 
+	"MARKUP" NUMBER(20,0), 
+	"INTEREST" NUMBER(20,2)
    ) ;
 --------------------------------------------------------
 --  DDL for Table DECLARATION_RECORD
@@ -36,17 +74,9 @@
 	"VALUE" NUMBER(20,0), 
 	"OWNERSHIP" NUMBER(20,0), 
 	"SHARE_TYPE" NUMBER(20,0), 
-	"ESTATE" NUMBER(20,0), 
 	"INDEMNITY" NUMBER, 
-	"DECLARATION_ID" NUMBER(20,0)
-   ) ;
---------------------------------------------------------
---  DDL for Table DICT_ESTATE
---------------------------------------------------------
-
-  CREATE TABLE "TEST_APP"."DICT_ESTATE" 
-   (	"ID" NUMBER(20,0), 
-	"VALUE" VARCHAR2(200)
+	"DECLARATION_ID" NUMBER(20,0), 
+	"PARENT_RECORD_ID" NUMBER(20,0)
    ) ;
 --------------------------------------------------------
 --  DDL for Table DICT_INDEMNITY
@@ -83,17 +113,15 @@ SET DEFINE OFF;
 Insert into TEST_APP.CONFIG_STANDARD (KEY,VALUE) values ('MAX_CREDIT','100000');
 REM INSERTING into TEST_APP.DECLARATION
 SET DEFINE OFF;
+Insert into TEST_APP.DECLARATION (ID,USER_ID,COMMIT_DATE,CREDIT,MARKUP,INTEREST) values ('1','1',to_timestamp('20/10/10 10:00:00,000000000','RR/MM/DD HH24:MI:SS,FF'),'100000','10','10');
+Insert into TEST_APP.DECLARATION (ID,USER_ID,COMMIT_DATE,CREDIT,MARKUP,INTEREST) values ('2','1',to_timestamp('00/10/10 00:00:00,000000000','RR/MM/DD HH24:MI:SS,FF'),'120000','9','15');
+Insert into TEST_APP.DECLARATION (ID,USER_ID,COMMIT_DATE,CREDIT,MARKUP,INTEREST) values ('3','2',to_timestamp('10/10/10 00:00:00,000000000','RR/MM/DD HH24:MI:SS,FF'),'10','20','1');
+Insert into TEST_APP.DECLARATION (ID,USER_ID,COMMIT_DATE,CREDIT,MARKUP,INTEREST) values ('4','1',to_timestamp('12/10/10 00:00:00,000000000','RR/MM/DD HH24:MI:SS,FF'),'10000','10','1');
 REM INSERTING into TEST_APP.DECLARATION_RECORD
 SET DEFINE OFF;
-REM INSERTING into TEST_APP.DICT_ESTATE
-SET DEFINE OFF;
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('1','lokal mieszkalny');
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('2','dom mieszkalny');
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('3','budynek wielolokatowy');
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('4','działka');
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('5','garaż');
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('6','miejsce postojowe');
-Insert into TEST_APP.DICT_ESTATE (ID,VALUE) values ('7','lokal mieszkalny z garażem');
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('1','20000','2','1','4','1',null);
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('2','100','2','1','5','1','1');
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('3','110','2','1','6','1','1');
 REM INSERTING into TEST_APP.DICT_INDEMNITY
 SET DEFINE OFF;
 Insert into TEST_APP.DICT_INDEMNITY (ID,VALUE,TYPE,PARENT_ID) values ('1','dom','MAIN',null);
@@ -150,23 +178,11 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
   CREATE UNIQUE INDEX "TEST_APP"."APP_USER_PK" ON "TEST_APP"."APP_USER" ("ID") 
   ;
 --------------------------------------------------------
---  DDL for Index APP_ESTATE_DICT_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "TEST_APP"."APP_ESTATE_DICT_PK" ON "TEST_APP"."DICT_ESTATE" ("ID") 
-  ;
---------------------------------------------------------
 --  DDL for Index APP_CONFIG_PK
 --------------------------------------------------------
 
   CREATE UNIQUE INDEX "TEST_APP"."APP_CONFIG_PK" ON "TEST_APP"."CONFIG_STANDARD" ("KEY") 
   ;
---------------------------------------------------------
---  Constraints for Table DICT_ESTATE
---------------------------------------------------------
-
-  ALTER TABLE "TEST_APP"."DICT_ESTATE" ADD CONSTRAINT "APP_ESTATE_DICT_PK" PRIMARY KEY ("ID") ENABLE;
-  ALTER TABLE "TEST_APP"."DICT_ESTATE" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table DICT_SHARE_TYPE
 --------------------------------------------------------
@@ -208,7 +224,7 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
 --------------------------------------------------------
 
   ALTER TABLE "TEST_APP"."DECLARATION" ADD CONSTRAINT "APP_DECLARATION_PK" PRIMARY KEY ("ID") ENABLE;
-  ALTER TABLE "TEST_APP"."DECLARATION" MODIFY ("USER" NOT NULL ENABLE);
+  ALTER TABLE "TEST_APP"."DECLARATION" MODIFY ("USER_ID" NOT NULL ENABLE);
   ALTER TABLE "TEST_APP"."DECLARATION" MODIFY ("ID" NOT NULL ENABLE);
   ALTER TABLE "TEST_APP"."DECLARATION" MODIFY ("COMMIT_DATE" NOT NULL ENABLE);
 --------------------------------------------------------
@@ -225,7 +241,7 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
 --  Ref Constraints for Table DECLARATION
 --------------------------------------------------------
 
-  ALTER TABLE "TEST_APP"."DECLARATION" ADD CONSTRAINT "APP_DECLARATION_APP_USER_FK1" FOREIGN KEY ("USER")
+  ALTER TABLE "TEST_APP"."DECLARATION" ADD CONSTRAINT "APP_DECLARATION_APP_USER_FK1" FOREIGN KEY ("USER_ID")
 	  REFERENCES "TEST_APP"."APP_USER" ("ID") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table DECLARATION_RECORD
@@ -233,15 +249,12 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
 
   ALTER TABLE "TEST_APP"."DECLARATION_RECORD" ADD CONSTRAINT "DECLARATION_FK" FOREIGN KEY ("DECLARATION_ID")
 	  REFERENCES "TEST_APP"."DECLARATION" ("ID") ENABLE;
-  ALTER TABLE "TEST_APP"."DECLARATION_RECORD" ADD CONSTRAINT "ESTATE_FK" FOREIGN KEY ("ESTATE")
-	  REFERENCES "TEST_APP"."DICT_ESTATE" ("ID") ENABLE;
   ALTER TABLE "TEST_APP"."DECLARATION_RECORD" ADD CONSTRAINT "INDEMNITY_FK" FOREIGN KEY ("INDEMNITY")
 	  REFERENCES "TEST_APP"."DICT_INDEMNITY" ("ID") ENABLE;
   ALTER TABLE "TEST_APP"."DECLARATION_RECORD" ADD CONSTRAINT "OWNERSHIP_FK" FOREIGN KEY ("OWNERSHIP")
 	  REFERENCES "TEST_APP"."DICT_OWNERSHIP" ("ID") ENABLE;
   ALTER TABLE "TEST_APP"."DECLARATION_RECORD" ADD CONSTRAINT "SHARE_FK" FOREIGN KEY ("SHARE_TYPE")
 	  REFERENCES "TEST_APP"."DICT_SHARE_TYPE" ("ID") ENABLE;
-
 --------------------------------------------------------
 --  Ref Constraints for Table DICT_INDEMNITY
 --------------------------------------------------------
