@@ -9,13 +9,18 @@
   <http auto-config="true" use-expressions="true"><!-- access-denied-page - insufficient priveleges-->
     <intercept-url pattern="/pages/login/**" filters="none" />
     <intercept-url pattern="/pages/admin/**" access="hasAnyRole('ADMIN')"  />
-    <intercept-url pattern="/pages/**" access="hasAnyRole('USER_ROLE', 'ADMIN')"  />
+    <intercept-url pattern="/pages/**" access="isAuthenticated()"  />
     <form-login login-page="/pages/login/login.jsp"
                 authentication-failure-url="/pages/login/login.jsp" default-target-url="/pages/1productType.jsf"/>
     <logout logout-success-url="/pages/login/login.jsp"/>
   </http>
 
-  <!--<global-method-security></global-method-security>-->
+
+
+  <!-- @PreAuthorize(
+            "hasRole('supervisor') or " +
+            "hasRole('teller') and (#account.balance + #amount >= -#account.overdraft)" )
+  <global-method-security></global-method-security>-->
   <!--@RolesAllowed({"ADMIN"}) na metodzie-->
 
   <beans:bean id="daoAuthenticationProvider"

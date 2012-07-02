@@ -14,7 +14,6 @@
     <module>app</module>
   </modules>
 
-
   <build>
     <testResources>
       <testResource>
@@ -40,10 +39,10 @@
           <!--<relativePath></relativePath>-->
           <packaging>war</packaging>
           <classpath>
-          <resources>
-            <resource>
-            </resource>
-          </resources>jo
+            <resources>
+              <resource>
+              </resource>
+            </resources>
           </classpath>
           <web>
             <resources>
@@ -66,21 +65,19 @@
   </build>
 
   <properties>
-    <!--<projectName.build.sourceEncoding>UTF-8</projectName.build.sourceEncoding>-->
     <spring.version>3.0.6.RELEASE</spring.version>
-    <!--<org.hibernate.version>3.5.1-Final</org.hibernate.version>-->
-    <poi.version>3.8-beta5</poi.version>
-    <!--<cxf.version>2.5.2</cxf.version>-->
+    <slf4j.version>1.6.1</slf4j.version>
+    <logback.version>1.0.1</logback.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>prime-repo</id>
-      <name>Prime Technology Maven Repository</name>
-      <url>http://repository.primefaces.org</url>
-      <layout>default</layout>
-    </repository>
-  </repositories>
+  <!--<repositories>-->
+  <!--<repository>-->
+  <!--<id>prime-repo</id>-->
+  <!--<name>Prime Technology Maven Repository</name>-->
+  <!--<url>http://repository.primefaces.org</url>-->
+  <!--<layout>default</layout>-->
+  <!--</repository>-->
+  <!--</repositories>-->
 
   <dependencies>
 
@@ -150,11 +147,11 @@
       <version>3.12.1.GA</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.5.8</version>
-    </dependency>
+    <!--<dependency>-->
+    <!--<groupId>org.slf4j</groupId>-->
+    <!--<artifactId>slf4j-log4j12</artifactId>-->
+    <!--<version>1.5.8</version>-->
+    <!--</dependency>-->
 
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -188,17 +185,41 @@
       </exclusions>
     </dependency>
 
+    <!-- LOGGING - slf4j, logback -->
     <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi</artifactId>
-      <version>${poi.version}</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi-ooxml</artifactId>
-      <version>${poi.version}</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <!--<dependency>-->
+    <!--<groupId>org.apache.poi</groupId>-->
+    <!--<artifactId>poi</artifactId>-->
+    <!--<version>${poi.version}</version>-->
+    <!--</dependency>-->
+
+    <!--<dependency>-->
+    <!--<groupId>org.apache.poi</groupId>-->
+    <!--<artifactId>poi-ooxml</artifactId>-->
+    <!--<version>${poi.version}</version>-->
+    <!--</dependency>-->
 
     <dependency>
       <groupId>junit</groupId>

@@ -3,6 +3,10 @@
     <prefer-application-packages>
       <package-name>org.joda.*</package-name>
       <package-name>antlr.*</package-name>
+      <package-name>org.slf4j.*</package-name>
     </prefer-application-packages>
   </container-descriptor>
+  <context-root>
+    /testApp
+  </context-root>
 </weblogic-web-app>
