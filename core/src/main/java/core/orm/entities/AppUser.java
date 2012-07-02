@@ -26,6 +26,9 @@ public class AppUser extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     Set<Declaration> declarations;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    Set<UserRole> userRoles;
+
     public String getLogin() {
         return login;
     }
@@ -48,5 +51,13 @@ public class AppUser extends BaseEntity {
 
     public void setDeclarations(Set<Declaration> declarations) {
         this.declarations = declarations;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

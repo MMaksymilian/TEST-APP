@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - piątek-czerwiec-29-2012   
+--  File created - poniedziałek-lipiec-02-2012   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Sequence APP_USER_SEQ
@@ -36,6 +36,11 @@
 --------------------------------------------------------
 
    CREATE SEQUENCE  "TEST_APP"."DICT_SHARE_TYPE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence USER_ROLE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "TEST_APP"."USER_ROLE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE ;
 --------------------------------------------------------
 --  DDL for Table APP_USER
 --------------------------------------------------------
@@ -104,10 +109,20 @@
    (	"ID" NUMBER(20,0), 
 	"VALUE" VARCHAR2(20)
    ) ;
+--------------------------------------------------------
+--  DDL for Table USER_ROLE
+--------------------------------------------------------
+
+  CREATE TABLE "TEST_APP"."USER_ROLE" 
+   (	"ID" NUMBER(20,0), 
+	"ROLE_NAME" VARCHAR2(20), 
+	"USER_ID" NUMBER
+   ) ;
 REM INSERTING into TEST_APP.APP_USER
 SET DEFINE OFF;
 Insert into TEST_APP.APP_USER (LOGIN,PASSWORD,ID) values ('Rambo','123','1');
 Insert into TEST_APP.APP_USER (LOGIN,PASSWORD,ID) values ('Shaft','123','2');
+Insert into TEST_APP.APP_USER (LOGIN,PASSWORD,ID) values ('Kapitan Żbik','123','3');
 REM INSERTING into TEST_APP.CONFIG_STANDARD
 SET DEFINE OFF;
 Insert into TEST_APP.CONFIG_STANDARD (KEY,VALUE) values ('MAX_CREDIT','100000');
@@ -122,6 +137,11 @@ SET DEFINE OFF;
 Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('1','20000','2','1','4','1',null);
 Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('2','100','2','1','5','1','1');
 Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('3','110','2','1','6','1','1');
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('5','200','1','1','2','1','4');
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('4','100','2','2','1','1',null);
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('6','400','1','1','3','1','4');
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('8','2','2','1','4','2',null);
+Insert into TEST_APP.DECLARATION_RECORD (ID,VALUE,OWNERSHIP,SHARE_TYPE,INDEMNITY,DECLARATION_ID,PARENT_RECORD_ID) values ('9','100','2','1','5','2','8');
 REM INSERTING into TEST_APP.DICT_INDEMNITY
 SET DEFINE OFF;
 Insert into TEST_APP.DICT_INDEMNITY (ID,VALUE,TYPE,PARENT_ID) values ('1','dom','MAIN',null);
@@ -141,6 +161,11 @@ REM INSERTING into TEST_APP.DICT_SHARE_TYPE
 SET DEFINE OFF;
 Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('1','pełne prawo');
 Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział');
+REM INSERTING into TEST_APP.USER_ROLE
+SET DEFINE OFF;
+Insert into TEST_APP.USER_ROLE (ID,ROLE_NAME,USER_ID) values ('1','USER_ROLE','1');
+Insert into TEST_APP.USER_ROLE (ID,ROLE_NAME,USER_ID) values ('2','USER_ROLE','2');
+Insert into TEST_APP.USER_ROLE (ID,ROLE_NAME,USER_ID) values ('3','ADMIN','1');
 --------------------------------------------------------
 --  DDL for Index APP_INDEMNITY_DICT_PK
 --------------------------------------------------------
@@ -166,6 +191,18 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
   CREATE UNIQUE INDEX "TEST_APP"."APP_DECLARATION_RECORD_PK" ON "TEST_APP"."DECLARATION_RECORD" ("ID") 
   ;
 --------------------------------------------------------
+--  DDL for Index APP_USER_LOGIN_UNIQUE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TEST_APP"."APP_USER_LOGIN_UNIQUE" ON "TEST_APP"."APP_USER" ("LOGIN") 
+  ;
+--------------------------------------------------------
+--  DDL for Index USER_ROLE_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TEST_APP"."USER_ROLE_PK" ON "TEST_APP"."USER_ROLE" ("ID") 
+  ;
+--------------------------------------------------------
 --  DDL for Index APP_DECLARATION_PK
 --------------------------------------------------------
 
@@ -184,6 +221,12 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
   CREATE UNIQUE INDEX "TEST_APP"."APP_CONFIG_PK" ON "TEST_APP"."CONFIG_STANDARD" ("KEY") 
   ;
 --------------------------------------------------------
+--  DDL for Index USER_ROLE_USER_ROLE_PAIR
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "TEST_APP"."USER_ROLE_USER_ROLE_PAIR" ON "TEST_APP"."USER_ROLE" ("ROLE_NAME", "USER_ID") 
+  ;
+--------------------------------------------------------
 --  Constraints for Table DICT_SHARE_TYPE
 --------------------------------------------------------
 
@@ -196,6 +239,15 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
   ALTER TABLE "TEST_APP"."DICT_INDEMNITY" ADD CONSTRAINT "TYPECONSTRAINT" CHECK (TYPE = 'MAIN' or TYPE='CHILD') ENABLE;
   ALTER TABLE "TEST_APP"."DICT_INDEMNITY" ADD CONSTRAINT "APP_INDEMNITY_DICT_PK" PRIMARY KEY ("ID") ENABLE;
   ALTER TABLE "TEST_APP"."DICT_INDEMNITY" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table USER_ROLE
+--------------------------------------------------------
+
+  ALTER TABLE "TEST_APP"."USER_ROLE" ADD CONSTRAINT "USER_ROLE_USER_ROLE_PAIR" UNIQUE ("ROLE_NAME", "USER_ID") ENABLE;
+  ALTER TABLE "TEST_APP"."USER_ROLE" ADD CONSTRAINT "USER_ROLE_PK" PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "TEST_APP"."USER_ROLE" MODIFY ("USER_ID" NOT NULL ENABLE);
+  ALTER TABLE "TEST_APP"."USER_ROLE" MODIFY ("ROLE_NAME" NOT NULL ENABLE);
+  ALTER TABLE "TEST_APP"."USER_ROLE" MODIFY ("ID" NOT NULL ENABLE);
 --------------------------------------------------------
 --  Constraints for Table CONFIG_STANDARD
 --------------------------------------------------------
@@ -232,6 +284,7 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
 --------------------------------------------------------
 
   ALTER TABLE "TEST_APP"."APP_USER" ADD CONSTRAINT "APP_USER_PK" PRIMARY KEY ("ID") ENABLE;
+  ALTER TABLE "TEST_APP"."APP_USER" ADD CONSTRAINT "APP_USER_LOGIN_UNIQUE" UNIQUE ("LOGIN") ENABLE;
   ALTER TABLE "TEST_APP"."APP_USER" MODIFY ("ID" NOT NULL ENABLE);
   ALTER TABLE "TEST_APP"."APP_USER" MODIFY ("PASSWORD" NOT NULL ENABLE);
   ALTER TABLE "TEST_APP"."APP_USER" MODIFY ("LOGIN" NOT NULL ENABLE);
@@ -263,3 +316,9 @@ Insert into TEST_APP.DICT_SHARE_TYPE (ID,VALUE) values ('2','częściowy udział
 	  REFERENCES "TEST_APP"."DICT_INDEMNITY" ("ID") ENABLE;
 
 
+--------------------------------------------------------
+--  Ref Constraints for Table USER_ROLE
+--------------------------------------------------------
+
+  ALTER TABLE "TEST_APP"."USER_ROLE" ADD CONSTRAINT "USER_ROLE_USER" FOREIGN KEY ("USER_ID")
+	  REFERENCES "TEST_APP"."APP_USER" ("ID") ENABLE;

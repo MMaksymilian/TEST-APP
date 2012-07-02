@@ -3,34 +3,35 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <h:outputStylesheet name="style.css" library="style" />
     <h:outputStylesheet name="footer.css" library="style" />
-    <h:outputStylesheet name="navigator.css" library="style" />
 </h:head>
 <h:body>
-    <div id="page">
 
-        <div id="navigator" class="navigatorComponent">
+    <p:layout fullPage="true">
+        <p:layoutUnit position="west" size="200" header="#{msgs['template.nav.tytul']}" resizable="true" closable="true" collapsible="true" effect="drop">
             <ui:insert name="navigator" >
                 <ui:include src="/template/common/commonNavigator.xhtml" />
             </ui:insert>
-        </div>
+        </p:layoutUnit>
 
-        <div id="content">
+        <!--To jest zawartość strony-->
+        <p:layoutUnit position="center">
             <ui:insert name="content" >
                 <ui:include src="/template/common/commonContent.xhtml" />
             </ui:insert>
-        </div>
+        </p:layoutUnit>
 
-        <div id="footer" class="footerComponent">
+        <p:layoutUnit position="south" size="100" header="#{msgs['template.footer.informacje_o_sesji']}" resizable="true" closable="true" collapsible="true" styleClass="footerComponent">
             <ui:insert name="footer" >
                 <ui:include src="/template/common/commonFooter.xhtml" />
             </ui:insert>
-        </div>
+        </p:layoutUnit>
 
-    </div>
+    </p:layout>
 </h:body>
 </html>

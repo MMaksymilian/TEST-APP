@@ -66,7 +66,7 @@
   </build>
 
   <properties>
-    <projectName.build.sourceEncoding>UTF-8</projectName.build.sourceEncoding>
+    <!--<projectName.build.sourceEncoding>UTF-8</projectName.build.sourceEncoding>-->
     <spring.version>3.0.6.RELEASE</spring.version>
     <!--<org.hibernate.version>3.5.1-Final</org.hibernate.version>-->
     <poi.version>3.8-beta5</poi.version>

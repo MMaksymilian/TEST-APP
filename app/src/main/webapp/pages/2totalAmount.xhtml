@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>#{msgs['template.nav.wnioskowana_kwota']}</title>
+</h:head>
+<h:body>
+    <ui:composition template="/template/commonLayout.xhtml">
+        <ui:define name="content">
+            <h3>#{msgs['total.wnioskowane_kredyty']}</h3>
+
+            <p:carousel id="smallCarousel" value="#{declarationBean.declarationDataList()}" var="declaration"
+                        rows="1" itemStyle="height:200px;width:600px;" effect="easeInStrong">
+                <f:facet name="header">
+                    #{msgs['total.deklaracja_klienta']}
+                </f:facet>
+                <h:panelGrid columns="1" style="width:100%; width:100%">
+                    <p:tree value="#{declaration.declarationTree}" var="node" id="tree">
+                        <p:treeNode id="treeNode">
+                            <h:outputText value="#{node}"/>
+                        </p:treeNode>
+                    </p:tree>
+                </h:panelGrid>
+                <f:facet name="footer">
+                #{msgs['total.deklaracja_z_dnia']}
+                </f:facet>
+            </p:carousel>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

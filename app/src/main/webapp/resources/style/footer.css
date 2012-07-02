@@ -1,8 +1,5 @@
 .footerComponent {
-    position:absolute;
-    bottom:5px;
-    width:300px;
-    position: absolute;
-    margin-left: -150px;
-    left: 50%;
+    /*position:absolute;*/
+    /*bottom:5px;*/
+    height:500px;
 }

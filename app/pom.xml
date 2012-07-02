@@ -48,7 +48,7 @@
 
     <dependency>
       <groupId>org.primefaces.themes</groupId>
-      <artifactId>cupertino</artifactId>
+      <artifactId>blitzer</artifactId>
       <version>1.0.2</version>
     </dependency>
 
@@ -110,11 +110,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>native2ascii-maven-plugin</artifactId>
-        <version>1.0-alpha-1</version>
-        <configuration>
-          <dest>target/classes</dest>
-          <src>src/main/resources</src>
-        </configuration>
         <executions>
           <execution>
             <goals>
@@ -122,9 +117,6 @@
             </goals>
             <configuration>
               <encoding>UTF8</encoding>
-              <includes>
-                **/*.properties
-              </includes>
             </configuration>
           </execution>
         </executions>

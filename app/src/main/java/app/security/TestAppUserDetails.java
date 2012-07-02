@@ -1,11 +1,14 @@
 package app.security;
 
 import core.orm.entities.AppUser;
+import core.orm.entities.UserRole;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public class TestAppUserDetails implements UserDetails {
@@ -29,9 +32,12 @@ public class TestAppUserDetails implements UserDetails {
     }
 
     public Collection<GrantedAuthority> getAuthorities() {
-        return new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> grantedAuth = new LinkedList<GrantedAuthority>();
+        for (UserRole role : appUser.getUserRoles()) {
+            grantedAuth.add(new GrantedAuthorityImpl(role.getRoleName()));
+        }
+        return grantedAuth;
     }
-
     public String getPassword() {
         return appUser.getPassword();
     }

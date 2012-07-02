@@ -24,19 +24,16 @@ import java.util.List;
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    @Autowired
+    private UserDAO userDAO;
+
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException, DataAccessException {
-        List<GrantedAuthorityImpl> grantedAuth = new LinkedList<GrantedAuthorityImpl>();
-        grantedAuth.add(new GrantedAuthorityImpl("ROLE_USER"));
         AppUser databaseAppUser = userDAO.getUserByLogin(username);
-        if (databaseAppUser != null) {
-            return new TestAppUserDetails(databaseAppUser);
-        } else {
+        if (databaseAppUser == null) {
             throw new UsernameNotFoundException(username);
         }
+        return new TestAppUserDetails(databaseAppUser);
     }
-
-    @Autowired
-    private UserDAO userDAO;
 }

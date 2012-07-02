@@ -5,6 +5,22 @@
 	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
   <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
     <filter-name>requestLogger</filter-name>
     <filter-class>app.security.RequestLogger</filter-class>
   </filter>
@@ -22,8 +38,8 @@
   <filter-mapping>
     <filter-name>springSecurityFilterChain</filter-name>
     <url-pattern>/*</url-pattern>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>REQUEST</dispatcher>
+    <!--<dispatcher>FORWARD</dispatcher>-->
+    <!--<dispatcher>REQUEST</dispatcher>-->
   </filter-mapping>
 
   <filter>
@@ -83,7 +99,7 @@
   </context-param>
   <context-param>
     <param-name>primefaces.THEME</param-name>
-    <param-value>cupertino</param-value>
+    <param-value>blitzer</param-value>
   </context-param>
 
    <context-param>
@@ -93,13 +109,6 @@
           /WEB-INF/security-app-context.xml
       </param-value>
   </context-param>
-  <!-- FILTER MAPPING -->
-  <!--<filter-mapping>-->
-    <!--<filter-name>springSecurityFilterChain</filter-name>-->
-    <!--<url-pattern>/*</url-pattern>-->
-    <!--<dispatcher>FORWARD</dispatcher>-->
-    <!--<dispatcher>REQUEST</dispatcher>-->
-  <!--</filter-mapping>-->
 
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
@@ -117,13 +126,10 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
-    <url-pattern>/krams/*</url-pattern>
+    <url-pattern>/login/*</url-pattern>
   </servlet-mapping>
 
-  <welcome-file-list>
-    <welcome-file>pages/index.jsf</welcome-file>
-    <welcome-file>pages/index.xhtml</welcome-file>
-    <welcome-file>pages/index.html</welcome-file>
-  </welcome-file-list>
-
+  <!--<welcome-file-list>-->
+    <!--<welcome-file>pages/logged.jsf</welcome-file>-->
+  <!--</welcome-file-list>-->
 </web-app>

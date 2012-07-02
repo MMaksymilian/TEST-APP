@@ -15,10 +15,6 @@
       <base-name>message.messages</base-name>
       <var>msgs</var>
     </resource-bundle>
-    <resource-bundle>
-      <base-name>ValidationMessages</base-name>
-      <var>ValidationMessages</var>
-    </resource-bundle>
     <locale-config>
       <default-locale>pl</default-locale>
       <!--<supported-locale>en</supported-locale>-->
@@ -33,47 +29,47 @@
     <from-view-id>*</from-view-id>
     <navigation-case>
       <from-outcome>productType</from-outcome>
-      <to-view-id>/page/app/1productType.xhtml</to-view-id>
+      <to-view-id>/pages/1productType.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>totalAmount</from-outcome>
-      <to-view-id>/page/app/2totalAmount.xhtml</to-view-id>
+      <to-view-id>/pages/2totalAmount.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>indemnity</from-outcome>
-      <to-view-id>/page/app/3indemnity.xhtml</to-view-id>
+      <to-view-id>/pages/3indemnity.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>parameters</from-outcome>
-      <to-view-id>/page/app/4parameters.xhtml</to-view-id>
+      <to-view-id>/pages/4parameters.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>declarations</from-outcome>
-      <to-view-id>/page/app/5declarations.xhtml</to-view-id>
+      <to-view-id>/pages/5declarations.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>interest</from-outcome>
-      <to-view-id>/page/app/6insterest.xhtml</to-view-id>
+      <to-view-id>/pages/6insterest.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>credit</from-outcome>
-      <to-view-id>/page/app/7credit.xhtml</to-view-id>
+      <to-view-id>/pages/7credit.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>creditPeriod</from-outcome>
-      <to-view-id>/page/app/8creditPeriod.xhtml</to-view-id>
+      <to-view-id>/pages/8creditPeriod.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>priceCondition</from-outcome>
-      <to-view-id>/page/app/9priceCondition.xhtml</to-view-id>
+      <to-view-id>/pages/9priceCondition.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>additionalParameter</from-outcome>
-      <to-view-id>/page/app/10additionalParameter.xhtml</to-view-id>
+      <to-view-id>/pages/10additionalParameter.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>documents</from-outcome>
-      <to-view-id>/page/app/11documents.xhtml</to-view-id>
+      <to-view-id>/pages/11documents.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <!--<converter>-->
