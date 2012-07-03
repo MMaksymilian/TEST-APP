@@ -1,5 +1,9 @@
 package core.orm.dao;
 
+import core.orm.entities.ConfigStandard;
+
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Maksymilian Małek
@@ -8,4 +12,7 @@ package core.orm.dao;
  * To change this template use File | Settings | File Templates.
  */
 public interface ConfigStandardDAO {
+    List listConfigParams();
+    void updateConfig(ConfigStandard configStandard);
+    void saveConfig(ConfigStandard configStandard);
 }

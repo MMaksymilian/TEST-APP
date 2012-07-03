@@ -4,16 +4,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>#{msgs['template.nav.parametry_symulacji']}</title>
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <!--<ui:define name="content">-->
-    <!---->
-    <!--</ui:define>-->
+        <ui:define name="content">
+            <h:form id="form">
+                <p:dataTable id="configParams" var="config" value="#{configBean.configStandards}"
+                             tableStyle="width:auto">
+                    <p:column headerText="#{msgs['parameters.nazwa_parametru']}" style="width:100px">
+                        <h:outputText value="#{config.key}"/>
+                    </p:column>
+                    <p:column headerText="#{msgs['parameters.wart_parametru']}" style="width:100px">
+                        <h:outputText value="#{config.value}"/>
+                    </p:column>
+                    <p:column style="width:40px">
+                        <h:panelGrid columns="3" styleClass="actions" cellpadding="2">
+                            <h:commandButton id="selectButton" oncomplete="configDialog.show()"
+                                             icon="ui-icon-search" title="View" update=":form:display">
+                                <f:setPropertyActionListener value="#{config}" target="#{configBean.selectedConfig}"/>
+                            </h:commandButton>
+                        </h:panelGrid>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="#{msgs['parameters.dialog_tytul']}" widgetVar="configDialog" resizable="false"
+                          id="confgiDlg" showEffect="fade" hideEffect="explode">
+                    <p:panel id="display">
+                        <p:spinner id="minmax"
+                                   value="#{configBean.selectedConfig.value}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
+                        <p:commandButton value="submit"
+                                         action="#{configBean.updateParameter(configBean.selectedConfig)}"/>
+                    </p:panel>
+                </p:dialog>
+            </h:form>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>

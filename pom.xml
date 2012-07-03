@@ -15,13 +15,12 @@
   </modules>
 
   <build>
-    <testResources>
-      <testResource>
-        <directory>${basedir}/src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
-
+    <!--<testResources>-->
+      <!--<testResource>-->
+        <!--<directory>${basedir}/src/test/resources</directory>-->
+        <!--<filtering>true</filtering>-->
+      <!--</testResource>-->
+    <!--</testResources>-->
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -221,6 +220,14 @@
     <!--<version>${poi.version}</version>-->
     <!--</dependency>-->
 
+    <dependency>
+      <groupId>com.oracle</groupId>
+      <artifactId>ojdbc5</artifactId>
+      <version>11.2.0.2</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!--testy integracyjne-->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

@@ -99,13 +99,14 @@
     </dependency>
   </dependencies>
   <build>
-    <testResources>
-      <testResource>
-        <directory>${basedir}/src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
-
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <testOutputDirectory>target/test-classes</testOutputDirectory>
+    <!--<testResources>-->
+      <!--<testResource>-->
+        <!--<directory>${basedir}src/main/webapp/WEB-INF</directory>-->
+        <!--<filtering>true</filtering>-->
+      <!--</testResource>-->
+    <!--</testResources>-->
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
