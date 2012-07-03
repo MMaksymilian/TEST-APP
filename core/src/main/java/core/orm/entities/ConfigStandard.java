@@ -1,8 +1,10 @@
 package core.orm.entities;
 
+import core.log.LogInterface;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import java.beans.Transient;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,8 +14,7 @@ import javax.persistence.SequenceGenerator;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="config_standard_seq")
-public class ConfigStandard {
+public class ConfigStandard implements LogInterface {
 
     @Id
     String key;
@@ -34,5 +35,13 @@ public class ConfigStandard {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Transient
+    public String getLogDetail() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("ConfigStandard KEY: ").append(key)
+                .append(", ConfigStandard VALUE: ").append(value);
+        return stringBuilder.toString();
     }
 }
