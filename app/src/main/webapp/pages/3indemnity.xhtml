@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -11,9 +12,23 @@
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <!--<ui:define name="content">-->
-    <!---->
-    <!--</ui:define>-->
+    <ui:define name="content">
+        <h:form id="form">
+        <h:outputText value="Nieruchomość: " />
+        <p:selectManyMenu value="#{indemnityBean.selectedEstate}"
+                          style="height:100px">
+            <f:selectItems value="#{indemnityBean.mainEstates}"
+                           var="estate" itemLabel="#{estate.value}"
+                           itemValue="#{estate}" />
+            <p:ajax update="children" process="@all"
+                    listener="#{indemnityBean.handleEstateChange()}" />
+        </p:selectManyMenu>
+        <p:separator/>
+        <p:dataList id="children" value="#{indemnityBean.childEstates}" var="estate">
+            #{estate.value}
+        </p:dataList>
+        </h:form>
+    </ui:define>
     </ui:composition>
 </h:body>
 </html>

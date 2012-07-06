@@ -4,6 +4,9 @@ import core.orm.dao.ConfigStandardDAO;
 import core.orm.entities.ConfigStandard;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.test.jdbc.SimpleJdbcTestUtils;
 
 import java.util.List;
 

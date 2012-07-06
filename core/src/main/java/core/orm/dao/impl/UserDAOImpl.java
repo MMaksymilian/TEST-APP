@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     public AppUser getUserByLogin(String login) {
         Criteria criteria = getSession().createCriteria(AppUser.class);

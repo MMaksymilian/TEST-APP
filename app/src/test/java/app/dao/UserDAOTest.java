@@ -30,6 +30,7 @@ public class UserDAOTest extends AbstractTest {
         }
     }
 
+//    @ActiveProfiles - SPRING 3.1 bardzo ciekawa adnotacja!
     @Test(timeout = 500)
     public void checkUsers() {
         for (AppUser user : userDAO.getAllUsers()) {
