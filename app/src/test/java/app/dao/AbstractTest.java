@@ -4,6 +4,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.AfterTransaction;
+import org.springframework.test.context.transaction.BeforeTransaction;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,4 +20,5 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public abstract class AbstractTest extends AbstractTransactionalJUnit4SpringContextTests {
+
 }

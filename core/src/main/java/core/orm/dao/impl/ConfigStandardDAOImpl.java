@@ -19,7 +19,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-@Transactional
 public class ConfigStandardDAOImpl extends BaseDAOImpl implements ConfigStandardDAO {
 
     public List<ConfigStandard> listConfigParams() {

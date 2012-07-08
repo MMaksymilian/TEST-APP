@@ -14,7 +14,7 @@ import java.beans.Transient;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class ConfigStandard implements LogInterface {
+public class ConfigStandard {
 
     @Id
     String key;

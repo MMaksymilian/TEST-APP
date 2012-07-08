@@ -17,7 +17,6 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-@Transactional
 public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
     public List<Declaration> getDeclarationsForUser(String login) {
         Criteria declarationCriteria = getSession().createCriteria(Declaration.class);

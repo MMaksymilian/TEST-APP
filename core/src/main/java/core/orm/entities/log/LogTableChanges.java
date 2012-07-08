@@ -1,6 +1,7 @@
 package core.orm.entities.log;
 
 import core.orm.entities.core.BaseEntity;
+import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -21,6 +22,7 @@ import javax.persistence.SequenceGenerator;
  * Inaczej jest nieskończona pętla
  */
 @Entity
+@Immutable
 @SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="log_table_changes_seq")
 public class LogTableChanges extends BaseEntity {
     private String action;
