@@ -7,7 +7,7 @@ import core.orm.entities.indemnity.DictIndemnityChild;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class IndemnityBean implements Serializable {
 
     @ManagedProperty("#{dictIndemnityService}")
@@ -40,9 +40,10 @@ public class IndemnityBean implements Serializable {
             mainEstates.add(mainEstateEntry.getKey());
         }
     }
-
+//    AjaxBehaviorEvent
     public void handleEstateChange () {
         childEstates = estatesMap.get(selectedEstate);
+//        return null;
     }
 
     public void setDictIndemnityService(DictIndemnityService dictIndemnityService) {

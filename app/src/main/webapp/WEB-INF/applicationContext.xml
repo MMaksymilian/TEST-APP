@@ -40,7 +40,7 @@
         <property name="namingStrategy">
           <bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
         </property>
-        <property name="entityInterceptor" ref="logInterceptor"/>
+        <!--<property name="entityInterceptor" ref="logInterceptor"/>-->
     </bean>
 
   <!--<bean id="hibernateSessionFactoryIntercept" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">-->
