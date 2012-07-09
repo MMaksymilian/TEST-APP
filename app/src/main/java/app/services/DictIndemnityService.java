@@ -16,4 +16,5 @@ import java.util.Map;
 public interface DictIndemnityService {
 
     Map<DictIndemnity, List<DictIndemnityChild>> getAvailableEstates();
+    DictIndemnity getDictIndemnityById(Long id);
 }

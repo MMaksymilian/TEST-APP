@@ -28,7 +28,7 @@ public class DictIndemnity  extends DictionaryEntity {
     Set<DeclarationRecord> declarationRecords;
 
     //TODO sprawdzić czy pomaga
-    @BatchSize(size = 10)
+//    @BatchSize(size = 10)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentIndemnity")
     Set<DictIndemnityChild> dictIndemnityChildren;
 

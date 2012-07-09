@@ -1,9 +1,10 @@
 package core.orm.entities;
 
-import core.log.LogInterface;
+import core.orm.entities.core.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import java.beans.Transient;
 
 /**
@@ -14,9 +15,9 @@ import java.beans.Transient;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class ConfigStandard {
+@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="config_standard_seq")
+public class ConfigStandard extends BaseEntity {
 
-    @Id
     String key;
 
     String value;
@@ -44,4 +45,24 @@ public class ConfigStandard {
                 .append(", ConfigStandard VALUE: ").append(value);
         return stringBuilder.toString();
     }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof ConfigStandard)) return false;
+//
+//        ConfigStandard that = (ConfigStandard) o;
+//
+//        if (!key.equals(that.key)) return false;
+//        if (!value.equals(that.value)) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = key.hashCode();
+//        result = 31 * result + value.hashCode();
+//        return result;
+//    }
 }

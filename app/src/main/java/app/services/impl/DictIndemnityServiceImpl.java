@@ -39,4 +39,8 @@ public class DictIndemnityServiceImpl implements DictIndemnityService {
         }
         return mapIndemnity;
     }
+
+    public DictIndemnity getDictIndemnityById(Long id) {
+        return dictIndemnityDAO.getById(id);
+    }
 }

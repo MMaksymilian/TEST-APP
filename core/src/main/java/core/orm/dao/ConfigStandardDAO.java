@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 14:38
  * To change this template use File | Settings | File Templates.
  */
-public interface ConfigStandardDAO {
+public interface ConfigStandardDAO extends BaseDAO<ConfigStandard> {
     List listConfigParams();
     void updateConfig(ConfigStandard configStandard);
     void saveConfig(ConfigStandard configStandard);

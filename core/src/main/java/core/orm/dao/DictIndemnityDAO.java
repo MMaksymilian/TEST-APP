@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 14:29
  * To change this template use File | Settings | File Templates.
  */
-public interface DictIndemnityDAO {
+public interface DictIndemnityDAO extends BaseDAO<DictIndemnity> {
 
     List<DictIndemnity> listDictIndemnityParent();
 //    List<DictIndemnityChild> listDictIndemnityChildren(DictIndemnity dictIndemnity);

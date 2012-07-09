@@ -19,26 +19,28 @@
                     <p:column headerText="#{msgs['parameters.nazwa_parametru']}" style="width:100px">
                         <h:outputText value="#{config.key}"/>
                     </p:column>
-                    <p:column headerText="#{msgs['parameters.wart_parametru']}" style="width:100px">
+                    <p:column id="value" headerText="#{msgs['parameters.wart_parametru']}" style="width:100px">
                         <h:outputText value="#{config.value}"/>
                     </p:column>
                     <p:column style="width:40px">
-                        <h:panelGrid columns="3" styleClass="actions" cellpadding="2">
-                            <h:commandButton id="selectButton" oncomplete="configDialog.show()"
+                        <p:panelGrid columns="3" styleClass="actions" cellpadding="2">
+                            <p:commandButton id="selectButton" oncomplete="configDialog.show()"
                                              icon="ui-icon-search" title="View" update=":form:display">
                                 <f:setPropertyActionListener value="#{config}" target="#{configBean.selectedConfig}"/>
-                            </h:commandButton>
-                        </h:panelGrid>
+                            </p:commandButton>
+                        </p:panelGrid>
                     </p:column>
                 </p:dataTable>
 
                 <p:dialog header="#{msgs['parameters.dialog_tytul']}" widgetVar="configDialog" resizable="false"
                           id="confgiDlg" showEffect="fade" hideEffect="explode">
-                    <p:panel id="display">
+                    <p:panel id="display" >
                         <p:spinner id="minmax"
-                                   value="#{configBean.selectedConfig.value}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
-                        <p:commandButton value="submit"
-                                         action="#{configBean.updateParameter(configBean.selectedConfig)}"/>
+                                   value="#{configBean.longValue}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
+                        <!--process="@form" update="@form"-->
+                        <p:message for="minmax"/>
+                        <p:commandButton value="submit" update="@parent"
+                                         action="#{configBean.updateParameter}"/>
                     </p:panel>
                 </p:dialog>
             </h:form>

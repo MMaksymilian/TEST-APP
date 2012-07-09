@@ -72,17 +72,4 @@
       <to-view-id>/pages/11documents.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
-  <!--<converter>-->
-  <!--<converter-id>projectConverter</converter-id>-->
-  <!--<converter-class>tri.controllers.converter.ProjectConverter</converter-class>-->
-  <!--</converter>-->
-  <!--<converter>-->
-  <!--<converter-id>projectConverterForManager</converter-id>-->
-  <!--<converter-class>tri.controllers.converter.ProjectConverterForManager</converter-class>-->
-  <!--</converter>-->
-  <!--<converter>-->
-  <!--<converter-id>userConverter</converter-id>-->
-  <!--<converter-class>tri.controllers.converter.UserConverter</converter-class>-->
-  <!--</converter>-->
-
 </faces-config>

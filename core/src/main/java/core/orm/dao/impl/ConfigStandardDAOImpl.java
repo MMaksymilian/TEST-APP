@@ -23,7 +23,7 @@ public class ConfigStandardDAOImpl extends BaseDAOImpl implements ConfigStandard
 
     public List<ConfigStandard> listConfigParams() {
         Criteria criteria = getSession().createCriteria(ConfigStandard.class);
-        return (List<ConfigStandard>)criteria.list();
+        return (List<ConfigStandard>) criteria.list();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -34,5 +34,11 @@ public class ConfigStandardDAOImpl extends BaseDAOImpl implements ConfigStandard
     @Override
     public void saveConfig(ConfigStandard configStandard) {
         getHibernateTemplate().save(configStandard);
+    }
+
+    public ConfigStandard getById(Long id) {
+        Criteria getByIdCriteria = getSession().createCriteria(ConfigStandard.class);
+        getByIdCriteria.add(Restrictions.idEq(id));
+        return (ConfigStandard) getByIdCriteria.uniqueResult();
     }
 }

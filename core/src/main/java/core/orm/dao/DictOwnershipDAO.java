@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 14:38
  * To change this template use File | Settings | File Templates.
  */
-public interface DictOwnershipDAO {
+public interface DictOwnershipDAO extends BaseDAO<DictOwnership> {
 
     List<DictOwnership> listDictOwnerships();
 }
