@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 16:45
  * To change this template use File | Settings | File Templates.
  */
-public interface UserDAO {
+public interface UserDAO extends BaseDAO<AppUser> {
 
     public AppUser getUserByLogin(String login);
     public List<AppUser> getAllUsers();

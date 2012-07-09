@@ -12,7 +12,7 @@ import java.util.Map;
  * Time: 14:32
  * To change this template use File | Settings | File Templates.
  */
-public interface DeclarationDAO {
+public interface DeclarationDAO extends BaseDAO<Declaration> {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declaration);
 //    TODO można ew. zmienić na drzewko

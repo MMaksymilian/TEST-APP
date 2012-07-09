@@ -1,8 +1,11 @@
 package core.orm.dao.impl;
 
 import core.orm.dao.DictIndemnityDAO;
+import core.orm.entities.ConfigStandard;
 import core.orm.entities.indemnity.DictIndemnity;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,8 +21,16 @@ import java.util.List;
 public class DictIndemnityDAOImpl extends BaseDAOImpl implements DictIndemnityDAO {
 
     public List<DictIndemnity> listDictIndemnityParent() {
-        Criteria listCriteria = getSession().createCriteria(DictIndemnity.class);
+        Criteria listCriteria = getSession().createCriteria(DictIndemnity.class, "dParent");
         listCriteria.createAlias("dictIndemnityChildren", "children");
+//        listCriteria.addOrder(Order.asc("dParent.value"));
+//        listCriteria.addOrder(Order.asc("children.value"));
         return (List<DictIndemnity>) listCriteria.list();
+    }
+
+    public DictIndemnity getById(Long id) {
+        Criteria getByIdCriteria = getSession().createCriteria(DictIndemnity.class);
+        getByIdCriteria.add(Restrictions.idEq(id));
+        return (DictIndemnity) getByIdCriteria.uniqueResult();
     }
 }

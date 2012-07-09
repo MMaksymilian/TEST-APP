@@ -1,7 +1,9 @@
 package core.orm.dao.impl;
 
 import core.orm.dao.DeclarationDAO;
+import core.orm.entities.ConfigStandard;
 import core.orm.entities.Declaration;
+import core.orm.entities.core.BaseEntity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -43,5 +45,11 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
                 " order by d.id, dr.parentRecordId.id , ind.value ";
         List<Object[]> childRecords = getSession().createQuery(hql).setString("Slogin", login).list();
         return childRecords;
+    }
+
+    public Declaration getById(Long id) {
+        Criteria getByIdCriteria = getSession().createCriteria(Declaration.class);
+        getByIdCriteria.add(Restrictions.idEq(id));
+        return (Declaration) getByIdCriteria.uniqueResult();
     }
 }

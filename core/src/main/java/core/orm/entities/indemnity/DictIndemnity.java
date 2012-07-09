@@ -47,4 +47,6 @@ public class DictIndemnity  extends DictionaryEntity {
     public void setDictIndemnityChildren(Set<DictIndemnityChild> dictIndemnityChildren) {
         this.dictIndemnityChildren = dictIndemnityChildren;
     }
+
+
 }

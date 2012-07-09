@@ -34,4 +34,24 @@ public class ConfigStandard {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ConfigStandard)) return false;
+
+        ConfigStandard that = (ConfigStandard) o;
+
+        if (!key.equals(that.key)) return false;
+        if (!value.equals(that.value)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key.hashCode();
+        result = 31 * result + value.hashCode();
+        return result;
+    }
 }

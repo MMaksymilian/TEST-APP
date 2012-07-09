@@ -15,14 +15,11 @@
     <ui:define name="content">
         <h:form id="form">
         <h:outputText value="Nieruchomość: " />
-        <p:selectManyMenu value="#{indemnityBean.selectedEstate}"
-                          style="height:100px">
-            <f:selectItems value="#{indemnityBean.mainEstates}"
-                           var="estate" itemLabel="#{estate.value}"
-                           itemValue="#{estate}" />
-            <p:ajax update="children" process="@all"
-                    listener="#{indemnityBean.handleEstateChange()}" />
-        </p:selectManyMenu>
+        <p:selectOneMenu value="#{indemnityBean.selectedEstate}">
+            <f:selectItems value="#{indemnityBean.mainEstates}"/>
+            <p:ajax update="children"
+                    listener="#{indemnityBean.handleEstateChange}" />
+        </p:selectOneMenu>
         <p:separator/>
         <p:dataList id="children" value="#{indemnityBean.childEstates}" var="estate">
             #{estate.value}

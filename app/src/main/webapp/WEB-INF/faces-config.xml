@@ -72,6 +72,11 @@
       <to-view-id>/pages/11documents.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
+
+  <!--<converter>-->
+    <!--<converter-for-class>core.orm.entities.indemnity.DictIndemnity</converter-for-class>-->
+    <!--<converter-class>app.converter.common.CommonEntityConverter/converter-class>-->
+  <!--</converter>-->
   <!--<converter>-->
   <!--<converter-id>projectConverter</converter-id>-->
   <!--<converter-class>tri.controllers.converter.ProjectConverter</converter-class>-->
