@@ -7,6 +7,7 @@ import org.primefaces.model.TreeNode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.validation.constraints.NotNull;
@@ -31,6 +32,11 @@ public class DeclarationBean {
 
     @ManagedProperty("#{declarationService}")
     private DeclarationService declarationService;
+
+    @PostConstruct
+    public void initMethod() {
+        declarationService.listDeclarationsTreeForUser("Rambo");
+    }
 
 /*    Ewentualnie można od razu z serwisu brać List<DeclarationData>*/
     public List<DeclarationData> declarationDataList() {

@@ -1,6 +1,9 @@
 package core.orm.entities;
 
 import core.orm.entities.core.BaseEntity;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
@@ -16,6 +19,7 @@ import java.util.Set;
  */
 @Entity
 @SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="declaration_seq")
+@FilterDef(name = "onlyParentDeclartionRecordsFilter")
 public class Declaration extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,6 +31,8 @@ public class Declaration extends BaseEntity {
     private DateTime commitDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "declaration")
+    @Filter(name = "onlyParentDeclartionRecordsFilter",
+        condition = "type = 'MAIN'")
     Set<DeclarationRecord> declarationRecords;
 
     public AppUser getUser() {

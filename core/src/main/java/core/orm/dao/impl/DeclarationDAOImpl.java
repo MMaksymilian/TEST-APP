@@ -5,6 +5,7 @@ import core.orm.entities.ConfigStandard;
 import core.orm.entities.Declaration;
 import core.orm.entities.core.BaseEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +22,13 @@ import java.util.*;
 @Repository
 public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
     public List<Declaration> getDeclarationsForUser(String login) {
-        Criteria declarationCriteria = getSession().createCriteria(Declaration.class);
+        Session session = getSession();
+        session.enableFilter("onlyParentDeclartionRecordsFilter");
+        Criteria declarationCriteria = session.createCriteria(Declaration.class);
         declarationCriteria.createAlias("user", "u");
         declarationCriteria.add(Restrictions.like("u.login", login));
-        return (List<Declaration>) declarationCriteria.list();
+//        association.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+        return (List<Declaration>)declarationCriteria.list();
     }
 
     public Declaration saveDeclaration (Declaration declaration) {

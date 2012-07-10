@@ -4,6 +4,7 @@ import core.orm.entities.core.BaseEntity;
 import core.orm.entities.indemnity.DictIndemnity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +14,12 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@Inheritance(strategy= InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name="type",
+        discriminatorType= DiscriminatorType.STRING
+)
+@DiscriminatorValue("MAIN")
 @SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="declaration_record_seq")
 public class DeclarationRecord  extends BaseEntity {
 
@@ -29,12 +36,13 @@ public class DeclarationRecord  extends BaseEntity {
     DictIndemnity indemnity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_record_id", nullable = false)
-    DeclarationRecord parentRecordId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "declaration_id", nullable = false)
     Declaration declaration;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentRecordId")
+    Set<DeclarationRecordChild> declarationRecordChildren;
+
+    Integer value;
 
     public Declaration getDeclaration() {
         return declaration;
@@ -68,11 +76,11 @@ public class DeclarationRecord  extends BaseEntity {
         this.indemnity = indemnity;
     }
 
-    public DeclarationRecord getParentRecordId() {
-        return parentRecordId;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setParentRecordId(DeclarationRecord parentRecordId) {
-        this.parentRecordId = parentRecordId;
+    public void setValue(Integer value) {
+        this.value = value;
     }
 }

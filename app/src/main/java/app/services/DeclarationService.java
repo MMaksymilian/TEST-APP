@@ -1,6 +1,7 @@
 package app.services;
 
 import core.orm.entities.Declaration;
+import org.primefaces.model.TreeNode;
 
 import java.util.List;
 import java.util.Map;
@@ -16,4 +17,5 @@ public interface DeclarationService {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declartion);
     public Map<Long, Map<Long, List<String[]>>> getDeclarationIndemnityTreeForUser(String login);
+    public Map<Declaration, TreeNode> listDeclarationsTreeForUser(String login);
 }

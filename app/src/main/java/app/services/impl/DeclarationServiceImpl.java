@@ -3,6 +3,7 @@ package app.services.impl;
 import app.services.DeclarationService;
 import core.orm.dao.DeclarationDAO;
 import core.orm.entities.Declaration;
+import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,5 +68,11 @@ public class DeclarationServiceImpl implements DeclarationService {
             }
         }
         return mergedRecords;
+    }
+
+    @Override
+    public Map<Declaration, TreeNode> listDeclarationsTreeForUser(String login) {
+        List<Declaration> declarations = getDeclarationsForUser(login);
+        return null;
     }
 }
