@@ -27,6 +27,9 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
         Criteria declarationCriteria = session.createCriteria(Declaration.class);
         declarationCriteria.createAlias("user", "u");
         declarationCriteria.add(Restrictions.like("u.login", login));
+        //fetch lazy records
+//        declarationCriteria.createAlias("declarationRecords", "drParent");
+//        declarationCriteria.createAlias("drParent.declarationRecordChildren", "drChildren");
 //        association.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
         return (List<Declaration>)declarationCriteria.list();
     }

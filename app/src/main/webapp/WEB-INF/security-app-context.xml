@@ -16,11 +16,10 @@
   </http>
 
 
-
+  <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
   <!-- @PreAuthorize(
             "hasRole('supervisor') or " +
-            "hasRole('teller') and (#account.balance + #amount >= -#account.overdraft)" )
-  <global-method-security></global-method-security>-->
+            "hasRole('teller') and -->
   <!--@RolesAllowed({"ADMIN"}) na metodzie-->
 
   <beans:bean id="daoAuthenticationProvider"
@@ -42,15 +41,4 @@
       <!--<password-encoder hash="sha-256"/>-->
     </authentication-provider>
   </authentication-manager>
-
-  <!--<authentication-manager>-->
-  <!--<authentication-provider>-->
-  <!--<appUser-service>-->
-  <!--<appUser name="rod" password="koala" authorities="supervisor, teller, appUser" />-->
-  <!--<appUser name="dianne" password="emu" authorities="teller, appUser" />-->
-  <!--<appUser name="scott" password="wombat" authorities="appUser" />-->
-  <!--<appUser name="peter" password="opal" authorities="appUser" />-->
-  <!--</appUser-service>-->
-  <!--</authentication-provider>-->
-  <!--</authentication-manager>-->
 </beans:beans>

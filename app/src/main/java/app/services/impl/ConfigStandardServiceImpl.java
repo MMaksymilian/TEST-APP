@@ -4,6 +4,8 @@ import app.services.ConfigStandardService;
 import core.orm.dao.ConfigStandardDAO;
 import core.orm.entities.ConfigStandard;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,9 @@ public class ConfigStandardServiceImpl implements ConfigStandardService {
         return configStandardDAO.listConfigParams();
     }
 
+    //TODO przenieść do interfejsu
+    @PreAuthorize("hasRole('ADMIN')")
+    @Secured({"ADMIN"})
     public void updateConfig(ConfigStandard configStandard) {
         configStandardDAO.updateConfig(configStandard);
     }

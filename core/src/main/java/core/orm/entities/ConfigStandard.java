@@ -5,7 +5,7 @@ import core.orm.entities.core.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import java.beans.Transient;
+import javax.persistence.Transient;
 
 /**
  * Created with IntelliJ IDEA.

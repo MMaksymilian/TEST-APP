@@ -15,22 +15,42 @@
         <ui:define name="content">
             <h3>#{msgs['total.wnioskowane_kredyty']}</h3>
 
-            <p:carousel id="smallCarousel" value="#{declarationBean.declarationDataList()}" var="declaration"
-                        rows="1" itemStyle="height:200px;width:600px;" effect="easeInStrong">
-                <f:facet name="header">
-                    #{msgs['total.deklaracja_klienta']}
-                </f:facet>
-                <h:panelGrid columns="1" style="width:100%; width:100%">
-                    <p:tree value="#{declaration.declarationTree}" var="node" id="tree">
-                        <p:treeNode id="treeNode">
-                            <h:outputText value="#{node}"/>
-                        </p:treeNode>
-                    </p:tree>
-                </h:panelGrid>
-                <f:facet name="footer">
-                #{msgs['total.deklaracja_z_dnia']}
-                </f:facet>
-            </p:carousel>
+            <ui:repeat value="#{declarationBean.declarationsMap.keySet().toArray()}" var="declaration"
+                       varStatus="status">
+                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate}" toggleable="true" collapsed="#{!status.last}" toggleSpeed="500">
+                    <p:treeTable value="#{declarationBean.declarationsMap.get(declaration)}" var="declarationRecord"
+                                 selection="#{declarationBean.selectedNode}" selectionMode="single">
+
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                NIERUCHOMOŚĆ
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.indemnity.value}"/>
+                        </p:column>
+
+                        <p:column style="width:150px">
+                            <f:facet name="header">
+                                WARTOŚĆ PLN
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.value}"/>
+                        </p:column>
+
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                POSIADANIE
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.shareType.value}"/>
+                        </p:column>
+
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                POSIADANIE
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.ownership.value}"/>
+                        </p:column>
+                    </p:treeTable>
+                </p:fieldset>
+            </ui:repeat>
         </ui:define>
     </ui:composition>
 </h:body>

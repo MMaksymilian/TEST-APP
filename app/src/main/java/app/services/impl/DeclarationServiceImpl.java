@@ -3,6 +3,9 @@ package app.services.impl;
 import app.services.DeclarationService;
 import core.orm.dao.DeclarationDAO;
 import core.orm.entities.Declaration;
+import core.orm.entities.DeclarationRecord;
+import core.orm.entities.DeclarationRecordChild;
+import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,7 +75,18 @@ public class DeclarationServiceImpl implements DeclarationService {
 
     @Override
     public Map<Declaration, TreeNode> listDeclarationsTreeForUser(String login) {
+        Map<Declaration, TreeNode> declarationMap = new LinkedHashMap<Declaration, TreeNode>();
         List<Declaration> declarations = getDeclarationsForUser(login);
-        return null;
+        for (Declaration singleDeclaration : declarations) {
+            TreeNode root = new DefaultTreeNode("root", null);
+            for (DeclarationRecord parentRecord : singleDeclaration.getDeclarationRecords()) {
+                TreeNode parent = new DefaultTreeNode(parentRecord,root);
+                for (DeclarationRecordChild childRecord : parentRecord.getDeclarationRecordChildren()) {
+                    TreeNode child = new DefaultTreeNode(childRecord, parent);
+                }
+            }
+            declarationMap.put(singleDeclaration, root);
+        }
+        return declarationMap;
     }
 }

@@ -26,7 +26,6 @@ public class ConfigStandardDAOImpl extends BaseDAOImpl implements ConfigStandard
         return (List<ConfigStandard>) criteria.list();
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     public void updateConfig(ConfigStandard configStandard) {
         getHibernateTemplate().update(configStandard);
     }

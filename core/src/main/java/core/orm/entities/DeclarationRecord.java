@@ -23,15 +23,15 @@ import java.util.Set;
 @SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="declaration_record_seq")
 public class DeclarationRecord  extends BaseEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ownership", nullable = false)
     DictOwnership ownership;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "share_type", nullable = false)
     DictShareType shareType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "indemnity", nullable = false)
     DictIndemnity indemnity;
 
@@ -82,5 +82,13 @@ public class DeclarationRecord  extends BaseEntity {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+    public Set<DeclarationRecordChild> getDeclarationRecordChildren() {
+        return declarationRecordChildren;
+    }
+
+    public void setDeclarationRecordChildren(Set<DeclarationRecordChild> declarationRecordChildren) {
+        this.declarationRecordChildren = declarationRecordChildren;
     }
 }
