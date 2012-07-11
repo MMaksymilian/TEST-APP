@@ -29,9 +29,6 @@ public class ConfigStandardServiceImpl implements ConfigStandardService {
         return configStandardDAO.listConfigParams();
     }
 
-    //TODO przenieść do interfejsu
-    @PreAuthorize("hasRole('ADMIN')")
-    @Secured({"ADMIN"})
     public void updateConfig(ConfigStandard configStandard) {
         configStandardDAO.updateConfig(configStandard);
     }

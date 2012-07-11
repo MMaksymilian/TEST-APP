@@ -1,6 +1,8 @@
 package app.services;
 
 import core.orm.entities.ConfigStandard;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ import java.util.List;
 @Transactional
 public interface ConfigStandardService {
     List listConfigParams();
+
+    @PreAuthorize("hasRole('ADMIN')")
     void updateConfig(ConfigStandard configStandard);
     void saveConfig(ConfigStandard configStandard);
 }

@@ -24,14 +24,14 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
     public List<Declaration> getDeclarationsForUser(String login) {
         Session session = getSession();
         session.enableFilter("onlyParentDeclartionRecordsFilter");
-        Criteria declarationCriteria = session.createCriteria(Declaration.class);
-        declarationCriteria.createAlias("user", "u");
-        declarationCriteria.add(Restrictions.like("u.login", login));
-        //fetch lazy records
-//        declarationCriteria.createAlias("declarationRecords", "drParent");
-//        declarationCriteria.createAlias("drParent.declarationRecordChildren", "drChildren");
-//        association.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-        return (List<Declaration>)declarationCriteria.list();
+        String hql = "select d from Declaration d join d.declarationRecords dr where d.user.login = :uLogin " +
+                " order by d.commitDate, dr.indemnity.value ";
+        List<Declaration> declarations = session.createQuery(hql).setString("uLogin", login).list();
+//        Criteria declarationCriteria = session.createCriteria(Declaration.class);
+//        declarationCriteria.createAlias("user", "u");
+//        declarationCriteria.add(Restrictions.like("u.login", login));
+//        return (List<Declaration>)declarationCriteria.list();
+        return declarations;
     }
 
     public Declaration saveDeclaration (Declaration declaration) {

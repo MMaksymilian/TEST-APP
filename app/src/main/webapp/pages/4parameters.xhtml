@@ -30,17 +30,59 @@
                             </p:commandButton>
                         </p:panelGrid>
                     </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton icon="ui-icon-plusthick" value="Dodaj nowy"
+                                         update=":form:addParam" oncomplete="addDialog.show()"/>
+                    </f:facet>
                 </p:dataTable>
 
-                <p:dialog header="#{msgs['parameters.dialog_tytul']}" widgetVar="configDialog" resizable="false"
-                          id="confgiDlg" showEffect="fade" hideEffect="explode">
-                    <p:panel id="display" >
-                        <p:spinner id="minmax"
-                                   value="#{configBean.longValue}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
+                <!-- DIALOG EDYCJI -->
+                <p:dialog header="#{msgs['parameters.dialog_edycja_tytul']}" widgetVar="configDialog" resizable="false"
+                          id="configDlg" showEffect="fade" hideEffect="explode">
+                    <p:panel id="display">
+                        <p:spinner id="minmax" value="#{configBean.longValue}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
                         <!--process="@form" update="@form"-->
                         <p:message for="minmax"/>
-                        <p:commandButton value="submit" update="@parent"
-                                         action="#{configBean.updateParameter}"/>
+                        <p:commandButton value="#{msgs['common.button.submit']}" update="@parent" action="#{configBean.updateParameter}"/>
+                    </p:panel>
+                </p:dialog>
+
+                <!-- DIALOG DODANIA NOWEGO PARAMETERU -->
+                <p:dialog header="#{msgs['parameters.dialog_dodaj_tytul']}" widgetVar="addDialog" resizable="false"
+                          id="addDlg" showEffect="fade" hideEffect="explode">
+                    <p:panel id="addParam">
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column><h:outputLabel value="#{msgs['parameters.dialog.nazwa']}"/></p:column>
+                                <p:column><h:outputLabel value="#{msgs['parameters.dialog.wartosc']}"/></p:column>
+                                <p:column><h:outputLabel value="#{msgs['parameters.dialog.typ']}"/></p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:inputText id="newName" value="#{configBean.newName}"/>
+                                    <p:message for="newName"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="newValue" value="#{configBean.newValue}"/>
+                                    <p:message for="newValue"/>
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="newType" value="#{configBean.newType}">
+                                        <f:selectItem itemLabel="Wybierz typ" itemValue="" />
+                                        <f:selectItem itemLabel="Napis" itemValue="1" />
+                                        <f:selectItem itemLabel="Liczba" itemValue="2" />
+                                    </p:selectOneMenu>
+                                    <p:message for="newType"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" style="margin:auto;">
+                                    <p:commandButton value="#{msgs['common.button.submit']}" update="@parent"
+                                                     action="#{configBean.saveParameter}"/>
+                                </p:column>
+                                <!--<p:message for="minmax"/>-->
+                            </p:row>
+                        </p:panelGrid>
                     </p:panel>
                 </p:dialog>
             </h:form>

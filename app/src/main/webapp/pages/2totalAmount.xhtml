@@ -17,7 +17,7 @@
 
             <ui:repeat value="#{declarationBean.declarationsMap.keySet().toArray()}" var="declaration"
                        varStatus="status">
-                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate}" toggleable="true" collapsed="#{!status.last}" toggleSpeed="500">
+                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate.toString('MM/dd/yyyy')}" toggleable="true" collapsed="#{!status.last}" toggleSpeed="500">
                     <p:treeTable value="#{declarationBean.declarationsMap.get(declaration)}" var="declarationRecord"
                                  selection="#{declarationBean.selectedNode}" selectionMode="single">
 
@@ -48,6 +48,7 @@
                             </f:facet>
                             <h:outputText value="#{declarationRecord.ownership.value}"/>
                         </p:column>
+
                     </p:treeTable>
                 </p:fieldset>
             </ui:repeat>

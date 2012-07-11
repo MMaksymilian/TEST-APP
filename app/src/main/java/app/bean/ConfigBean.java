@@ -2,6 +2,8 @@ package app.bean;
 
 import app.services.ConfigStandardService;
 import core.orm.entities.ConfigStandard;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -9,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
@@ -30,15 +33,27 @@ public class ConfigBean implements Serializable {
     private ConfigStandard selectedConfig;
     private List<ConfigStandard> configStandards;
 
-    @NotNull
-    private String configKey;
-    private String stringValue;
-
     @Max(300000)
+    @Min(20000)
     @NotNull
     private Long longValue;
 
+    /* nowy paramtetr*/
+//    @NotNull
+//    @NotEmpty
+    @Length(max = 20)
+    private String newName;
 
+//    @NotNull
+//    @NotEmpty
+    @Length(max = 20)
+    private String newValue;
+
+//    @NotNull
+//    @NotEmpty
+    @Length(max = 20)
+    private String newType;
+    /* nowy parametr */
 
     @PostConstruct
     public void init() {
@@ -49,6 +64,13 @@ public class ConfigBean implements Serializable {
     public void updateParameter() {
         selectedConfig.setValue(longValue.toString());
         configStandardService.updateConfig(selectedConfig );
+    }
+
+    public void saveParameter() {
+        ConfigStandard standardConfig  = new ConfigStandard();
+        standardConfig.setKey(getNewName());
+        standardConfig.setValue(getNewValue());
+        configStandardService.saveConfig(standardConfig);
     }
 
     public List<ConfigStandard> getConfigStandards() {
@@ -76,27 +98,35 @@ public class ConfigBean implements Serializable {
         this.selectedConfig = selectedConfig;
     }
 
-    public String getConfigKey() {
-        return configKey;
-    }
-
-    public void setConfigKey(String configKey) {
-        this.configKey = configKey;
-    }
-
-    public String getStringValue() {
-        return stringValue;
-    }
-
-    public void setStringValue(String stringValue) {
-        this.stringValue = stringValue;
-    }
-
     public Long getLongValue() {
         return longValue;
     }
 
     public void setLongValue(Long longValue) {
         this.longValue = longValue;
+    }
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    public String getNewValue() {
+        return newValue;
+    }
+
+    public void setNewValue(String newValue) {
+        this.newValue = newValue;
+    }
+
+    public String getNewType() {
+        return newType;
+    }
+
+    public void setNewType(String newType) {
+        this.newType = newType;
     }
 }
