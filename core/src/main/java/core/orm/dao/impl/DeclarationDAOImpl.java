@@ -25,7 +25,7 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
         Session session = getSession();
         session.enableFilter("onlyParentDeclartionRecordsFilter");
         String hql = "select d from Declaration d join d.declarationRecords dr where d.user.login = :uLogin " +
-                " order by d.commitDate, dr.indemnity.value ";
+                " order by d.commitDate, dr.estate.value ";
         List<Declaration> declarations = session.createQuery(hql).setString("uLogin", login).list();
 //        Criteria declarationCriteria = session.createCriteria(Declaration.class);
 //        declarationCriteria.createAlias("user", "u");
@@ -36,22 +36,6 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
 
     public Declaration saveDeclaration (Declaration declaration) {
         return (Declaration)getHibernateTemplate().save(declaration);
-    }
-
-    public List<Object[]> getEstateParentTreeForUser(String login) {
-        String hql = "select d.id, dr.id, ind.value from Declaration d join d.declarationRecords dr " +
-                " join dr.indemnity ind where d.user.login = :Slogin and dr.parentRecordId.id is null " +
-                " order by d.id, dr.id , ind.value ";
-        List<Object[]> parentRecords = getSession().createQuery(hql).setString("Slogin", login).list();
-        return parentRecords;
-    }
-
-    public List<Object[]> getEstateChildTreeForUser(String login) {
-        String hql = "select d.id, dr.parentRecordId.id , ind.value from Declaration d join d.declarationRecords dr " +
-                " join dr.indemnity ind where d.user.login = :Slogin and dr.parentRecordId.id is not null " +
-                " order by d.id, dr.parentRecordId.id , ind.value ";
-        List<Object[]> childRecords = getSession().createQuery(hql).setString("Slogin", login).list();
-        return childRecords;
     }
 
     public Declaration getById(Long id) {

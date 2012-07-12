@@ -36,8 +36,8 @@
       <to-view-id>/pages/2totalAmount.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>indemnity</from-outcome>
-      <to-view-id>/pages/3indemnity.xhtml</to-view-id>
+      <from-outcome>estate</from-outcome>
+      <to-view-id>/pages/3estate.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>parameters</from-outcome>

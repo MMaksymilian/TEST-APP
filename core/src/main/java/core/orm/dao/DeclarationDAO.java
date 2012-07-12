@@ -15,8 +15,4 @@ import java.util.Map;
 public interface DeclarationDAO extends BaseDAO<Declaration> {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declaration);
-//    TODO można ew. zmienić na drzewko
-//    Można było użyć ewentualnie connect by
-    public List<Object[]> getEstateParentTreeForUser(String login);
-    public List<Object[]>  getEstateChildTreeForUser(String login);
 }

@@ -2,11 +2,9 @@ package core.orm.dao.impl;
 
 import core.orm.dao.DictShareTypeDAO;
 import core.orm.entities.DictShareType;
-import core.orm.entities.indemnity.DictIndemnity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

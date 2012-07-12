@@ -1,8 +1,7 @@
-package core.orm.entities.indemnity;
+package core.orm.entities.estate;
 
 import core.orm.entities.DeclarationRecord;
 import core.orm.entities.core.DictionaryEntity;
-import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,15 +21,15 @@ import java.util.Set;
 )
 @DiscriminatorValue("MAIN")
 @SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="dict_indemnity_seq")
-public class DictIndemnity  extends DictionaryEntity {
+public class DictEstate extends DictionaryEntity {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "indemnity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "estate")
     Set<DeclarationRecord> declarationRecords;
 
     //TODO sprawdzić czy pomaga
 //    @BatchSize(size = 10)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentIndemnity")
-    Set<DictIndemnityChild> dictIndemnityChildren;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentEstate")
+    Set<DictEstateChild> dictEstateChildren;
 
     public Set<DeclarationRecord> getDeclarationRecords() {
         return declarationRecords;
@@ -40,11 +39,11 @@ public class DictIndemnity  extends DictionaryEntity {
         this.declarationRecords = declarationRecords;
     }
 
-    public Set<DictIndemnityChild> getDictIndemnityChildren() {
-        return dictIndemnityChildren;
+    public Set<DictEstateChild> getDictEstateChildren() {
+        return dictEstateChildren;
     }
 
-    public void setDictIndemnityChildren(Set<DictIndemnityChild> dictIndemnityChildren) {
-        this.dictIndemnityChildren = dictIndemnityChildren;
+    public void setDictEstateChildren(Set<DictEstateChild> dictChildren) {
+        this.dictEstateChildren = dictChildren;
     }
 }

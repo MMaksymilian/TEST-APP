@@ -1,7 +1,7 @@
 package core.orm.entities;
 
 import core.orm.entities.core.BaseEntity;
-import core.orm.entities.indemnity.DictIndemnity;
+import core.orm.entities.estate.DictEstate;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -32,8 +32,8 @@ public class DeclarationRecord  extends BaseEntity {
     DictShareType shareType;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "indemnity", nullable = false)
-    DictIndemnity indemnity;
+    @JoinColumn(name = "estate_id", nullable = false)
+    DictEstate estate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "declaration_id", nullable = false)
@@ -68,12 +68,12 @@ public class DeclarationRecord  extends BaseEntity {
         this.shareType = shareType;
     }
 
-    public DictIndemnity getIndemnity() {
-        return indemnity;
+    public DictEstate getEstate() {
+        return estate;
     }
 
-    public void setIndemnity(DictIndemnity indemnity) {
-        this.indemnity = indemnity;
+    public void setEstate(DictEstate estate) {
+        this.estate = estate;
     }
 
     public Integer getValue() {

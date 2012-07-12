@@ -8,16 +8,16 @@
 <body>
     <ui:composition>
         <h:outputScript>
-            var menuItemId = '<h:outputText value="#{pageController.chosenId}"/>';
+            var menuItemId = '<h:outputText value="#{pageController.chosenMenuItemId}"/>';
             $(function() {
-            $('[id*="' + menuItemId + '"]').css('background-color', 'grey');
+            $('[id="' + menuItemId + '"]').css('background-color', '#ffa');
             });
         </h:outputScript>
-        <h:form>
-            <p:menu style="width:100%;">
+        <h:form id="menuForm">
+            <p:menu id="menu" style="width:100%;">
                     <p:menuitem id="menuProductType" value="#{msgs['template.nav.typ_produktu']}" action="productType" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuTotalAmount" value="#{msgs['template.nav.wnioskowana_kwota']}" action="totalAmount" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuEstate" value="#{msgs['template.nav.zabezpieczenie']}" action="indemnity" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
+                    <p:menuitem id="menuEstate" value="#{msgs['template.nav.zabezpieczenie']}" action="estate" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuParameters" value="#{msgs['template.nav.parametry_symulacji']}" action="parameters" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuDeclarations" value="#{msgs['template.nav.obiekty_i_cele_kredytowania']}" action="declarations" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuInterest" value="#{msgs['template.nav.oprocentowanie']}" action="interest" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>

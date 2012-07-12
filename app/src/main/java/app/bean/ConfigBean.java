@@ -9,8 +9,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -39,27 +41,9 @@ public class ConfigBean implements Serializable {
     @NotNull
     private Long longValue;
 
-    /* nowy paramtetr*/
-    @NotNull
-//    @NotEmpty
-    @Length(max = 20)
-    private String newName;
-
-    @NotNull
-//    @NotEmpty
-    @Length(max = 20)
-    private String newValue;
-
-    @NotNull
-//    @NotEmpty
-    @Length(max = 20)
-    private String newType;
-    /* nowy parametr */
-
     @PostConstruct
     public void init() {
         configStandards = configStandardService.listConfigParams();
-        selectedConfig = configStandards.get(0);
     }
 
     public void updateParameter() {
@@ -73,11 +57,9 @@ public class ConfigBean implements Serializable {
         }
     }
 
-    public void saveParameter() {
-        ConfigStandard standardConfig  = new ConfigStandard();
-        standardConfig.setKey(getNewName());
-        standardConfig.setValue(getNewValue());
-        configStandardService.saveConfig(standardConfig);
+    public void setSelectedConfig(ConfigStandard selectedConfig) {
+        longValue = Long.valueOf((String) selectedConfig.getValue());
+        this.selectedConfig = selectedConfig;
     }
 
     public List<ConfigStandard> getConfigStandards() {
@@ -88,21 +70,8 @@ public class ConfigBean implements Serializable {
         this.configStandards = configStandards;
     }
 
-    public ConfigStandardService getConfigStandardService() {
-        return configStandardService;
-    }
-
-    public void setConfigStandardService(ConfigStandardService configStandardService) {
-        this.configStandardService = configStandardService;
-    }
-
     public ConfigStandard getSelectedConfig() {
         return selectedConfig;
-    }
-
-    public void setSelectedConfig(ConfigStandard selectedConfig) {
-        longValue = Long.valueOf((String) selectedConfig.getValue());
-        this.selectedConfig = selectedConfig;
     }
 
     public Long getLongValue() {
@@ -113,27 +82,7 @@ public class ConfigBean implements Serializable {
         this.longValue = longValue;
     }
 
-    public String getNewName() {
-        return newName;
-    }
-
-    public void setNewName(String newName) {
-        this.newName = newName;
-    }
-
-    public String getNewValue() {
-        return newValue;
-    }
-
-    public void setNewValue(String newValue) {
-        this.newValue = newValue;
-    }
-
-    public String getNewType() {
-        return newType;
-    }
-
-    public void setNewType(String newType) {
-        this.newType = newType;
+    public void setConfigStandardService(ConfigStandardService configStandardService) {
+        this.configStandardService = configStandardService;
     }
 }

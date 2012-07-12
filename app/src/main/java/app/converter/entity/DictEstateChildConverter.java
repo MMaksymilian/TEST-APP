@@ -1,7 +1,7 @@
 package app.converter.entity;
 
 import app.converter.common.CommonEntityConverter;
-import core.orm.entities.indemnity.DictIndemnityChild;
+import core.orm.entities.estate.DictEstateChild;
 
 import javax.faces.convert.FacesConverter;
 
@@ -12,6 +12,6 @@ import javax.faces.convert.FacesConverter;
  * Time: 16:21
  * To change this template use File | Settings | File Templates.
  */
-@FacesConverter(forClass = DictIndemnityChild.class)
-public class DictIndemnityChildConverter extends CommonEntityConverter {
+@FacesConverter(forClass = DictEstateChild.class)
+public class DictEstateChildConverter extends CommonEntityConverter {
 }

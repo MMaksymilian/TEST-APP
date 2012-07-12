@@ -16,6 +16,5 @@ import java.util.Map;
 public interface DeclarationService {
     public List<Declaration> getDeclarationsForUser (String login);
     public Declaration saveDeclaration (Declaration declartion);
-    public Map<Long, Map<Long, List<String[]>>> getDeclarationIndemnityTreeForUser(String login);
     public Map<Declaration, TreeNode> listDeclarationsTreeForUser(String login);
 }

@@ -41,38 +41,6 @@ public class DeclarationServiceImpl implements DeclarationService {
         return declarationDAO.saveDeclaration(declaration);
     }
 
-    public Map<Long, Map<Long, List<String[]>>> getDeclarationIndemnityTreeForUser(String login) {
-        /*TODO można było użyć connect by byłoby wygodnie, ale to tylko dla Oracle*/
-        List<Object[]> childRecords = declarationDAO.getEstateChildTreeForUser(login);
-        List<Object[]> parentRecords = declarationDAO.getEstateParentTreeForUser(login);
-        ArrayList<Object[]> childArrayRecords = new ArrayList<Object[]>(childRecords);
-        ArrayList<Object[]> parentArrayRecords = new ArrayList<Object[]>(parentRecords);
-        int childRecordsIndex = 0;
-        Map<Long, Map<Long, List<String[]>>> mergedRecords = new LinkedHashMap<Long, Map<Long, List<String[]>>>();
-        Map<Long, List<String[]>> declarationRecords = null;
-        for (Object[] parentObject : parentArrayRecords) {
-            if (!mergedRecords.containsKey((Long) parentObject[0])) {
-                declarationRecords = new LinkedHashMap<Long, List<String[]>>();
-                mergedRecords.put((Long) parentObject[0], declarationRecords);
-            }
-            if (!declarationRecords.containsKey((Long) parentObject[1])) {
-                String[] dataInfo = new String[2];
-                dataInfo[0] = ((Long) parentObject[1]).toString();
-                dataInfo[1] = (String) parentObject[2];
-                List<String[]> dataInfoList = new ArrayList<String[]>();
-                dataInfoList.add(dataInfo);
-                declarationRecords.put((Long) parentObject[1], dataInfoList);
-            }
-            for (; childArrayRecords.size() > childRecordsIndex && childArrayRecords.get(childRecordsIndex)[0].equals(parentObject[0])
-                    && childArrayRecords.get(childRecordsIndex)[1].equals(parentObject[1]); childRecordsIndex++) {
-                String[] dataInfo = new String[2];
-                dataInfo[1] = (String) childArrayRecords.get(childRecordsIndex)[2];
-                declarationRecords.get((Long) parentObject[1]).add(dataInfo);
-            }
-        }
-        return mergedRecords;
-    }
-
     @Override
     public Map<Declaration, TreeNode> listDeclarationsTreeForUser(String login) {
         Map<Declaration, TreeNode> declarationMap = new LinkedHashMap<Declaration, TreeNode>();

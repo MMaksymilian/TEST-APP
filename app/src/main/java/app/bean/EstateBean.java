@@ -1,8 +1,8 @@
 package app.bean;
 
-import app.services.DictIndemnityService;
-import core.orm.entities.indemnity.DictIndemnity;
-import core.orm.entities.indemnity.DictIndemnityChild;
+import app.services.DictEstateService;
+import core.orm.entities.estate.DictEstate;
+import core.orm.entities.estate.DictEstateChild;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -23,26 +23,26 @@ import java.util.Map;
  */
 @ManagedBean
 @ViewScoped
-public class IndemnityBean implements Serializable {
+public class EstateBean implements Serializable {
 
-    @ManagedProperty("#{dictIndemnityService}")
-    private DictIndemnityService dictIndemnityService;
+    @ManagedProperty("#{dictEstateService}")
+    private DictEstateService dictEstateService;
 
-    private DictIndemnity selectedEstate;
-    private Map<DictIndemnity, List<DictIndemnityChild>> estatesMap;
+    private DictEstate selectedEstate;
+    private Map<DictEstate, List<DictEstateChild>> estatesMap;
     private List<SelectItem> mainEstates;
-    private List<DictIndemnityChild> childEstates;
+    private List<DictEstateChild> childEstates;
 
     @PostConstruct
     public void initMethod() {
-        estatesMap = dictIndemnityService.getAvailableEstates();
+        estatesMap = dictEstateService.getAvailableEstates();
 
         mainEstates = new ArrayList<SelectItem>();
-        for(Map.Entry<DictIndemnity, List<DictIndemnityChild>> mainEstateEntry : estatesMap.entrySet()) {
+        for(Map.Entry<DictEstate, List<DictEstateChild>> mainEstateEntry : estatesMap.entrySet()) {
             mainEstates.add(new SelectItem(mainEstateEntry.getKey(), mainEstateEntry.getKey().getValue()));
         }
 
-        selectedEstate = (DictIndemnity) estatesMap.keySet().toArray()[0];
+        selectedEstate = (DictEstate) estatesMap.keySet().toArray()[0];
         handleEstateChange();
     }
 //    AjaxBehaviorEvent
@@ -51,11 +51,11 @@ public class IndemnityBean implements Serializable {
 //        return null;
     }
 
-    public DictIndemnity getSelectedEstate() {
+    public DictEstate getSelectedEstate() {
         return selectedEstate;
     }
 
-    public void setSelectedEstate(DictIndemnity selectedEstate) {
+    public void setSelectedEstate(DictEstate selectedEstate) {
         this.selectedEstate = selectedEstate;
     }
 
@@ -67,15 +67,15 @@ public class IndemnityBean implements Serializable {
         this.mainEstates = mainEstates;
     }
 
-    public List<DictIndemnityChild> getChildEstates() {
+    public List<DictEstateChild> getChildEstates() {
         return childEstates;
     }
 
-    public void setChildEstates(List<DictIndemnityChild> childEstates) {
+    public void setChildEstates(List<DictEstateChild> childEstates) {
         this.childEstates = childEstates;
     }
 
-    public void setDictIndemnityService(DictIndemnityService dictIndemnityService) {
-        this.dictIndemnityService = dictIndemnityService;
+    public void setDictEstateService(DictEstateService dictEstateService) {
+        this.dictEstateService = dictEstateService;
     }
 }

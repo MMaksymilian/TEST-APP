@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
  * Time: 15:07
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @ApplicationScoped
 public class Formats {
     private String dateFormat = "MM/dd/yyyy";

@@ -1,4 +1,4 @@
-package core.orm.entities.indemnity;
+package core.orm.entities.estate;
 
 import javax.persistence.*;
 
@@ -12,18 +12,17 @@ import javax.persistence.*;
 @Entity
 @DiscriminatorValue("CHILD")
 @SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="dict_indemnity_seq")
-public class DictIndemnityChild extends DictIndemnity {
+public class DictEstateChild extends DictEstate {
 
-    //TODO - sprawdź czy nullable musi być true czy może być false
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", nullable = true)
-    DictIndemnity parentIndemnity;
+    DictEstate parentEstate;
 
-    public DictIndemnity getParentIndemnity() {
-        return parentIndemnity;
+    public DictEstate getParentEstate() {
+        return parentEstate;
     }
 
-    public void setParentIndemnity(DictIndemnity parentIndemnity) {
-        this.parentIndemnity = parentIndemnity;
+    public void setParentEstate(DictEstate parentEstate) {
+        this.parentEstate = parentEstate;
     }
 }

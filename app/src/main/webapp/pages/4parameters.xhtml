@@ -9,10 +9,14 @@
 
 <h:head>
     <title>#{msgs['template.nav.parametry_symulacji']}</title>
+    <h:outputScript>
+
+    </h:outputScript>
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
+
             <h:form id="form">
                 <p:dataTable id="configParams" var="config" value="#{configBean.configStandards}"
                              tableStyle="width:auto">
@@ -20,36 +24,36 @@
                         <h:outputText value="#{config.key}"/>
                     </p:column>
                     <p:column id="value" headerText="#{msgs['parameters.wart_parametru']}" style="width:100px">
-                        <h:outputText value="#{config.value}"/>
+                        <h:outputText id="value_label" value="#{config.value}"/>
                     </p:column>
                     <p:column style="width:40px">
                         <p:panelGrid columns="3" styleClass="actions" cellpadding="2">
-                            <p:commandButton id="selectButton" oncomplete="configDialog.show()"  process="@none"
+                            <p:commandButton id="selectButton" oncomplete="configDialog.show()" process="@this"
                                              icon="ui-icon-search" title="View" update=":form:display">
                                 <f:setPropertyActionListener value="#{config}" target="#{configBean.selectedConfig}"/>
                             </p:commandButton>
                         </p:panelGrid>
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton icon="ui-icon-plusthick" value="Dodaj nowy"
-                                         update=":form:addParam" oncomplete="addDialog.show()" process="@none"/>
+                        <p:commandButton icon="ui-icon-plusthick" value="Dodaj nowy" process="@none"
+                                         update=":form:addParam" oncomplete="addDialog.show()"/>
                     </f:facet>
                 </p:dataTable>
 
-                <!-- DIALOG EDYCJI -->
+                <!-- DIALOG EDYCJI dynamic="true" przy dużych oknach-->
                 <p:dialog header="#{msgs['parameters.dialog_edycja_tytul']}" widgetVar="configDialog" resizable="false"
-                          id="configDlg" showEffect="fade" hideEffect="explode">
+                          id="configDlg" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true" dynamic="true">
                     <p:panel id="display">
                         <p:spinner id="minmax" value="#{configBean.longValue}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
                         <!--process="@form" update="@form"-->
                         <p:messages/>
-                        <p:commandButton value="#{msgs['common.button.submit']}" action="#{configBean.updateParameter}" update="@parent" />
+                        <p:commandButton value="#{msgs['common.button.submit']}" action="#{configBean.updateParameter}" update="@parent" process="@parent"/>
                     </p:panel>
                 </p:dialog>
 
-                <!-- DIALOG DODANIA NOWEGO PARAMETERU -->
+                 <!--DIALOG DODANIA NOWEGO PARAMETERU  dynamic="true" przy dużych oknach-->
                 <p:dialog header="#{msgs['parameters.dialog_dodaj_tytul']}" widgetVar="addDialog" resizable="false"
-                          id="addDlg" showEffect="fade" hideEffect="explode">
+                          id="addDlg" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">
                     <p:panel id="addParam">
                         <p:panelGrid>
                             <p:row>
@@ -59,15 +63,15 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:inputText id="newName" value="#{configBean.newName}"/>
+                                    <p:inputText id="newName" value="#{configBeanAdd.newName}"/>
                                     <p:message for="newName"/>
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="newValue" value="#{configBean.newValue}"/>
+                                    <p:inputText id="newValue" value="#{configBeanAdd.newValue}"/>
                                     <p:message for="newValue"/>
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="newType" value="#{configBean.newType}">
+                                    <p:selectOneMenu id="newType" value="#{configBeanAdd.newType}">
                                         <f:selectItem itemLabel="Wybierz typ" itemValue="" />
                                         <f:selectItem itemLabel="Napis" itemValue="1" />
                                         <f:selectItem itemLabel="Liczba" itemValue="2" />
@@ -81,8 +85,8 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="3" style="width:100%;">
-                                    <p:commandButton value="#{msgs['common.button.submit']}"  update="@parent"
-                                                     action="#{configBean.saveParameter}"/>
+                                    <p:commandButton value="#{msgs['common.button.submit']}"  update=":form:addParam" process=":form:addParam"
+                                                     action="#{configBeanAdd.saveParameter}" oncomplete="handleAddParam(xhr, status, args)"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

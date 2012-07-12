@@ -13,21 +13,21 @@ import javax.faces.event.ActionEvent;
  * Time: 14:03
  * To change this template use File | Settings | File Templates.
  */
-@SessionScoped
 @ManagedBean
+@SessionScoped
 public class PageController {
-    private String chosenId;
+    private String chosenMenuItemId;
 
     public void chooseMenuItem(ActionEvent event) {
-        chosenId = event.getComponent().getId();
+        chosenMenuItemId = event.getComponent().getClientId();
     }
 
-    public String getChosenId() {
-        return chosenId;
+    public String getChosenMenuItemId() {
+        return chosenMenuItemId;
     }
 
-    public void setChosenId(String chosenId) {
-        this.chosenId = chosenId;
+    public void setChosenMenuItemId(String chosenMenuItemId) {
+        this.chosenMenuItemId = chosenMenuItemId;
     }
 }
 

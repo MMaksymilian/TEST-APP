@@ -15,13 +15,13 @@
     <ui:define name="content">
         <h:form id="form">
         <h:outputText value="Nieruchomość: " />
-        <p:selectOneMenu value="#{indemnityBean.selectedEstate}">
-            <f:selectItems value="#{indemnityBean.mainEstates}"/>
+        <p:selectOneMenu value="#{estateBean.selectedEstate}">
+            <f:selectItems value="#{estateBean.mainEstates}"/>
             <p:ajax update="children"
-                    listener="#{indemnityBean.handleEstateChange}" />
+                    listener="#{estateBean.handleEstateChange}" />
         </p:selectOneMenu>
         <p:separator/>
-        <p:dataList id="children" value="#{indemnityBean.childEstates}" var="estate">
+        <p:dataList id="children" value="#{estateBean.childEstates}" var="estate">
             #{estate.value}
         </p:dataList>
         </h:form>
