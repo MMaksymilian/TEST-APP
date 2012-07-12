@@ -29,11 +29,16 @@ public class ConfigStandardServiceImpl implements ConfigStandardService {
         return configStandardDAO.listConfigParams();
     }
 
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @Secured("ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void updateConfig(ConfigStandard configStandard) {
         configStandardDAO.updateConfig(configStandard);
     }
 
-    @Override
+//    @PreAuthorize("hasRole('ADMIN')")
+//    @Secured("ADMIN")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void saveConfig(ConfigStandard configStandard) {
         configStandardDAO .saveConfig(configStandard);
     }

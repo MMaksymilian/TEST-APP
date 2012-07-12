@@ -20,7 +20,6 @@ import java.util.List;
 public interface ConfigStandardService {
     List listConfigParams();
 
-    @PreAuthorize("hasRole('ADMIN')")
     void updateConfig(ConfigStandard configStandard);
     void saveConfig(ConfigStandard configStandard);
 }

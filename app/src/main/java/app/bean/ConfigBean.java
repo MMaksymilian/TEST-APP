@@ -3,13 +3,14 @@ package app.bean;
 import app.services.ConfigStandardService;
 import core.orm.entities.ConfigStandard;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.access.AccessDeniedException;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -39,17 +40,17 @@ public class ConfigBean implements Serializable {
     private Long longValue;
 
     /* nowy paramtetr*/
-//    @NotNull
+    @NotNull
 //    @NotEmpty
     @Length(max = 20)
     private String newName;
 
-//    @NotNull
+    @NotNull
 //    @NotEmpty
     @Length(max = 20)
     private String newValue;
 
-//    @NotNull
+    @NotNull
 //    @NotEmpty
     @Length(max = 20)
     private String newType;
@@ -63,7 +64,13 @@ public class ConfigBean implements Serializable {
 
     public void updateParameter() {
         selectedConfig.setValue(longValue.toString());
-        configStandardService.updateConfig(selectedConfig );
+        try {
+            configStandardService.updateConfig(selectedConfig );
+        } catch (AccessDeniedException accessDeniedException) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, accessDeniedException.getMessage(), accessDeniedException.getMessage()));
+            accessDeniedException.printStackTrace();
+        }
     }
 
     public void saveParameter() {

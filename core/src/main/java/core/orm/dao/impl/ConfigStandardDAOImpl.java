@@ -30,7 +30,6 @@ public class ConfigStandardDAOImpl extends BaseDAOImpl implements ConfigStandard
         getHibernateTemplate().update(configStandard);
     }
 
-    @Override
     public void saveConfig(ConfigStandard configStandard) {
         getHibernateTemplate().save(configStandard);
     }

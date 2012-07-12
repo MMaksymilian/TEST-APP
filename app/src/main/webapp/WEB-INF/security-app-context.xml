@@ -16,12 +16,13 @@
   </http>
 
 
-  <global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
-  <!-- @PreAuthorize(
+  <global-method-security pre-post-annotations="enabled">
+      <!--<protect-pointcut expression="execution(* app.services.*Service.*(..))"-->
+                        <!--access="isAuthenticated() and hasAuthority('USER_ROLE')"/>-->
+  </global-method-security>
+  <!-- @PreAuthorize(     role/permission/authority
             "hasRole('supervisor') or " +
             "hasRole('teller') and -->
-  <!--@RolesAllowed({"ADMIN"}) na metodzie-->
-
   <beans:bean id="daoAuthenticationProvider"
               class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
     <beans:property name="userDetailsService" ref="userDetailsService"/>

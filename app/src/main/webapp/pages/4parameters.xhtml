@@ -24,7 +24,7 @@
                     </p:column>
                     <p:column style="width:40px">
                         <p:panelGrid columns="3" styleClass="actions" cellpadding="2">
-                            <p:commandButton id="selectButton" oncomplete="configDialog.show()"
+                            <p:commandButton id="selectButton" oncomplete="configDialog.show()"  process="@none"
                                              icon="ui-icon-search" title="View" update=":form:display">
                                 <f:setPropertyActionListener value="#{config}" target="#{configBean.selectedConfig}"/>
                             </p:commandButton>
@@ -32,7 +32,7 @@
                     </p:column>
                     <f:facet name="footer">
                         <p:commandButton icon="ui-icon-plusthick" value="Dodaj nowy"
-                                         update=":form:addParam" oncomplete="addDialog.show()"/>
+                                         update=":form:addParam" oncomplete="addDialog.show()" process="@none"/>
                     </f:facet>
                 </p:dataTable>
 
@@ -42,8 +42,8 @@
                     <p:panel id="display">
                         <p:spinner id="minmax" value="#{configBean.longValue}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
                         <!--process="@form" update="@form"-->
-                        <p:message for="minmax"/>
-                        <p:commandButton value="#{msgs['common.button.submit']}" update="@parent" action="#{configBean.updateParameter}"/>
+                        <p:messages/>
+                        <p:commandButton value="#{msgs['common.button.submit']}" action="#{configBean.updateParameter}" update="@parent" />
                     </p:panel>
                 </p:dialog>
 
@@ -76,11 +76,14 @@
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column colspan="3" style="margin:auto;">
-                                    <p:commandButton value="#{msgs['common.button.submit']}" update="@parent"
+                                <p:column colspan="3" style="width:100%"/>
+                                <p:messages/>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="3" style="width:100%;">
+                                    <p:commandButton value="#{msgs['common.button.submit']}"  update="@parent"
                                                      action="#{configBean.saveParameter}"/>
                                 </p:column>
-                                <!--<p:message for="minmax"/>-->
                             </p:row>
                         </p:panelGrid>
                     </p:panel>
