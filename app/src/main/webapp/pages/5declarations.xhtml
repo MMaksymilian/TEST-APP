@@ -12,33 +12,41 @@
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <ui:define name="content">
-        <h:form id="form">
+        <ui:define name="content">
             <h:form id="form">
-                <h:outputText value="Nieruchomość: " />
-                <p:selectOneRadio value="#{estateBean.selectedEstate}">
-                    <f:selectItems value="#{estateBean.mainEstates}"/>
-                    <p:ajax update="children"
-                            listener="#{estateBean.handleEstateChange}" />
-                </p:selectOneRadio>
-                <p:separator/>
+                <!--TODO DO NAPISANIA WIZARD-->
+                <p:commandButton value="#{msgs['declarations.button.addNew']}" update=":form:dialogPanel" oncomplete="addDeclarationDlg.show()"/>
+                <p:dialog header="#{msgs['declarations.dialog.newDeclaration']}" widgetVar="addDeclarationDlg"
+                          showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">
+                    <p:panel id="dialogPanel">
 
-                <p:inputText value="#{estateAddBean.value}"/>
+                        <p:selectOneRadio value="#{estateBean.selectedEstate}">
+                            <f:selectItems value="#{estateBean.mainEstates}"/>
+                            <p:ajax update="children"
+                                    listener="#{estateBean.handleEstateChange}"/>
+                        </p:selectOneRadio>
 
-                <p:selectOneRadio>
-                    <f:selectItems value="#{estateBean.shareTypes}" var="shareType" itemLabel="#{shareType.value}"/>
-                </p:selectOneRadio>
 
-                <p:selectOneRadio>
-                    <f:selectItems value="#{estateBean.ownerships}" var="ownership" itemLabel="#{ownership.value}"/>
-                </p:selectOneRadio>
-                <p:dataList id="children" value="#{estateBean.childEstates}" var="estate">
-                    #{estate.value}
-                </p:dataList>
+                        <p:separator/>
+
+                        <p:inputText value="#{estateAddBean.value}"/>
+
+                        <p:selectOneRadio>
+                            <f:selectItems value="#{estateBean.shareTypes}" var="shareType"
+                                           itemLabel="#{shareType.value}"/>
+                        </p:selectOneRadio>
+
+                        <p:selectOneRadio>
+                            <f:selectItems value="#{estateBean.ownerships}" var="ownership"
+                                           itemLabel="#{ownership.value}"/>
+                        </p:selectOneRadio>
+                        <p:dataList id="children" value="#{estateBean.childEstates}" var="estate">
+                            #{estate.value}
+                        </p:dataList>
+                    </p:panel>
+                </p:dialog>
             </h:form>
-
-        </h:form>
-    </ui:define>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>
