@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +23,7 @@ import javax.validation.constraints.NotNull;
  */
 @ManagedBean
 @ViewScoped
-public class ConfigBeanAdd {
+public class ConfigAddBean implements Serializable {
 
     @ManagedProperty("#{configStandardService}")
     ConfigStandardService configStandardService;

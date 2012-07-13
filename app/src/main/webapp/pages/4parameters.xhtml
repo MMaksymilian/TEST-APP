@@ -9,14 +9,29 @@
 
 <h:head>
     <title>#{msgs['template.nav.parametry_symulacji']}</title>
-    <h:outputScript>
-
-    </h:outputScript>
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
+            <h:outputScript>
+                <!--<script type="text/javascript">-->
+                function handleAddParam(xhr, status, args) {
+                if(args.validationFailed) {
+                $('[id="' + 'form:addDlg' + '"]').effect("shake", { times:3 }, 300);
+                } else {
+                addDialog.hide();
+                }
+                }
 
+                function handleEditParam(xhr, status, args) {
+                if(args.validationFailed) {
+                  $('[id="' + 'form:configDlg' + '"]').effect("shake", {times:3}, 300);
+                } else {
+                  configDialog.hide();
+                }
+                }
+                <!--</script>-->
+            </h:outputScript>
             <h:form id="form">
                 <p:dataTable id="configParams" var="config" value="#{configBean.configStandards}"
                              tableStyle="width:auto">
@@ -42,16 +57,19 @@
 
                 <!-- DIALOG EDYCJI dynamic="true" przy dużych oknach-->
                 <p:dialog header="#{msgs['parameters.dialog_edycja_tytul']}" widgetVar="configDialog" resizable="false"
-                          id="configDlg" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true" dynamic="true">
+                          id="configDlg" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true"
+                          dynamic="true">
                     <p:panel id="display">
-                        <p:spinner id="minmax" value="#{configBean.longValue}" min="20000"/> <!--#{configBean.selectedConfig.value}-->
+                        <p:spinner id="minmax" value="#{configBean.longValue}"
+                                   min="20000"/> <!--#{configBean.selectedConfig.value}-->
                         <!--process="@form" update="@form"-->
                         <p:messages/>
-                        <p:commandButton value="#{msgs['common.button.submit']}" action="#{configBean.updateParameter}" update="@parent" process="@parent"/>
+                        <p:commandButton value="#{msgs['common.button.submit']}" action="#{configBean.updateParameter}"
+                                         update="@parent" process="@parent" oncomplete="handleEditParam(xhr, status, args)"/>
                     </p:panel>
                 </p:dialog>
 
-                 <!--DIALOG DODANIA NOWEGO PARAMETERU  dynamic="true" przy dużych oknach-->
+                <!--DIALOG DODANIA NOWEGO PARAMETERU  dynamic="true" przy dużych oknach-->
                 <p:dialog header="#{msgs['parameters.dialog_dodaj_tytul']}" widgetVar="addDialog" resizable="false"
                           id="addDlg" showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">
                     <p:panel id="addParam">
@@ -63,18 +81,18 @@
                             </p:row>
                             <p:row>
                                 <p:column>
-                                    <p:inputText id="newName" value="#{configBeanAdd.newName}"/>
+                                    <p:inputText id="newName" value="#{configAddBean.newName}"/>
                                     <p:message for="newName"/>
                                 </p:column>
                                 <p:column>
-                                    <p:inputText id="newValue" value="#{configBeanAdd.newValue}"/>
+                                    <p:inputText id="newValue" value="#{configAddBean.newValue}"/>
                                     <p:message for="newValue"/>
                                 </p:column>
                                 <p:column>
-                                    <p:selectOneMenu id="newType" value="#{configBeanAdd.newType}">
-                                        <f:selectItem itemLabel="Wybierz typ" itemValue="" />
-                                        <f:selectItem itemLabel="Napis" itemValue="1" />
-                                        <f:selectItem itemLabel="Liczba" itemValue="2" />
+                                    <p:selectOneMenu id="newType" value="#{configAddBean.newType}">
+                                        <f:selectItem itemLabel="Wybierz typ" itemValue=""/>
+                                        <f:selectItem itemLabel="Napis" itemValue="1"/>
+                                        <f:selectItem itemLabel="Liczba" itemValue="2"/>
                                     </p:selectOneMenu>
                                     <p:message for="newType"/>
                                 </p:column>
@@ -85,8 +103,10 @@
                             </p:row>
                             <p:row>
                                 <p:column colspan="3" style="width:100%;">
-                                    <p:commandButton value="#{msgs['common.button.submit']}"  update=":form:addParam" process=":form:addParam"
-                                                     action="#{configBeanAdd.saveParameter}" oncomplete="handleAddParam(xhr, status, args)"/>
+                                    <p:commandButton value="#{msgs['common.button.submit']}" update=":form:addParam"
+                                                     process=":form:addParam"
+                                                     action="#{configAddBean.saveParameter}"
+                                                     oncomplete="handleAddParam(xhr, status, args)"/>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>

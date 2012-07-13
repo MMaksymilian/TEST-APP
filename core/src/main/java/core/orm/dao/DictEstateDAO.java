@@ -14,5 +14,6 @@ import java.util.List;
 public interface DictEstateDAO extends BaseDAO<DictEstate> {
 
     List<DictEstate> listDictEstateParent();
+
 //    List<DictEstateChild> listDictIndemnityChildren(DictEstate dictIndemnity);
 }

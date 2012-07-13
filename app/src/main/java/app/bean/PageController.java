@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import java.io.Serializable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +16,7 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @SessionScoped
-public class PageController {
+public class PageController implements Serializable {
     private String chosenMenuItemId;
 
     public void chooseMenuItem(ActionEvent event) {

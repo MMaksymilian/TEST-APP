@@ -8,7 +8,7 @@
 <body>
     <ui:composition>
         <h:outputScript>
-            var menuItemId = '<h:outputText value="#{pageController.chosenMenuItemId}"/>';
+                var menuItemId = '<h:outputText value="#{pageController.chosenMenuItemId}"/>';
             $(function() {
             $('[id="' + menuItemId + '"]').css('background-color', '#ffa');
             });

@@ -1,9 +1,13 @@
 package app.services.impl;
 
+import app.services.DictOwnershipService;
 import core.orm.dao.DictOwnershipDAO;
+import core.orm.entities.DictOwnership;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,8 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("dictOwnershipService")
 @Transactional
-public class DictOwnershipServiceImpl {
+public class DictOwnershipServiceImpl implements DictOwnershipService {
 
     @Autowired
     DictOwnershipDAO dictOwnershipDAO;
+
+    @Override
+    public List<DictOwnership> listDictOwnerships() {
+        return dictOwnershipDAO.listDictOwnerships();
+    }
 }

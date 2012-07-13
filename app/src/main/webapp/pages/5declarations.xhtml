@@ -3,6 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
@@ -11,9 +12,33 @@
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <!--<ui:define name="content">-->
-    <!---->
-    <!--</ui:define>-->
+    <ui:define name="content">
+        <h:form id="form">
+            <h:form id="form">
+                <h:outputText value="Nieruchomość: " />
+                <p:selectOneRadio value="#{estateBean.selectedEstate}">
+                    <f:selectItems value="#{estateBean.mainEstates}"/>
+                    <p:ajax update="children"
+                            listener="#{estateBean.handleEstateChange}" />
+                </p:selectOneRadio>
+                <p:separator/>
+
+                <p:inputText value="#{estateAddBean.value}"/>
+
+                <p:selectOneRadio>
+                    <f:selectItems value="#{estateBean.shareTypes}" var="shareType" itemLabel="#{shareType.value}"/>
+                </p:selectOneRadio>
+
+                <p:selectOneRadio>
+                    <f:selectItems value="#{estateBean.ownerships}" var="ownership" itemLabel="#{ownership.value}"/>
+                </p:selectOneRadio>
+                <p:dataList id="children" value="#{estateBean.childEstates}" var="estate">
+                    #{estate.value}
+                </p:dataList>
+            </h:form>
+
+        </h:form>
+    </ui:define>
     </ui:composition>
 </h:body>
 </html>

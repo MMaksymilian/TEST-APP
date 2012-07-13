@@ -1,6 +1,10 @@
 package app.bean;
 
 import app.services.DictEstateService;
+import app.services.DictOwnershipService;
+import app.services.DictShareTypeService;
+import core.orm.entities.DictOwnership;
+import core.orm.entities.DictShareType;
 import core.orm.entities.estate.DictEstate;
 import core.orm.entities.estate.DictEstateChild;
 
@@ -28,13 +32,23 @@ public class EstateBean implements Serializable {
     @ManagedProperty("#{dictEstateService}")
     private DictEstateService dictEstateService;
 
+    @ManagedProperty("#{dictShareTypeService}")
+    DictShareTypeService dictShareTypeService;
+
+    @ManagedProperty("#{dictOwnershipService}")
+    DictOwnershipService dictOwnershipService;
+
+
     private DictEstate selectedEstate;
     private Map<DictEstate, List<DictEstateChild>> estatesMap;
     private List<SelectItem> mainEstates;
     private List<DictEstateChild> childEstates;
+    private List<DictShareType> shareTypes;
+    private List<DictOwnership> ownerships;
 
     @PostConstruct
     public void initMethod() {
+        /* nieruchomości*/
         estatesMap = dictEstateService.getAvailableEstates();
 
         mainEstates = new ArrayList<SelectItem>();
@@ -44,6 +58,10 @@ public class EstateBean implements Serializable {
 
         selectedEstate = (DictEstate) estatesMap.keySet().toArray()[0];
         handleEstateChange();
+        /* rodzaj własności*/
+        shareTypes = dictShareTypeService.listDictShareTypes();
+        /*posiadanie*/
+        ownerships = dictOwnershipService.listDictOwnerships();
     }
 //    AjaxBehaviorEvent
     public void handleEstateChange () {
@@ -77,5 +95,29 @@ public class EstateBean implements Serializable {
 
     public void setDictEstateService(DictEstateService dictEstateService) {
         this.dictEstateService = dictEstateService;
+    }
+
+    public void setDictShareTypeService(DictShareTypeService dictShareTypeService) {
+        this.dictShareTypeService = dictShareTypeService;
+    }
+
+    public void setDictOwnershipService(DictOwnershipService dictOwnershipService) {
+        this.dictOwnershipService = dictOwnershipService;
+    }
+
+    public List<DictShareType> getShareTypes() {
+        return shareTypes;
+    }
+
+    public void setShareTypes(List<DictShareType> shareTypes) {
+        this.shareTypes = shareTypes;
+    }
+
+    public List<DictOwnership> getOwnerships() {
+        return ownerships;
+    }
+
+    public void setOwnerships(List<DictOwnership> ownerships) {
+        this.ownerships = ownerships;
     }
 }
