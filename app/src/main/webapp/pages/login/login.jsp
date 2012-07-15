@@ -1,9 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>--%>
 
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Zaloguj się</title>
     <style>
         .errorblock {
             color: #ff0000;
@@ -15,7 +16,7 @@
     </style>
 </head>
 <%--<body onload='document.f.j_username.focus();'>--%>
-<h3>Log in my friend</h3>
+<h3>Zaloguj się</h3>
 <%--<sec:authorize access="!isAuthenticated()">--%>
     <%--YES, you are logged in!--%>
 <%--</sec:authorize>--%>
@@ -29,12 +30,12 @@
 
     <table>
         <tr>
-            <td>User:</td>
+            <td>Użytkownik:</td>
             <td><input type='text' name='j_username' value=''>
             </td>
         </tr>
         <tr>
-            <td>Password:</td>
+            <td>Hasło:</td>
             <td><input type='password' name='j_password' />
             </td>
         </tr>
@@ -47,7 +48,9 @@
             </td>
         </tr>
     </table>
-
+    <b>użytkownicy:</b><br/>
+    admin,  admin<br/>
+    user,  user
 </form>
 </body>
 </html>

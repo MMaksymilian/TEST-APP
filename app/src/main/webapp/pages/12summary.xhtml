@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>#{msgs['template.nav.wnioskowana_kwota']}</title>
+</h:head>
+<h:body>
+    <ui:composition template="/template/commonLayout.xhtml">
+        <ui:define name="content">
+            <h3>#{msgs['total.wnioskowane_kredyty']}</h3>
+
+            <ui:repeat value="#{declarationBean.declarationsMap.keySet().toArray()}" var="declaration"
+                       varStatus="status">
+                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate.toString('MM/dd/yyyy')}" toggleable="true" collapsed="#{!status.last}" toggleSpeed="500">
+                    <p:treeTable value="#{declarationBean.declarationsMap.get(declaration)}" var="declarationRecord">
+
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                NIERUCHOMOŚĆ
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.estate.value}"/>
+                        </p:column>
+
+                        <p:column style="width:150px">
+                            <f:facet name="header">
+                                WARTOŚĆ PLN
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.value}"/>
+                        </p:column>
+
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                RODZAJ WŁASNOŚCI
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.shareType.value}"/>
+                        </p:column>
+
+                        <p:column style="width:100px">
+                            <f:facet name="header">
+                                POSIADANIE
+                            </f:facet>
+                            <h:outputText value="#{declarationRecord.ownership.value}"/>
+                        </p:column>
+
+                    </p:treeTable>
+                </p:fieldset>
+            </ui:repeat>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

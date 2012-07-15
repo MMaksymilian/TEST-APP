@@ -35,6 +35,12 @@ public class Declaration extends BaseEntity {
         condition = "type = 'MAIN'")
     Set<DeclarationRecord> declarationRecords;
 
+    private Double creditAmount;
+
+    private Double estateValue;
+
+    private Double interest;
+
     public AppUser getUser() {
         return user;
     }
@@ -57,5 +63,29 @@ public class Declaration extends BaseEntity {
 
     public void setDeclarationRecords(Set<DeclarationRecord> declarationRecords) {
         this.declarationRecords = declarationRecords;
+    }
+
+    public Double getCreditAmount() {
+        return creditAmount;
+    }
+
+    public void setCreditAmount(Double creditAmount) {
+        this.creditAmount = creditAmount;
+    }
+
+    public Double getEstateValue() {
+        return estateValue;
+    }
+
+    public void setEstateValue(Double estateValue) {
+        this.estateValue = estateValue;
+    }
+
+    public Double getInterest() {
+        return interest;
+    }
+
+    public void setInterest(Double interest) {
+        this.interest = interest;
     }
 }

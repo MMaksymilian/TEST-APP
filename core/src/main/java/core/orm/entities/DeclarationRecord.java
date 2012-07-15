@@ -42,7 +42,7 @@ public class DeclarationRecord  extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentRecordId")
     Set<DeclarationRecordChild> declarationRecordChildren;
 
-    Integer value;
+    Double value;
 
     public Declaration getDeclaration() {
         return declaration;
@@ -76,11 +76,11 @@ public class DeclarationRecord  extends BaseEntity {
         this.estate = estate;
     }
 
-    public Integer getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

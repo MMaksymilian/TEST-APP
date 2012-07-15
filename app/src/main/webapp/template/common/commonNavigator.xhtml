@@ -21,11 +21,13 @@
                     <p:menuitem id="menuParameters" value="#{msgs['template.nav.parametry_symulacji']}" action="parameters" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuDeclarations" value="#{msgs['template.nav.obiekty_i_cele_kredytowania']}" action="declarations" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuInterest" value="#{msgs['template.nav.oprocentowanie']}" action="interest" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuCredit" value="#{msgs['template.nav.rata_kredytu']}" action="credit" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
+                    <p:menuitem id="menuCredit" value="#{msgs['template.nav.rata_kredytu']}" action="creditAmount" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuCreditPeriod" value="#{msgs['template.nav.okres_kredytowania']}" action="creditPeriod" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuPriceCondition" value="#{msgs['template.nav.warunek_cenowy']}" action="priceCondition" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuAdditionalParameter" value="#{msgs['template.nav.dodatkowe_parametry']}" action="additionalParameter" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuDocuments" value="#{msgs['template.nav.dokumenty']}" action="documents" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
+                    <p:menuitem id="summary" value="#{msgs['template.nav.podsumowanie']}" action="summary" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
+
             </p:menu>
         </h:form>
         <form action="#{request.contextPath}/j_spring_security_logout">

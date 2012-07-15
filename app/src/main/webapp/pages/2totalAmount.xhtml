@@ -13,45 +13,14 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
-            <h3>#{msgs['total.wnioskowane_kredyty']}</h3>
-
-            <ui:repeat value="#{declarationBean.declarationsMap.keySet().toArray()}" var="declaration"
-                       varStatus="status">
-                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate.toString('MM/dd/yyyy')}" toggleable="true" collapsed="#{!status.last}" toggleSpeed="500">
-                    <p:treeTable value="#{declarationBean.declarationsMap.get(declaration)}" var="declarationRecord"
-                                 selection="#{declarationBean.selectedNode}" selectionMode="single">
-
-                        <p:column style="width:100px">
-                            <f:facet name="header">
-                                NIERUCHOMOŚĆ
-                            </f:facet>
-                            <h:outputText value="#{declarationRecord.estate.value}"/>
-                        </p:column>
-
-                        <p:column style="width:150px">
-                            <f:facet name="header">
-                                WARTOŚĆ PLN
-                            </f:facet>
-                            <h:outputText value="#{declarationRecord.value}"/>
-                        </p:column>
-
-                        <p:column style="width:100px">
-                            <f:facet name="header">
-                                RODZAJ WŁASNOŚCI
-                            </f:facet>
-                            <h:outputText value="#{declarationRecord.shareType.value}"/>
-                        </p:column>
-
-                        <p:column style="width:100px">
-                            <f:facet name="header">
-                                POSIADANIE
-                            </f:facet>
-                            <h:outputText value="#{declarationRecord.ownership.value}"/>
-                        </p:column>
-
-                    </p:treeTable>
-                </p:fieldset>
-            </ui:repeat>
+            #{msgs['total.podaj']}
+            <h:form id="form">
+                <p:inputText id="amount" value="#{userSessionBean.creditAmount}" required="true">
+                    <f:validateDoubleRange minimum="#{configUserBean.minCredit}" maximum="#{configUserBean.maxCredit}"/>
+                </p:inputText>
+                <p:commandButton value="#{msgs['common.button.submit']}" ajax="false"/>
+                <p:message for="amount"/>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

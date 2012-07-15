@@ -1,5 +1,5 @@
 
-package app.bean;
+package app.bean.session;
 
 import javax.faces.bean.ManagedBean;
 
@@ -17,7 +17,7 @@ import java.io.Serializable;
 @ManagedBean
 @SessionScoped
 public class PageController implements Serializable {
-    private String chosenMenuItemId;
+    private String chosenMenuItemId = "menuForm:menuProductType";
 
     public void chooseMenuItem(ActionEvent event) {
         chosenMenuItemId = event.getComponent().getClientId();

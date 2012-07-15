@@ -38,7 +38,6 @@ public class EstateBean implements Serializable {
     @ManagedProperty("#{dictOwnershipService}")
     DictOwnershipService dictOwnershipService;
 
-
     private DictEstate selectedEstate;
     private Map<DictEstate, List<DictEstateChild>> estatesMap;
     private List<SelectItem> mainEstates;
@@ -55,18 +54,16 @@ public class EstateBean implements Serializable {
         for(Map.Entry<DictEstate, List<DictEstateChild>> mainEstateEntry : estatesMap.entrySet()) {
             mainEstates.add(new SelectItem(mainEstateEntry.getKey(), mainEstateEntry.getKey().getValue()));
         }
-
-        selectedEstate = (DictEstate) estatesMap.keySet().toArray()[0];
-        handleEstateChange();
+//        selectedEstate = (DictEstate) estatesMap.keySet().toArray()[0];
+//        handleEstateChange();
         /* rodzaj własności*/
         shareTypes = dictShareTypeService.listDictShareTypes();
         /*posiadanie*/
         ownerships = dictOwnershipService.listDictOwnerships();
     }
-//    AjaxBehaviorEvent
+
     public void handleEstateChange () {
         childEstates = estatesMap.get(selectedEstate);
-//        return null;
     }
 
     public DictEstate getSelectedEstate() {

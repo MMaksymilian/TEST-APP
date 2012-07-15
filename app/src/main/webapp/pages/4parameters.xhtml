@@ -50,7 +50,7 @@
                         </p:panelGrid>
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton icon="ui-icon-plusthick" value="Dodaj nowy" process="@none"
+                        <p:commandButton icon="ui-icon-plusthick" value="#{msgs['common.button.dodaj']}" process="@none"
                                          update=":form:addParam" oncomplete="addDialog.show()"/>
                     </f:facet>
                 </p:dataTable>
@@ -75,9 +75,9 @@
                     <p:panel id="addParam">
                         <p:panelGrid>
                             <p:row>
-                                <p:column><h:outputLabel value="#{msgs['parameters.dialog.nazwa']}"/></p:column>
-                                <p:column><h:outputLabel value="#{msgs['parameters.dialog.wartosc']}"/></p:column>
-                                <p:column><h:outputLabel value="#{msgs['parameters.dialog.typ']}"/></p:column>
+                                <p:column>#{msgs['parameters.dialog.nazwa']}</p:column>
+                                <p:column>#{msgs['parameters.dialog.wartosc']}</p:column>
+                                <p:column>#{msgs['parameters.dialog.typ']}</p:column>
                             </p:row>
                             <p:row>
                                 <p:column>

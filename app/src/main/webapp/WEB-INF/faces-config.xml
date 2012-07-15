@@ -55,7 +55,7 @@
             <to-view-id>/pages/6insterest.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>credit</from-outcome>
+            <from-outcome>creditAmount</from-outcome>
             <to-view-id>/pages/7credit.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
@@ -73,6 +73,10 @@
         <navigation-case>
             <from-outcome>documents</from-outcome>
             <to-view-id>/pages/11documents.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+          <from-outcome>summary</from-outcome>
+          <to-view-id>/pages/12summary.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

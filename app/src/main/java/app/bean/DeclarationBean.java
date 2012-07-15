@@ -32,7 +32,7 @@ public class DeclarationBean implements Serializable {
 
     private Map <Declaration, TreeNode> declarationsMap;
 
-    private TreeNode selectedNode;
+//    private TreeNode selectedNode;
 
     @ManagedProperty("#{declarationService}")
     private DeclarationService declarationService;
@@ -56,11 +56,11 @@ public class DeclarationBean implements Serializable {
         this.declarationsMap = declarationsMap;
     }
 
-    public TreeNode getSelectedNode() {
-        return selectedNode;
-    }
-
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
-    }
+//    public TreeNode getSelectedNode() {
+//        return selectedNode;
+//    }
+//
+//    public void setSelectedNode(TreeNode selectedNode) {
+//        this.selectedNode = selectedNode;
+//    }
 }
