@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class DictShareTypeImpl extends BaseDAOImpl implements DictShareTypeDAO {
+public class DictShareTypeDAOImpl extends BaseDAOImpl implements DictShareTypeDAO {
 
     public List<DictShareType> lisDictShareTypes() {
         Criteria criteria = getSession().createCriteria(DictShareType.class);

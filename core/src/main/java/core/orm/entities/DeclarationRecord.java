@@ -91,4 +91,30 @@ public class DeclarationRecord  extends BaseEntity {
     public void setDeclarationRecordChildren(Set<DeclarationRecordChild> declarationRecordChildren) {
         this.declarationRecordChildren = declarationRecordChildren;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DeclarationRecord)) return false;
+
+        DeclarationRecord that = (DeclarationRecord) o;
+
+        if (declaration != null ? !declaration.equals(that.declaration) : that.declaration != null) return false;
+        if (estate != null ? !estate.equals(that.estate) : that.estate != null) return false;
+        if (ownership != null ? !ownership.equals(that.ownership) : that.ownership != null) return false;
+        if (shareType != null ? !shareType.equals(that.shareType) : that.shareType != null) return false;
+        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ownership != null ? ownership.hashCode() : 0;
+        result = 31 * result + (shareType != null ? shareType.hashCode() : 0);
+        result = 31 * result + (estate != null ? estate.hashCode() : 0);
+        result = 31 * result + (declaration != null ? declaration.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        return result;
+    }
 }

@@ -25,4 +25,20 @@ public class DictEstateChild extends DictEstate {
     public void setParentEstate(DictEstate parentEstate) {
         this.parentEstate = parentEstate;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DictEstateChild)) return false;
+
+        DictEstateChild that = (DictEstateChild) o;
+
+        if (getValue() != null ? !getValue().equals(that.getValue()) : that.getValue() != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return getValue() != null ? getValue().hashCode() : 0;
+    }
 }

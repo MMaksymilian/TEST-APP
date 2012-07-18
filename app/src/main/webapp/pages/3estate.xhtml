@@ -13,40 +13,45 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
-          <h:form id="estateTreeTable">
-            <h:outputText
-                    rendered="#{estateAddBean.declarationTree == null}">#{msgs['estate.info.brak_deklaracji']} </h:outputText>
-            <p:treeTable value="#{estateAddBean.declarationTree}" var="declarationRecord"
-                         rendered="#{estateAddBean.declarationTree != null}">
-                <p:column style="width:100px">
-                    <f:facet name="header">
-                        #{msgs['estate.tree.header.nieruchomosc']}
-                    </f:facet>
-                    <h:outputText value="#{declarationRecord.estate.value}"/>
-                </p:column>
+            <script type="text/javascript">
+                function showAddPanel() {
+                    $('[id="estateDialog:addPanel"]').show('slow');
+                }
+            </script>
+            <h:form id="estateTreeTable">
+                <h:outputText
+                        rendered="#{estateAddBean.declarationTree == null}">#{msgs['estate.info.brak_deklaracji']} </h:outputText>
+                <p:treeTable value="#{estateAddBean.declarationTree}" var="declarationRecord"
+                             rendered="#{estateAddBean.declarationTree != null}">
+                    <p:column style="width:100px">
+                        <f:facet name="header">
+                            #{msgs['estate.tree.header.nieruchomosc']}
+                        </f:facet>
+                        <h:outputText value="#{declarationRecord.estate.value}"/>
+                    </p:column>
 
-                <p:column style="width:150px">
-                    <f:facet name="header">
-                        #{msgs['estate.tree.header.wartosc']}
-                    </f:facet>
-                    <h:outputText value="#{declarationRecord.value}"/>
-                </p:column>
+                    <p:column style="width:150px">
+                        <f:facet name="header">
+                            #{msgs['estate.tree.header.wartosc']}
+                        </f:facet>
+                        <h:outputText value="#{declarationRecord.value}"/>
+                    </p:column>
 
-                <p:column style="width:100px">
-                    <f:facet name="header">
-                        #{msgs['estate.tree.header.wlasnosc']}
-                    </f:facet>
-                    <h:outputText value="#{declarationRecord.shareType.value}"/>
-                </p:column>
+                    <p:column style="width:100px">
+                        <f:facet name="header">
+                            #{msgs['estate.tree.header.wlasnosc']}
+                        </f:facet>
+                        <h:outputText value="#{declarationRecord.shareType.value}"/>
+                    </p:column>
 
-                <p:column style="width:100px">
-                    <f:facet name="header">
-                        #{msgs['estate.tree.header.posiadanie']}
-                    </f:facet>
-                    <h:outputText value="#{declarationRecord.ownership.value}"/>
-                </p:column>
-            </p:treeTable>
-          </h:form>
+                    <p:column style="width:100px">
+                        <f:facet name="header">
+                            #{msgs['estate.tree.header.posiadanie']}
+                        </f:facet>
+                        <h:outputText value="#{declarationRecord.ownership.value}"/>
+                    </p:column>
+                </p:treeTable>
+            </h:form>
             <p:separator/>
 
             <h:form id="estateForm">
@@ -60,10 +65,11 @@
                     <p:wizard id="dialogPanel" widgetVar="wizard" flowListener="#{estateAddBean.wizardFlow}"
                               showStepStatus="false"
                               nextLabel="#{msgs['common.wizard.dalej']}" backLabel="#{msgs['common.wizard.wstecz']}"
-                              style="width:400px;padding:20px">
+                              style="width:900px;padding:20px">
                         <p:tab id="main" title="#{msgs['estate.wizard.tytul_glowny']}">
                             #{msgs['estate.wizard.info.wybierz_glowny']}<br/>
-                            <p:selectOneRadio value="#{estateSelectBean.selectedEstate}" layout="pageDirection">
+                            <p:selectOneRadio value="#{estateSelectBean.selectedEstate}" update="mainValue"
+                                              layout="pageDirection">
                                 <f:selectItems value="#{estateBean.mainEstates}"/>
                                 <!--<f:setPropertyActionListener value="#{estateAddBean.selectedEstate}" target="#{estateAddBean.selectedEstate}"/>-->
                                 <p:ajax update="mainValue"/>
@@ -71,35 +77,97 @@
                             #{msgs['estate.wizard.info.podaj_wartosc']}<br/>
                             <p:inputText id="mainValue" value="#{estateAddBean.currentMainEstateValue}"
                                          disabled="#{estateBean.selectedEstate == null}"/>
+                            <p:messages/>
                         </p:tab>
-                        <p:tab id="secondary" style="width:500px" title="#{msgs['estate.wizard.tytul_dodatkowy']}">
-                            <p:dataTable id="dataTable" var="childRecord"
-                                         value="#{estateAddBean.currentMainEstate.declarationRecordChildren}"
-                                         rendered="#{ not empty estateAddBean.currentMainEstate.declarationRecordChildren }">
+                        <p:tab id="secondary" style="width:400px" title="#{msgs['estate.wizard.tytul_dodatkowy']}">
+                            <p:panel id="dataTable">
+                                <p:dataTable var="childRecord"
+                                             value="#{estateAddBean.currentMainEstate.declarationRecordChildren.toArray()}"
+                                             rendered="#{ not empty estateAddBean.currentMainEstate.declarationRecordChildren }">
+                                    <!--<p:column>-->
+                                    <!--<f:facet name="header" style="width:100px">-->
+                                    <!--#{msgs['estate.tree.header.nieruchomosc']}-->
+                                    <!--</f:facet>-->
+                                    <!--<h:outputText value="#{childRecord.estate.value}"/>-->
+                                    <!--</p:column>-->
 
-                            </p:dataTable>
-                            <h:outputText value="#{msgs['estate.wizard.info.wybierz_nowy']}"
-                                          rendered="#{ empty estateAddBean.currentMainEstate.declarationRecordChildren }"/><br/>
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['estate.tree.header.wartosc']}
+                                        </f:facet>
+                                        <h:outputText value="#{childRecord.value}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['estate.tree.header.wlasnosc']}
+                                        </f:facet>
+                                        <h:outputText value="#{childRecord.shareType.value}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['estate.tree.header.posiadanie']}
+                                        </f:facet>
+                                        <h:outputText value="#{childRecord.ownership.value}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['common.button.usun']}
+                                        </f:facet>
+                                        <p:commandButton icon="ui-icon-closethick"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['common.button.edytuj']}
+                                        </f:facet>
+                                        <p:commandButton icon=".ui-icon-search"/>
+                                    </p:column>
+
+                                </p:dataTable>
+                                <h:outputText value="#{msgs['estate.wizard.info.wybierz_nowy']}"
+                                              style="word-wrap:break-word;"
+                                              rendered="#{ empty estateAddBean.currentMainEstate.declarationRecordChildren }"/>
+                            </p:panel>
                             <p:commandButton icon="ui-icon-plusthick" value="#{msgs['common.button.dodaj']}"
-                                             process="@this" action="#{estateAddBean.editChildListener}"/><br/>
-                            <p:outputPanel autoUpdate="true" id="addPanel" style="width:500px">
-                                <p:selectOneRadio value="#{estateAddBean.currentChildEstate.shareType}"
-                                                  style="float:left;margin:auto 3px" layout="pageDirection">
-                                    <f:selectItems value="#{estateBean.shareTypes}" var="shareType"
-                                    itemLabel="#{shareType.value}"/>
-                                </p:selectOneRadio>
-                                <p:selectOneMenu style="margin:auto 3px" value="#{estateAddBean.currentChildEstate.estate}">
-                                    <f:selectItems value="#{estateBean.ownerships}" var="ownership"
-                                    itemLabel="#{ownership.value}"/>
-                                </p:selectOneMenu>
-                                <p:selectOneMenu style="margin:auto 3px" value="#{estateAddBean.currentChildEstate.estate}">
-                                    <f:selectItems value="#{estateBean.childEstates}" var="estate"
-                                    itemLabel="#{estate.value}"/>
-                                </p:selectOneMenu>
-                                <p:inputText style="margin:auto 3px" id="inputNewChild" value="#{estateAddBean.currentChildEstate.value}"/>
+                                             process="@this" update="estateDialog:addPanel"
+                                             action="#{estateAddBean.editChildListener}"
+                                             oncomplete="showAddPanel()"/><br/>
+                            <p:outputPanel autoUpdate="true" id="addPanel" style="width:500px;display:none;">
+                                <h:panelGrid columns="4">
+                                    <p:selectOneRadio id="addChildShareType" value="#{estateAddBean.childShareType}"
+                                                      style="float:left;margin:auto 3px;" layout="pageDirection">
+                                        <f:selectItems value="#{estateBean.shareTypes}" var="shareType"
+                                                       itemLabel="#{shareType.value}"/>
+                                    </p:selectOneRadio>
+                                    <p:selectOneMenu id="addChildOwnership" style="margin:auto 3px;width:100px;"
+                                                     value="#{estateAddBean.childOwnership}">
+                                        <f:selectItems value="#{estateBean.ownerships}" var="ownership"
+                                                       itemLabel="#{ownership.value}"/>
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu id="addChildEstate" style="margin:auto 3px;width:100px;"
+                                                     value="#{estateAddBean.childEstate}">
+                                        <f:selectItems value="#{estateBean.childEstates}" var="estate"
+                                                       itemLabel="#{estate.value}"/>
+                                    </p:selectOneMenu>
+                                    <p:inputText style="margin:auto 3px;width:100px" id="addChildValue"
+                                                 value="#{estateAddBean.childValue}"/>
+                                    <h:outputText style="display:none;"/>
+                                    <p:commandButton value="#{msgs['common.button.dodaj']}"
+                                                     process="@this addChildShareType addChildOwnership addChildValue"
+                                                     update="estateDialog:dataTable"
+                                                     action="#{estateAddBean.addToList}"/>
+                                    <!--<f:setPropertyActionListener target="#{configBean.selectedConfig}"/>-->
+                                    <!--</p:commandButton>-->
+                                </h:panelGrid>
                             </p:outputPanel>
-                            <p:commandButton style="margin:40px;position:absolute;right:0px;"
-                                             value="#{msgs['common.button.submit']}"/>
+                            <p:messages autoUpdate="true"/>
+                            <p:commandButton style="bottom:40px;position:absolute;right:10px;" update=":estateTreeTable"
+                                             process="@this" oncomplete="addDeclarationDlg.hide()"
+                                             value="#{msgs['common.button.submit']}"
+                                             actionListener="#{estateAddBean.makeDeclarationTree}"/>
                         </p:tab>
                     </p:wizard>
                 </p:dialog>

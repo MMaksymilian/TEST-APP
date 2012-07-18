@@ -60,4 +60,24 @@ public class AppUser extends BaseEntity {
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AppUser)) return false;
+
+        AppUser appUser = (AppUser) o;
+
+        if (login != null ? !login.equals(appUser.login) : appUser.login != null) return false;
+        if (password != null ? !password.equals(appUser.password) : appUser.password != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = login != null ? login.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
+    }
 }

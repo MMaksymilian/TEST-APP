@@ -25,5 +25,26 @@ public class DeclarationRecordChild extends DeclarationRecord{
     public void setParentRecordId(DeclarationRecord parentRecordId) {
         this.parentRecordId = parentRecordId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DeclarationRecordChild)) return false;
+        if (!super.equals(o)) return false;
+
+        DeclarationRecordChild that = (DeclarationRecordChild) o;
+
+        if (parentRecordId != null ? !parentRecordId.equals(that.parentRecordId) : that.parentRecordId != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (parentRecordId != null ? parentRecordId.hashCode() : 0);
+        return result;
+    }
 }
 

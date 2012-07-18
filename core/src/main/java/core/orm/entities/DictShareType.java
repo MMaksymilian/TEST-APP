@@ -21,4 +21,22 @@ public class DictShareType  extends DictionaryEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shareType")
     Set<DeclarationRecord> declarationRecords;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DictShareType)) return false;
+
+        DictShareType that = (DictShareType) o;
+
+        if (getValue() != null ? !getValue().equals(that.getValue()) : that.getValue() != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return getValue() != null ? getValue().hashCode() : 0;
+    }
 }

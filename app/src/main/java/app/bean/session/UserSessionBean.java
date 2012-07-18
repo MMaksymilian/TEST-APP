@@ -34,12 +34,15 @@ public class UserSessionBean implements Serializable {
     private Double interest;
     /* Informacje wyświetlane na dole w "Informacje o sesji użytkownika*/
 
-    @PostConstruct
-    public void initMethod() {
+    public UserSessionBean() {
         if(userDeclaration == null) {
             userDeclaration = new Declaration();
             userDeclaration.setDeclarationRecords(new HashSet<DeclarationRecord>());
         }
+    }
+
+    @PostConstruct
+    public void initMethod() {
     }
 
     public Double getTotalDecalarations() {

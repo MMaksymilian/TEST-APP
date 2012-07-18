@@ -20,4 +20,22 @@ import java.util.Set;
 public class DictOwnership  extends DictionaryEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "ownership")
     Set<DeclarationRecord> declarationRecords;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DictOwnership)) return false;
+
+        DictOwnership that = (DictOwnership) o;
+
+        if (getValue() != null ? !getValue().equals(that.getValue()) : that.getValue() != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return getValue() != null ? getValue().hashCode() : 0;
+    }
 }

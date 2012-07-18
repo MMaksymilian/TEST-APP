@@ -27,7 +27,7 @@ public abstract class CommonEntityConverter implements Converter {
                     getELContext().getELResolver().getValue(context.getELContext(), null, StringUtils.uncapitalize(valueArray[1]) + "DAOImpl");
             return dao.getById(id);
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage("Converter - conversion error message:" + e.getMessage(), "Invalid format.");
+            FacesMessage msg = new FacesMessage("Converter - conversion error message(converter.common.CommonEntityConverter):" + e.getMessage(), "Invalid format.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ConverterException(msg, e);
         }
@@ -37,7 +37,7 @@ public abstract class CommonEntityConverter implements Converter {
         try {
             return ((BaseEntity) value).getId().toString() + ":" + value.getClass().getSimpleName();
         } catch (Exception e) {
-            FacesMessage msg = new FacesMessage("Converter - conversion error message: ", "Invalid format.");
+            FacesMessage msg = new FacesMessage("Converter - conversion error message(converter.common.CommonEntityConverter): ", "Invalid format.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ConverterException(e);
         }

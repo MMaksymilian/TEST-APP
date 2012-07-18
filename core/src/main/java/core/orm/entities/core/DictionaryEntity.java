@@ -1,7 +1,10 @@
 package core.orm.entities.core;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,6 +16,8 @@ import javax.persistence.SequenceGenerator;
 @MappedSuperclass
 public abstract class DictionaryEntity extends BaseEntity {
 
+    @NotNull
+    @NotEmpty
     String value;
 
     public String getValue() {

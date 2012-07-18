@@ -14,8 +14,8 @@
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
             #{msgs['total.podaj']}
-            <h:form id="form">
-                <p:inputText id="amount" value="#{userSessionBean.creditAmount}" required="true">
+            <h:form id="formTotal">
+                <p:inputText id="amount" value="#{userSessionBean.creditAmount}">
                     <f:validateDoubleRange minimum="#{configUserBean.minCredit}" maximum="#{configUserBean.maxCredit}"/>
                 </p:inputText>
                 <p:commandButton value="#{msgs['common.button.submit']}" ajax="false"/>
