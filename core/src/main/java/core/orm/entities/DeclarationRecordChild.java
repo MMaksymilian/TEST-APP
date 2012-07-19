@@ -11,8 +11,8 @@ import javax.persistence.*;
  */
 @Entity
 @DiscriminatorValue("CHILD")
-@SequenceGenerator(allocationSize=1, name="idSequence", sequenceName="declaration_record_seq")
-public class DeclarationRecordChild extends DeclarationRecord{
+@SequenceGenerator(allocationSize = 1, name = "idSequence", sequenceName = "declaration_record_seq")
+public class DeclarationRecordChild extends DeclarationRecord implements Cloneable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_record_id", nullable = false)
@@ -45,6 +45,14 @@ public class DeclarationRecordChild extends DeclarationRecord{
         int result = super.hashCode();
         result = 31 * result + (parentRecordId != null ? parentRecordId.hashCode() : 0);
         return result;
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 }
 

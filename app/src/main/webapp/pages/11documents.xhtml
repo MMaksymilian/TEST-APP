@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
@@ -11,9 +12,28 @@
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <!--<ui:define name="content">-->
-    <!---->
-    <!--</ui:define>-->
+        <ui:define name="content">
+            <h:form id="documentsForm">
+                    <p:panelGrid columns="1">
+                        <p:columnGroup>
+                            <p:column>
+                                #{msgs['documents.info.panel.zakoncz']}
+                            </p:column>
+                            <br/>
+                            <p:column>
+                                <p:commandButton value="#{msgs['common.button.submit']}" onclick="confirmation.show()"/>
+                            </p:column>
+                        </p:columnGroup>
+                    </p:panelGrid>
+            </h:form>
+            <p:confirmDialog id="confirmDialog" message="#{msgs['documents.confirmDialog.confirmation']}" appendToBody="true"
+                             header="#{msgs['common.confirmDialog.header']}" severity="alert" widgetVar="confirmation">
+                <p:commandButton id="confirm" value="#{msgs['common.button.tak']}" oncomplete="confirmation.hide()"
+                                 actionListener="#{documentsBean.saveDeclaration}"/>
+                <p:commandButton id="decline" value="#{msgs['common.button.nie']}" onclick="confirmation.hide()"
+                                 type="button"/>
+            </p:confirmDialog>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>

@@ -52,17 +52,18 @@
                     </p:column>
                 </p:treeTable>
             </h:form>
+
             <p:separator/>
 
             <h:form id="estateForm">
                 <!--TODO DO NAPISANIA WIZARD-->
-                <p:commandButton value="#{msgs['common.button.dodaj']}" update=":estateDialog:dialogPanel"
+                <p:commandButton value="#{msgs['common.button.dodaj']}" update=":estateDialog:dialogPanel"  actionListener="#{estateAddBean.clearAll}"
                                  oncomplete="addDeclarationDlg.show()"/>
             </h:form>
             <h:form id="estateDialog">
                 <p:dialog widgetVar="addDeclarationDlg"
                           showEffect="fade" hideEffect="explode" modal="true" appendToBody="true">
-                    <p:wizard id="dialogPanel" widgetVar="wizard" flowListener="#{estateAddBean.wizardFlow}"
+                    <p:wizard id="dialogPanel" widgetVar="wizard" flowListener="#{estateAddBean.wizardFlow}" binding="#{estateAddBean.wizard}"
                               showStepStatus="false"
                               nextLabel="#{msgs['common.wizard.dalej']}" backLabel="#{msgs['common.wizard.wstecz']}"
                               style="width:900px;padding:20px">
@@ -81,15 +82,21 @@
                         </p:tab>
                         <p:tab id="secondary" style="width:400px" title="#{msgs['estate.wizard.tytul_dodatkowy']}">
                             <p:panel id="dataTable">
-                                <p:dataTable var="childRecord"
+                                <p:dataTable var="childRecord"   rowIndexVar="rowIndex"
                                              value="#{estateAddBean.currentMainEstate.declarationRecordChildren.toArray()}"
                                              rendered="#{ not empty estateAddBean.currentMainEstate.declarationRecordChildren }">
-                                    <!--<p:column>-->
-                                    <!--<f:facet name="header" style="width:100px">-->
-                                    <!--#{msgs['estate.tree.header.nieruchomosc']}-->
-                                    <!--</f:facet>-->
-                                    <!--<h:outputText value="#{childRecord.estate.value}"/>-->
-                                    <!--</p:column>-->
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['common.table.numer_wiersza']}
+                                        </f:facet>
+                                        #{rowIndex + 1}
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header" style="width:100px">
+                                            #{msgs['estate.tree.header.nieruchomosc']}
+                                        </f:facet>
+                                        <h:outputText value="#{childRecord.estate.value}"/>
+                                    </p:column>
 
                                     <p:column>
                                         <f:facet name="header" style="width:100px">
@@ -116,14 +123,20 @@
                                         <f:facet name="header" style="width:100px">
                                             #{msgs['common.button.usun']}
                                         </f:facet>
-                                        <p:commandButton icon="ui-icon-closethick"/>
+                                        <p:commandButton icon="ui-icon-closethick" process="@this" update=":estateDialog:dataTable">
+                                            <f:setPropertyActionListener value="#{childRecord}"
+                                                                         target="#{estateAddBean.removeChildListener}"/>
+                                        </p:commandButton>
                                     </p:column>
 
                                     <p:column>
                                         <f:facet name="header" style="width:100px">
                                             #{msgs['common.button.edytuj']}
                                         </f:facet>
-                                        <p:commandButton icon=".ui-icon-search"/>
+                                        <p:commandButton icon="ui-icon-search" process="@this" update=":estateDialog:addPanel" oncomplete="showAddPanel()">
+                                            <f:setPropertyActionListener value="#{childRecord}"
+                                                                         target="#{estateAddBean.editChildListener}"/>
+                                        </p:commandButton>
                                     </p:column>
 
                                 </p:dataTable>
@@ -131,11 +144,11 @@
                                               style="word-wrap:break-word;"
                                               rendered="#{ empty estateAddBean.currentMainEstate.declarationRecordChildren }"/>
                             </p:panel>
-                            <p:commandButton icon="ui-icon-plusthick" value="#{msgs['common.button.dodaj']}"
+                            <p:commandButton icon="ui-icon-plusthick" value="#{msgs['common.button.dodaj']}/#{msgs['common.button.wyczysc']}"
                                              process="@this" update="estateDialog:addPanel"
-                                             action="#{estateAddBean.editChildListener}"
+                                             action="#{estateAddBean.clearCurrentChild}"
                                              oncomplete="showAddPanel()"/><br/>
-                            <p:outputPanel autoUpdate="true" id="addPanel" style="width:500px;display:none;">
+                            <p:outputPanel id="addPanel" style="width:500px;display:none;">
                                 <h:panelGrid columns="4">
                                     <p:selectOneRadio id="addChildShareType" value="#{estateAddBean.childShareType}"
                                                       style="float:left;margin:auto 3px;" layout="pageDirection">
@@ -144,19 +157,21 @@
                                     </p:selectOneRadio>
                                     <p:selectOneMenu id="addChildOwnership" style="margin:auto 3px;width:100px;"
                                                      value="#{estateAddBean.childOwnership}">
+                                        <f:selectItem itemLabel="#{msgs['common.label.wybierz']}" itemValue=""/>
                                         <f:selectItems value="#{estateBean.ownerships}" var="ownership"
                                                        itemLabel="#{ownership.value}"/>
                                     </p:selectOneMenu>
                                     <p:selectOneMenu id="addChildEstate" style="margin:auto 3px;width:100px;"
                                                      value="#{estateAddBean.childEstate}">
+                                        <f:selectItem itemLabel="#{msgs['common.label.wybierz']}" itemValue=""/>
                                         <f:selectItems value="#{estateBean.childEstates}" var="estate"
                                                        itemLabel="#{estate.value}"/>
                                     </p:selectOneMenu>
                                     <p:inputText style="margin:auto 3px;width:100px" id="addChildValue"
                                                  value="#{estateAddBean.childValue}"/>
                                     <h:outputText style="display:none;"/>
-                                    <p:commandButton value="#{msgs['common.button.dodaj']}"
-                                                     process="@this addChildShareType addChildOwnership addChildValue"
+                                    <p:commandButton value="#{msgs['common.button.submit']}"
+                                                     process="@this addChildShareType addChildEstate addChildOwnership addChildValue"
                                                      update="estateDialog:dataTable"
                                                      action="#{estateAddBean.addToList}"/>
                                     <!--<f:setPropertyActionListener target="#{configBean.selectedConfig}"/>-->

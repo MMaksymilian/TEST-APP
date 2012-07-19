@@ -26,12 +26,12 @@ public class UserSessionBean implements Serializable {
     private Declaration userDeclaration;
 
     /* Informacje wyświetlane na dole w "Informacje o sesji użytkownika*/
-    private Double totalDecalarations;
+    private Double totalDecalarations = 12000d;
 
     @Digits(integer = 10, fraction = 2)
     private Double creditAmount;
 
-    private Double interest;
+    private Double interest = 15d;
     /* Informacje wyświetlane na dole w "Informacje o sesji użytkownika*/
 
     public UserSessionBean() {
@@ -43,14 +43,19 @@ public class UserSessionBean implements Serializable {
 
     @PostConstruct
     public void initMethod() {
+        //TODO wyrzucic !!!!!!
+        userDeclaration.setEstateValue(totalDecalarations);
+        userDeclaration.setInterest(interest);
+        userDeclaration.setCreditAmount(creditAmount);
     }
 
     public Double getTotalDecalarations() {
         return totalDecalarations;
     }
 
-    public void setTotalDecalarations(Double totalDecalarations) {
-        this.totalDecalarations = totalDecalarations;
+    public void setTotalDecalarations(Double totalDeclarations) {
+        this.totalDecalarations = totalDeclarations;
+        userDeclaration.setEstateValue(totalDeclarations);
     }
 
     public Double getCreditAmount() {
@@ -72,6 +77,7 @@ public class UserSessionBean implements Serializable {
 
     public void setInterest(Double interest) {
         this.interest = interest;
+        userDeclaration.setInterest(interest);
     }
 
     public Declaration getUserDeclaration() {

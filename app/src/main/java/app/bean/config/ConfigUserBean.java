@@ -16,7 +16,7 @@ import javax.validation.constraints.Digits;
 public class ConfigUserBean {
     private String dateFormat = "MM/dd/yyyy";
 
-    //TODO NAPISAĆ BY WARTOŚĆ BYŁA POBIERANA ZA KAŻDYM RAZEM Z BAZY DANYCH
+    //TODO Z BAZY DANYCH
     private Double maxCredit = 30000d;
 
     private Double minCredit = 20000d;

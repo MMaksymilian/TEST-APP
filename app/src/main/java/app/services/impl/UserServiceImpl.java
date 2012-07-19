@@ -1,6 +1,6 @@
 package app.services.impl;
 
-import core.orm.dao.UserDAO;
+import core.orm.dao.AppUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,5 +17,5 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl {
 
     @Autowired
-    UserDAO userDAO;
+    AppUserDAO appUserDAO;
 }

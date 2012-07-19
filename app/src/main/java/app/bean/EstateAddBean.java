@@ -4,6 +4,7 @@ import app.bean.config.ConfigUserBean;
 import app.bean.session.UserSessionBean;
 import core.orm.entities.*;
 import core.orm.entities.estate.DictEstate;
+import org.primefaces.component.wizard.Wizard;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -15,10 +16,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,24 +34,16 @@ public class EstateAddBean implements Serializable {
 
     private Declaration declaration;
 
-    private DeclarationRecord currentMainEstate = new DeclarationRecord();
+    private DeclarationRecord currentMainEstate;
 
-    /*dodatkowe pole nieruchomości*/
-    private DeclarationRecordChild currentChildEstate = new DeclarationRecordChild();
+    private DeclarationRecordChild currentChildEstate;
 
-    private DictShareType childShareType;
+    private DeclarationRecordChild editedChildEstate;
 
-    private DictOwnership childOwnership;
-
-    private DictEstate childEstate;
-
-    private Double childValue;
-    /*dodatkowe pole nieruchomości*/
     private TreeNode declarationTree;
 
-    private boolean editChild;
+    private Wizard wizard;
 
-    private boolean addChild;
 
     @PostConstruct
     public void initMethod() {
@@ -61,8 +51,7 @@ public class EstateAddBean implements Serializable {
         if (declaration.getDeclarationRecords() != null && declaration.getDeclarationRecords().size() > 0 ) {
             makeDeclarationTree();
         }
-        currentMainEstate.setDeclarationRecordChildren(new HashSet<DeclarationRecordChild>());
-        DeclarationRecordChild declarationRecordChild = new DeclarationRecordChild();
+        clearAll();
     }
 
     public void makeDeclarationTree() {
@@ -76,14 +65,22 @@ public class EstateAddBean implements Serializable {
         }
     }
 
-    public void editChildListener() {
-        editChild = true;
-        addChild = false;
+    public void clearAll() {
+        if (wizard != null) {
+            wizard.setStep("main");
+        }
+        currentMainEstate = new DeclarationRecord();
+        currentMainEstate.setDeclarationRecordChildren(new HashSet<DeclarationRecordChild>());
         currentChildEstate = new DeclarationRecordChild();
+        setSelectedEstate(null);
     }
 
+    public void clearCurrentChild() {
+        currentChildEstate = new DeclarationRecordChild();
+    }
     public String wizardFlow(FlowEvent event) {
         String currentStep = event.getOldStep();
+        //TODO MOZNA ZROBIC LEPIEJ
         if (currentStep.equals("main") && currentMainEstate.getEstate() == null) {
             FacesContext context = FacesContext.getCurrentInstance();
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -91,13 +88,28 @@ public class EstateAddBean implements Serializable {
             ResourceBundle bundle = ResourceBundle.getBundle("message.messages", locale);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, bundle.getString("estate.wizard.warn.wybierz_nieruchomosc"), bundle.getString("estate.wizard.warn.wybierz_nieruchomosc")));
             return currentStep;
-
         }
         return event.getNewStep();
     }
 
     public void addToList() {
-        currentMainEstate.getDeclarationRecordChildren().add(currentChildEstate);
+        if (!declaration.getDeclarationRecords().contains(currentMainEstate)) {
+          declaration.getDeclarationRecords().add(currentMainEstate);
+          currentMainEstate.setDeclaration(declaration);
+        }
+        if (editedChildEstate != null) {
+            currentMainEstate.getDeclarationRecordChildren().remove(editedChildEstate);
+            currentMainEstate.getDeclarationRecordChildren().add(currentChildEstate);
+            currentChildEstate.setParentRecordId(currentMainEstate);
+            currentChildEstate.setDeclaration(declaration);
+            currentChildEstate = new DeclarationRecordChild();
+            editedChildEstate = null;
+        } else {
+            currentChildEstate.setDeclaration(declaration);
+            currentChildEstate.setParentRecordId(currentMainEstate);
+            currentMainEstate.getDeclarationRecordChildren().add(currentChildEstate);
+            currentChildEstate = new DeclarationRecordChild();
+        }
     }
 
     /**
@@ -130,7 +142,15 @@ public class EstateAddBean implements Serializable {
      */
     public void setCurrentMainEstateValue(Double currentMainEstateValue) {
         currentMainEstate.setValue(currentMainEstateValue);
+    }
 
+    public void setRemoveChildListener(DeclarationRecordChild childToRemove) {
+        currentMainEstate.getDeclarationRecordChildren().remove(childToRemove);
+    }
+
+    public void setEditChildListener(DeclarationRecordChild childToEdit) {
+        editedChildEstate = childToEdit;
+        currentChildEstate = (DeclarationRecordChild)childToEdit.clone();
     }
 
     /* GETTERY I SETTERY*/
@@ -158,22 +178,6 @@ public class EstateAddBean implements Serializable {
         this.currentMainEstate = currentMainEstate;
     }
 
-    public boolean isEditChild() {
-        return editChild;
-    }
-
-    public void setEditChild(boolean editChild) {
-        this.editChild = editChild;
-    }
-
-    public boolean isAddChild() {
-        return addChild;
-    }
-
-    public void setAddChild(boolean addChild) {
-        this.addChild = addChild;
-    }
-
     public DeclarationRecordChild getCurrentChildEstate() {
         return currentChildEstate;
     }
@@ -187,39 +191,42 @@ public class EstateAddBean implements Serializable {
     }
 
     public DictShareType getChildShareType() {
-        return childShareType;
+        return currentChildEstate.getShareType();
     }
 
     public void setChildShareType(DictShareType childShareType) {
         currentChildEstate.setShareType(childShareType);
-        this.childShareType = childShareType;
     }
 
     public Double getChildValue() {
-        return childValue;
+        return currentChildEstate.getValue();
     }
 
     public void setChildValue(Double childValue) {
         currentChildEstate.setValue(childValue);
-        this.childValue = childValue;
     }
 
     public DictEstate getChildEstate() {
-        return childEstate;
+        return currentChildEstate.getEstate();
     }
 
     public void setChildEstate(DictEstate childEstate) {
         currentChildEstate.setEstate(childEstate);
-        this.childEstate = childEstate;
     }
 
     public DictOwnership getChildOwnership() {
-        return childOwnership;
+        return currentChildEstate.getOwnership();
     }
 
     public void setChildOwnership(DictOwnership childOwnership) {
         currentChildEstate.setOwnership(childOwnership);
-        this.childOwnership = childOwnership;
     }
 
+    public Wizard getWizard() {
+        return wizard;
+    }
+
+    public void setWizard(Wizard wizard) {
+        this.wizard = wizard;
+    }
 }

@@ -1,13 +1,18 @@
 package app.services.impl;
 
 import app.services.DeclarationService;
+import core.orm.dao.AppUserDAO;
 import core.orm.dao.DeclarationDAO;
+import core.orm.entities.AppUser;
 import core.orm.entities.Declaration;
 import core.orm.entities.DeclarationRecord;
 import core.orm.entities.DeclarationRecordChild;
+import org.joda.time.DateTime;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,14 +35,22 @@ public class DeclarationServiceImpl implements DeclarationService {
     @Autowired
     DeclarationDAO declarationDAO;
 
+    @Autowired
+    AppUserDAO appUserDAO;
+
+    @Override
     public List<Declaration> getDeclarationsForUser(String login) {
         return declarationDAO.getDeclarationsForUser(login);
     }
 
-    public Declaration saveDeclaration(Declaration declaration) {
-        if (declaration.getUser().getId() == null) {
-            //TODO znaleźć ID użytkownika i podstawić
-        }
+    @Override
+    public Long saveDeclaration(Declaration declaration) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userLogin = auth.getName();
+        AppUser user = appUserDAO.getUserByLogin(userLogin);
+        declaration.setUser(user);
+        declaration.setCommitDate(new DateTime());
+
         return declarationDAO.saveDeclaration(declaration);
     }
 

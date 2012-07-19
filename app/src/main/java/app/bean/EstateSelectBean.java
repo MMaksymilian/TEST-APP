@@ -39,7 +39,9 @@ public class EstateSelectBean implements Serializable {
     public void setSelectedEstate(DictEstate selectedEstate) {
         this.selectedEstate = selectedEstate;
         estateBean.setSelectedEstate(selectedEstate);
-        estateBean.handleEstateChange();
+        if (selectedEstate != null) {
+            estateBean.handleEstateChange();
+        }
         estateAddBean.setSelectedEstate(selectedEstate);
     }
 

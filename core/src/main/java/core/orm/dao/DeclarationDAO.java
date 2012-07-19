@@ -14,5 +14,5 @@ import java.util.Map;
  */
 public interface DeclarationDAO extends BaseDAO<Declaration> {
     public List<Declaration> getDeclarationsForUser (String login);
-    public Declaration saveDeclaration (Declaration declaration);
+    public Long saveDeclaration (Declaration declaration);
 }

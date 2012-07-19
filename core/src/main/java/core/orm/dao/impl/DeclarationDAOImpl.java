@@ -34,8 +34,8 @@ public class DeclarationDAOImpl extends BaseDAOImpl implements DeclarationDAO {
         return declarations;
     }
 
-    public Declaration saveDeclaration (Declaration declaration) {
-        return (Declaration)getHibernateTemplate().save(declaration);
+    public Long saveDeclaration (Declaration declaration) {
+        return (Long) getHibernateTemplate().save(declaration);
     }
 
     public Declaration getById(Long id) {

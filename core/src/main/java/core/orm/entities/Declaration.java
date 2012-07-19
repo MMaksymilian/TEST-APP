@@ -1,13 +1,12 @@
 package core.orm.entities;
 
 import core.orm.entities.core.BaseEntity;
-import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.FilterDef;
-import org.hibernate.annotations.ParamDef;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Set;
 
 /**
@@ -31,6 +30,7 @@ public class Declaration extends BaseEntity {
     private DateTime commitDate;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "declaration")
+    @Cascade({CascadeType.ALL})
     @Filter(name = "onlyParentDeclartionRecordsFilter",
         condition = "type = 'MAIN'")
     Set<DeclarationRecord> declarationRecords;

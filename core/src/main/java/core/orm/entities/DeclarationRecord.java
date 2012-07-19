@@ -2,8 +2,13 @@ package core.orm.entities;
 
 import core.orm.entities.core.BaseEntity;
 import core.orm.entities.estate.DictEstate;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -40,8 +45,10 @@ public class DeclarationRecord  extends BaseEntity {
     Declaration declaration;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parentRecordId")
+    @Cascade({CascadeType.ALL})
     Set<DeclarationRecordChild> declarationRecordChildren;
 
+    @Digits(fraction = 2, integer = 10)
     Double value;
 
     public Declaration getDeclaration() {
