@@ -16,4 +16,7 @@ import java.util.Map;
 public interface DictEstateService {
 
     Map<DictEstate, List<DictEstateChild>> getAvailableEstates();
+
+    void updateChild(DictEstateChild selectedRecordChild);
+
 }

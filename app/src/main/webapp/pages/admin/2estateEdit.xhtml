@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <h:outputStylesheet library="style" value="common.css"/>
+
+</h:head>
+<h:body>
+<ui:composition template="/template/adminLayout.xhtml">
+    <ui:define name="content">
+        <h:form id="formAdminEstateEdit">
+            <p:dataTable id="mainRecords" var="mainRecord" value="#{adminEditEstate.recordList}" rowKey="#{mainRecord.id}"
+                          selectionMode="single" srollable="true" scrollHeight="100"  selection="#{adminEditEstate.selectRecord}" style="width:50%">
+                <!--selection="#{tableBean.selectedCar}"-->
+                <f:facet name="header">
+                    #{msgs['admin.estate.table.header.edycja_nieruchomosci']}
+                </f:facet>
+                <p:column selectionMode="single"/>
+                <p:column sortBy="#{mainRecord.value}">
+                    #{mainRecord.value}
+                </p:column>
+
+                <!--<f:facet name="footer">-->
+                    <!--<p:commandButton id="viewButton" value="View" icon="ui-icon-search"-->
+                                     <!--update=":form:display" oncomplete="carDialog.show()"/>-->
+                <!--</f:facet>-->
+            </p:dataTable>
+            <p:dataList id="childrenList" value="#{adminEditEstate.childrenList}" var="childRecord" type="ordered" rows="5" effectSpeed="fast">
+                <p:column>
+                    <h:outputText style="heigth:70px" value="#{childRecord.value}"/>
+                    <p:commandButton icon="ui-icon-search" style=" position:absolute;left:200px" title="Edycja" process="@this" update=":formAdminEstateEdit:childValue">
+                        <f:setPropertyActionListener value="#{childRecord}" target="#{adminEditEstate.selectedRecordChild}" />
+                    </p:commandButton>
+                    <br />
+                </p:column>
+            </p:dataList>
+            <p:inputText id="childValue" value="#{adminEditEstate.selectedRecordChild.value}"/>
+            <p:commandButton value="#{msgs['common.button.submit']}" update=":formAdminEstateEdit:childrenList" process="@this :formAdminEstateEdit:childValue" action="#{adminEditEstate.saveRecordChild}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</h:body>
+</html>

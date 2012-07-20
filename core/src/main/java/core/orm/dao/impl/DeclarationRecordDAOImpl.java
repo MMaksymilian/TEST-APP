@@ -8,6 +8,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Maksymilian Małek
@@ -21,5 +23,11 @@ public class DeclarationRecordDAOImpl extends BaseDAOImpl implements Declaration
         Criteria getByIdCriteria = getSession().createCriteria(DeclarationRecord.class);
         getByIdCriteria.add(Restrictions.idEq(id));
         return (DeclarationRecord) getByIdCriteria.uniqueResult();
+    }
+
+    @Override
+    public List<DeclarationRecord> listMainDeclarations() {
+        Criteria getListCriteria = getSession().createCriteria(DeclarationRecord.class);
+        return getListCriteria.list();
     }
 }

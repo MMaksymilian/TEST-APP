@@ -1,7 +1,9 @@
 package core.orm.dao.impl;
 
 import core.orm.dao.DictEstateDAO;
+import core.orm.entities.DeclarationRecordChild;
 import core.orm.entities.estate.DictEstate;
+import core.orm.entities.estate.DictEstateChild;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -28,6 +30,19 @@ public class DictEstateDAOImpl extends BaseDAOImpl implements DictEstateDAO {
         listCriteria.createAlias("dictEstateChildren", "dictEstateChildren");
         listCriteria.addOrder(Order.asc("dictEstateChildren.value"));
         return (List<DictEstate>) listCriteria.list();
+    }
+
+    @Override
+    public void updateChild(DictEstateChild dictChildRecord) {
+        getHibernateTemplate().saveOrUpdate(dictChildRecord);
+    }
+
+    @Override
+    public List<DeclarationRecordChild> listDeclarationChildrendContainingEstate(DictEstate dictEstate) {
+        Criteria listCriteria = getSession().createCriteria(DeclarationRecordChild.class);
+        listCriteria.createAlias("declarationRecordChildren", "dRCh");
+        listCriteria.add(Restrictions.in("estate", new Object[]{dictEstate}));
+        return listCriteria.list();
     }
 
     public DictEstate getById(Long id) {

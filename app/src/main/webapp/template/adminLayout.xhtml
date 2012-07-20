@@ -13,25 +13,18 @@
 <h:body>
 
     <p:layout fullPage="true">
-        <p:layoutUnit position="west" size="200" header="#{msgs['template.nav.tytul']}" resizable="true" collapsible="true" effect="drop">
-            <ui:insert name="navigator" >
-                <ui:include src="/template/common/commonNavigator.xhtml" />
+        <p:layoutUnit position="north" header="#{msgs['template.admin.menu.tytul']}" resizable="true" collapsible="true" effect="drop">
+            <ui:insert name="menu" >
+                <ui:include src="/template/admin/adminMenu.xhtml" />
             </ui:insert>
         </p:layoutUnit>
 
         <!--To jest zawartość strony-->
         <p:layoutUnit position="center">
             <ui:insert name="content" >
-                <ui:include src="/template/common/commonContent.xhtml" />
+                <ui:include src="/template/admin/adminContent.xhtml" />
             </ui:insert>
         </p:layoutUnit>
-
-        <p:layoutUnit position="south" size="100" header="#{msgs['template.footer.informacje_o_sesji']}" resizable="true" collapsible="true" styleClass="footerComponent">
-            <ui:insert name="footer" >
-                <ui:include src="/template/common/commonFooter.xhtml" />
-            </ui:insert>
-        </p:layoutUnit>
-
     </p:layout>
 </h:body>
 </html>

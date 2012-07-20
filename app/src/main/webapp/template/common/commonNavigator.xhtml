@@ -27,14 +27,12 @@
                     <p:menuitem id="menuAdditionalParameter" value="#{msgs['template.nav.dodatkowe_parametry']}" action="additionalParameter" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="menuDocuments" value="#{msgs['template.nav.dokumenty']}" action="documents" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
                     <p:menuitem id="summary" value="#{msgs['template.nav.podsumowanie']}" action="summary" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-
             </p:menu>
         </h:form>
+        <!--Można ewentualnie zrobić menuItem i użyć url-->
         <form action="#{request.contextPath}/j_spring_security_logout">
             <input type="submit" value="Logout"/>
         </form>
-        <!--<h:outputText value="Loremd ipsum dolor sit amet" rendered="#{sec:isAllowed('/secured/foo', 'POST')}"/>-->
-        <!--xmlns:sec="http://www.springframework.org/security/tags"-->
     </ui:composition>
 </body>
 </html>

@@ -2,6 +2,8 @@ package core.orm.dao;
 
 import core.orm.entities.DeclarationRecord;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Maksymilian Małek
@@ -10,4 +12,6 @@ import core.orm.entities.DeclarationRecord;
  * To change this template use File | Settings | File Templates.
  */
 public interface DeclarationRecordDAO extends BaseDAO<DeclarationRecord> {
+
+    public List<DeclarationRecord> listMainDeclarations();
 }

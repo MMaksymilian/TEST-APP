@@ -1,4 +1,4 @@
-package app.bean;
+package app.bean.admin;
 
 import app.services.ConfigStandardService;
 import core.orm.entities.ConfigStandard;
@@ -43,6 +43,10 @@ public class ConfigBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        refreshConfigsList();
+    }
+
+    void refreshConfigsList() {
         configStandards = configStandardService.listConfigParams();
     }
 

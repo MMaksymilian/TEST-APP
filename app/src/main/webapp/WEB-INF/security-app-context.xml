@@ -11,7 +11,7 @@
     <intercept-url pattern="/pages/admin/**" access="hasAnyRole('ADMIN')"  />
     <intercept-url pattern="/pages/**" access="isAuthenticated()"  />
     <form-login login-page="/pages/login/login.jsp"
-                authentication-failure-url="/pages/login/login.jsp" default-target-url="/pages/1productType.jsf"/>
+                authentication-failure-url="/pages/login/login.jsp" default-target-url="/login/success.do"/>
     <logout logout-success-url="/pages/login/login.jsp"/>
   </http>
 

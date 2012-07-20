@@ -10,4 +10,5 @@ import core.orm.entities.estate.DictEstateChild;
  * To change this template use File | Settings | File Templates.
  */
 public interface DictEstateChildDAO extends BaseDAO<DictEstateChild> {
+
 }

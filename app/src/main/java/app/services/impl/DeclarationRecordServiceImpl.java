@@ -1,9 +1,13 @@
 package app.services.impl;
 
+import app.services.DeclarationRecordService;
 import core.orm.dao.DeclarationRecordDAO;
+import core.orm.entities.DeclarationRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("declarationRecordService")
 @Transactional
-public class DeclarationRecordServiceImpl {
+public class DeclarationRecordServiceImpl implements DeclarationRecordService {
     @Autowired
     DeclarationRecordDAO declarationRecordDAO;
+
+    @Override
+    public List<DeclarationRecord> listMainDeclarations() {
+        return declarationRecordDAO.listMainDeclarations();
+    }
 }

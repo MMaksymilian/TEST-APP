@@ -17,7 +17,8 @@
 
             <ui:repeat value="#{declarationBean.declarationsMap.keySet().toArray()}" var="declaration"
                        varStatus="status">
-                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate.toString('MM/dd/yyyy')}" toggleable="true" collapsed="#{!status.last}" toggleSpeed="500">
+                <p:fieldset legend="DEKLARACJA Z #{declaration.commitDate.toString('MM/dd/yyyy')}" toggleable="true"
+                            collapsed="#{!status.last}" toggleSpeed="500">
                     <p:treeTable value="#{declarationBean.declarationsMap.get(declaration)}" var="declarationRecord">
 
                         <p:column style="width:100px">
@@ -31,7 +32,9 @@
                             <f:facet name="header">
                                 WARTOŚĆ PLN
                             </f:facet>
-                            <h:outputText value="#{declarationRecord.value}"/>
+                            <h:outputText value="#{declarationRecord.value}">
+                                <f:convertNumber pattern="#,###,##0.00"/>
+                            </h:outputText>
                         </p:column>
 
                         <p:column style="width:100px">

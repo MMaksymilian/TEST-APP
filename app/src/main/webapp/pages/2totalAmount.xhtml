@@ -17,6 +17,8 @@
             <h:form id="formTotal">
                 <p:inputText id="amount" value="#{userSessionBean.creditAmount}">
                     <f:validateDoubleRange minimum="#{configUserBean.minCredit}" maximum="#{configUserBean.maxCredit}"/>
+                    <f:convertNumber pattern="#,###,##0.00"/>
+                    <p:ajax event="keyup" process="@none" update="@this" />
                 </p:inputText>
                 <p:commandButton value="#{msgs['common.button.submit']}" ajax="false"/>
                 <p:message for="amount"/>

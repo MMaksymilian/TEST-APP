@@ -11,15 +11,27 @@
     <h:outputStylesheet name="footer.css" library="style" />
 </h:head>
 <ui:composition>
-    <h:messages/>
+    <h:messages style="color:red;font-weight:bold;"/>
     <p:panelGrid columns="3" style="margin:auto;">
 
         <p:column>#{msgs['template.footer.zabezpieczenie']}</p:column>
         <p:column>#{msgs['template.footer.kredyt']}</p:column>
         <p:column>#{msgs['template.footer.oprocentowanie']}</p:column>
-        <p:column styleClass="numbers">#{userSessionBean.totalDecalarations}</p:column>
-        <p:column id="creditAmount" styleClass="numbers">#{userSessionBean.creditAmount}</p:column>
-        <p:column styleClass="numbers">#{userSessionBean.interest}</p:column>
+
+        <p:column styleClass="numbers">
+            <h:outputText value="#{userSessionBean.totalDecalarations}">
+                <f:convertNumber currencySymbol="PLN"  pattern="#,###,##0.00"/>
+            </h:outputText>
+        </p:column>
+        <p:column id="creditAmount" styleClass="numbers">
+            <h:outputText value="#{userSessionBean.creditAmount}">
+                <f:convertNumber currencySymbol="PLN" pattern="#,###,##0.00"/>
+            </h:outputText></p:column>
+        <p:column styleClass="numbers">
+            <h:outputText value="#{userSessionBean.interest}">
+                <f:convertNumber type="percent" />
+            </h:outputText>
+        </p:column>
     </p:panelGrid>
 </ui:composition>
 </body>

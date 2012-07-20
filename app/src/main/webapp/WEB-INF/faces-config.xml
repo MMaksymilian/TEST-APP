@@ -27,6 +27,20 @@
         <phase-listener>app.security.LoginErrorPhaseListener</phase-listener>
     </lifecycle>
 
+
+    <!-- Global navigation rules ADMIN-->
+    <navigation-rule>
+        <from-view-id>/pages/admin/*</from-view-id>
+        <navigation-case>
+            <from-outcome>adminEditParams</from-outcome>
+            <to-view-id>/pages/admin/1parameterEdit.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>adminEditDictEstate</from-outcome>
+            <to-view-id>/pages/admin/2estateEdit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <!-- Global navigation rules -->
     <navigation-rule>
         <from-view-id>/pages/*</from-view-id>
