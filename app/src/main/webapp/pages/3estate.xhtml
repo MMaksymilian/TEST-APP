@@ -18,7 +18,11 @@
                     $('[id="estateDialog:addPanel"]').show('slow');
                 }
             </script>
+
             <h:form id="estateTreeTable">
+                <p:commandButton id="nextMainWizard" action="parameters" ajax="false"
+                                 style="position:absolute;right:0px;top:0px; margin:15px;z-index:30" value="#{msgs['common.wizard.dalej']}"
+                                 icon="ui-icon-arrow-1-e"/>
                 <h:outputText
                         rendered="#{estateAddBean.declarationTree == null}">#{msgs['estate.info.brak_deklaracji']} </h:outputText>
                 <p:treeTable value="#{estateAddBean.declarationTree}" var="declarationRecord"
@@ -34,7 +38,7 @@
                         <f:facet name="header">
                             #{msgs['estate.tree.header.wartosc']}
                         </f:facet>
-                        <h:outputText value="#{declarationRecord.value}">
+                        <h:outputText style="float:right;" value="#{declarationRecord.value}">
                             <f:convertNumber pattern="#,###,##0.00"/>
                         </h:outputText>
                     </p:column>
@@ -105,7 +109,7 @@
                                         <f:facet name="header" style="width:100px">
                                             #{msgs['estate.tree.header.wartosc']}
                                         </f:facet>
-                                        <h:outputText value="#{childRecord.value}">
+                                        <h:outputText style="float:right" value="#{childRecord.value}">
                                             <f:convertNumber pattern="#,###,##0.00"/>
                                         </h:outputText>
                                     </p:column>

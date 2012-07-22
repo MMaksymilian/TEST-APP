@@ -1,5 +1,6 @@
 package app.services;
 
+import app.exception.service.ChildIsUsedException;
 import core.orm.entities.estate.DictEstate;
 import core.orm.entities.estate.DictEstateChild;
 
@@ -17,6 +18,6 @@ public interface DictEstateService {
 
     Map<DictEstate, List<DictEstateChild>> getAvailableEstates();
 
-    void updateChild(DictEstateChild selectedRecordChild);
+    void updateChild(DictEstateChild selectedRecordChild) throws ChildIsUsedException;
 
 }

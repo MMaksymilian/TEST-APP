@@ -28,6 +28,7 @@
     </lifecycle>
 
 
+
     <!-- Global navigation rules ADMIN-->
     <navigation-rule>
         <from-view-id>/pages/admin/*</from-view-id>

@@ -9,6 +9,9 @@
 <h:head>
     <h:outputStylesheet name="style.css" library="style" />
     <h:outputStylesheet name="footer.css" library="style" />
+    <h:outputStylesheet name="prime_faces.css" library="style" />
+    <h:outputScript name="jquery.formatCurrency-1.4.0.js" library="js"/>
+    <!--<h:outputScript name="number_format.js" library="js"/>-->
 </h:head>
 <h:body>
 
@@ -23,6 +26,8 @@
         <p:layoutUnit position="center">
             <ui:insert name="content" >
                 <ui:include src="/template/common/commonContent.xhtml" />
+                <!--<ui:param name="nextPage" value="totalAmount"/>-->
+                <!--<p:commandButton action="#{nextPage}" style="position:absolute;right:0px" value="#{msgs['common.wizard.dalej']}" icon="ui-icon-arrow-1-e"/>-->
             </ui:insert>
         </p:layoutUnit>
 

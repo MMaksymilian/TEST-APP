@@ -13,15 +13,33 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
+            <script type="text/javascript">
+                /* <![CDATA[ */
+
+                var totalAmount = 0;
+
+                $(function() {
+                    $('[id="formTotal:amount"]').bind('keyup', function() {
+                        totalAmount = $(this).val();
+                        $(this).delay(3000).formatCurrency({decimalSymbol:',', digitGroupSymbol:' ', symbol:' '});
+//                                val(number_format(totalAmount, 2, ',', ' '));
+                    });
+                })
+                /* ]]> */
+            </script>
+
             #{msgs['total.podaj']}
             <h:form id="formTotal">
+                <p:commandButton id="nextMainWizard" action="estate" ajax="false"
+                                 style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
+                                 icon="ui-icon-arrow-1-e"/>
                 <p:inputText id="amount" value="#{userSessionBean.creditAmount}">
                     <f:validateDoubleRange minimum="#{configUserBean.minCredit}" maximum="#{configUserBean.maxCredit}"/>
                     <f:convertNumber pattern="#,###,##0.00"/>
-                    <p:ajax event="keyup" process="@none" update="@this" />
+                    <!--<p:ajax event="keyup" process="@none" update="@this" />-->
                 </p:inputText>
-                <p:commandButton value="#{msgs['common.button.submit']}" ajax="false"/>
-                <p:message for="amount"/>
+                <p:commandButton value="#{msgs['common.button.submit']}"/>
+                <p:messages autoUpdate="true"/>
             </h:form>
         </ui:define>
     </ui:composition>

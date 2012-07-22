@@ -4,16 +4,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:custom="http://customComponent.com">
 
 <h:head>
     <title>#{msgs['template.nav.typ_produktu']}</title>
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-        <!--<ui:define name="content">-->
-            <!---->
-        <!--</ui:define>-->
+        <ui:define name="content">
+          <!--<custom:nextButton nextPage="totalAmount"/>-->
+          <h:form id="nextButtonForm">
+            <p:commandButton id="nextMainWizard" action="totalAmount" ajax="false"
+                             style="position:absolute;right:0px;top:0px; margin:15px"  value="#{msgs['common.wizard.dalej']}"
+                             icon="ui-icon-arrow-1-e"/>
+          </h:form>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>

@@ -14,20 +14,22 @@
             });
         </h:outputScript>
         <h:form id="menuForm">
-            <p:menu id="menu" style="width:100%;">
-                    <p:menuitem id="menuProductType" value="#{msgs['template.nav.typ_produktu']}" action="productType" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuTotalAmount" value="#{msgs['template.nav.wnioskowana_kwota']}" action="totalAmount" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuEstate" value="#{msgs['template.nav.zabezpieczenie']}" action="estate" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuParameters" value="#{msgs['template.nav.parametry_symulacji']}" action="parameters" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuDeclarations" value="#{msgs['template.nav.obiekty_i_cele_kredytowania']}" action="declarations" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuInterest" value="#{msgs['template.nav.oprocentowanie']}" action="interest" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuCredit" value="#{msgs['template.nav.rata_kredytu']}" action="creditAmount" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuCreditPeriod" value="#{msgs['template.nav.okres_kredytowania']}" action="creditPeriod" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuPriceCondition" value="#{msgs['template.nav.warunek_cenowy']}" action="priceCondition" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuAdditionalParameter" value="#{msgs['template.nav.dodatkowe_parametry']}" action="additionalParameter" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="menuDocuments" value="#{msgs['template.nav.dokumenty']}" action="documents" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-                    <p:menuitem id="summary" value="#{msgs['template.nav.podsumowanie']}" action="summary" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
-            </p:menu>
+            <p:outputPanel autoUpdate="true">
+                <p:menu id="menu" style="width:100%;">
+                        <p:menuitem id="menuProductType" value="#{msgs['template.nav.typ_produktu']}" action="productType" ajax="false" actionListener="#{pageController.chooseMenuItem}"/>
+                        <p:menuitem id="menuTotalAmount" value="#{msgs['template.nav.wnioskowana_kwota']}" action="totalAmount" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.totalAmount.completed}"/>
+                        <p:menuitem id="menuEstate" value="#{msgs['template.nav.zabezpieczenie']}" action="estate" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.estate.completed}"/>
+                        <p:menuitem id="menuParameters" value="#{msgs['template.nav.parametry_symulacji']}" action="parameters" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.parameters.completed}"/>
+                        <p:menuitem id="menuDeclarations" value="#{msgs['template.nav.obiekty_i_cele_kredytowania']}" action="declarations" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.declarations.completed}"/>
+                        <p:menuitem id="menuInterest" value="#{msgs['template.nav.oprocentowanie']}" action="interest" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.interest.completed}"/>
+                        <p:menuitem id="menuCredit" value="#{msgs['template.nav.rata_kredytu']}" action="creditAmount" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.credit.completed}"/>
+                        <p:menuitem id="menuCreditPeriod" value="#{msgs['template.nav.okres_kredytowania']}" action="creditPeriod" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.creditPeriod.completed}"/>
+                        <p:menuitem id="menuPriceCondition" value="#{msgs['template.nav.warunek_cenowy']}" action="priceCondition" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.priceCondition.completed}"/>
+                        <p:menuitem id="menuAdditionalParameter" value="#{msgs['template.nav.dodatkowe_parametry']}" action="additionalParameter" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.additionalParameter.completed}"/>
+                        <p:menuitem id="menuDocuments" value="#{msgs['template.nav.dokumenty']}" action="documents" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.documents.completed}"/>
+                        <p:menuitem id="summary" value="#{msgs['template.nav.podsumowanie']}" action="summary" ajax="false" actionListener="#{pageController.chooseMenuItem}" disabled="#{!pageController.summary.completed}"/>
+                </p:menu>
+            </p:outputPanel>
         </h:form>
         <!--Można ewentualnie zrobić menuItem i użyć url-->
         <form action="#{request.contextPath}/j_spring_security_logout">

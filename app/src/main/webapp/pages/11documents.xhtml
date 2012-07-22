@@ -14,7 +14,10 @@
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
             <h:form id="documentsForm">
-                    <p:panelGrid columns="1">
+                <p:commandButton id="nextMainWizard" action="summary" ajax="false"
+                                 style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
+                                 icon="ui-icon-arrow-1-e"/>
+                <p:panelGrid columns="1">
                         <p:columnGroup>
                             <p:column>
                                 #{msgs['documents.info.panel.zakoncz']}
@@ -25,6 +28,14 @@
                             </p:column>
                         </p:columnGroup>
                     </p:panelGrid>
+                <p:ajaxStatus>
+                    <f:facet name="error">
+                        <h:outputText value="Zapisywanie nie powiodło się" />
+                    </f:facet>
+                    <f:facet name="success">
+                        <h:outputText value="Zapisywanie powiodło się!" />
+                    </f:facet>
+                </p:ajaxStatus>
             </h:form>
             <p:confirmDialog id="confirmDialog" message="#{msgs['documents.confirmDialog.confirmation']}" appendToBody="true"
                              header="#{msgs['common.confirmDialog.header']}" severity="alert" widgetVar="confirmation">

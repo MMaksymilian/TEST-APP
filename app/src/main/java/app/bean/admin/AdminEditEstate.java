@@ -1,18 +1,19 @@
 package app.bean.admin;
 
+import app.exception.service.ChildIsUsedException;
+import app.model.BaseEntityDataModel;
 import app.services.DictEstateService;
 import core.orm.entities.estate.DictEstate;
 import core.orm.entities.estate.DictEstateChild;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,7 +29,7 @@ public class AdminEditEstate implements Serializable {
     @ManagedProperty("#{dictEstateService}")
     DictEstateService dictEstateService;
 
-    List<DictEstate> recordList;
+    BaseEntityDataModel<DictEstate> recordModel;
 
     List<DictEstateChild> childrenList;
 
@@ -44,12 +45,14 @@ public class AdminEditEstate implements Serializable {
     public void refreshDeclarationRecordList() {
         Map<DictEstate, List<DictEstateChild>> declarationRecordMap = dictEstateService.getAvailableEstates();
         if (declarationRecordMap.size() > 0) {
-            recordList = new ArrayList<DictEstate>();
+            recordModel = new BaseEntityDataModel<DictEstate>();
             for ( Iterator it =  declarationRecordMap.keySet().iterator();it.hasNext(); ) {
                 DictEstate dict = (DictEstate)it.next();
-                recordList.add(dict);
+                recordModel.getRecordList().add(dict);
             }
-            setSelectRecord(recordList.get(0));
+            if (getSelectRecord() == null) {
+                setSelectRecord(recordModel.getRecordList().get(0));
+            }
             childrenList = declarationRecordMap.get(getSelectRecord());
         }
     }
@@ -59,17 +62,27 @@ public class AdminEditEstate implements Serializable {
     }
 
     public void saveRecordChild() {
-        dictEstateService.updateChild(selectedRecordChild);
+        try {
+            dictEstateService.updateChild(selectedRecordChild);
+        } catch (ChildIsUsedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            Locale locale = facesContext.getViewRoot().getLocale();
+            ResourceBundle bundle = ResourceBundle.getBundle("message.messages", locale);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, bundle.getString("exception.admin.estate.used"), bundle.getString("exception.admin.estate.used")));
+        }
+        refreshDeclarationRecordList();
     }
 
     /*GETTERy i SETTERy*/
 
-    public List<DictEstate> getRecordList() {
-        return recordList;
+    public BaseEntityDataModel<DictEstate> getRecordModel() {
+        return recordModel;
     }
 
-    public void setRecordList(List<DictEstate> recordList) {
-        this.recordList = recordList;
+    public void setRecordModel(BaseEntityDataModel<DictEstate> recordModel) {
+        this.recordModel = recordModel;
     }
 
     public void setDictEstateService(DictEstateService dictEstateService) {
@@ -96,3 +109,5 @@ public class AdminEditEstate implements Serializable {
         this.selectedRecordChild = selectedRecordChild;
     }
 }
+
+

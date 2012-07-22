@@ -40,8 +40,7 @@ public class DictEstateDAOImpl extends BaseDAOImpl implements DictEstateDAO {
     @Override
     public List<DeclarationRecordChild> listDeclarationChildrendContainingEstate(DictEstate dictEstate) {
         Criteria listCriteria = getSession().createCriteria(DeclarationRecordChild.class);
-        listCriteria.createAlias("declarationRecordChildren", "dRCh");
-        listCriteria.add(Restrictions.in("estate", new Object[]{dictEstate}));
+        listCriteria.add(Restrictions.in("estate", new DictEstate[]{dictEstate}));
         return listCriteria.list();
     }
 

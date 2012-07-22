@@ -4,16 +4,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>#{msgs['template.nav.rata_kredytu']}</title>
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <!--<ui:define name="content">-->
-    <!---->
-    <!--</ui:define>-->
+    <ui:define name="content">
+        <h:form id="creditForm">
+            <p:commandButton id="nextMainWizard" action="creditPeriod" ajax="false"
+                             style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
+                             icon="ui-icon-arrow-1-e"/>
+        </h:form>
+    </ui:define>
     </ui:composition>
 </h:body>
 </html>

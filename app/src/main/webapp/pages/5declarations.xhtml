@@ -13,7 +13,12 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
+            <h:form id="declarationsForm">
+                <p:commandButton id="nextMainWizard" action="interest" ajax="false"
+                                 style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
+                                 icon="ui-icon-arrow-1-e"/>
 
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>
