@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class PageController implements Serializable {
     private String chosenMenuItemId = "menuForm:menuProductType";
 
-//    private GoalTick productType;
+    private GoalTick productType;
     private GoalTick totalAmount;
     private GoalTick estate;
     private GoalTick parameters;
@@ -37,7 +37,7 @@ public class PageController implements Serializable {
 
     @PostConstruct
     public void initMethod() {
-//       productType = new GoalTick();
+       productType = new GoalTick();
        totalAmount = new GoalTick("wnioskowana_kwota_kredytu");
        estate = new GoalTick("zabezpieczenie");
        parameters = new GoalTick();
@@ -64,13 +64,13 @@ public class PageController implements Serializable {
         this.chosenMenuItemId = chosenMenuItemId;
     }
 
-//    public GoalTick getProductType() {
-//        return productType;
-//    }
-//
-//    public void setProductType(GoalTick productType) {
-//        this.productType = productType;
-//    }
+    public GoalTick getProductType() {
+        return productType;
+    }
+
+    public void setProductType(GoalTick productType) {
+        this.productType = productType;
+    }
 
     public GoalTick getTotalAmount() {
         return totalAmount;

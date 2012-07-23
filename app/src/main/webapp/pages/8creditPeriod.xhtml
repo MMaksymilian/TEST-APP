@@ -14,7 +14,7 @@
     <ui:composition template="/template/commonLayout.xhtml">
     <ui:define name="content">
         <h:form id="creditPeriodForm">
-            <p:commandButton id="nextMainWizard" action="priceCondition" ajax="false"
+            <p:commandButton id="nextMainWizard" action="priceCondition" ajax="false"    actionListener="#{creditPeriodAddBean.fakeTick}"
                              style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
                              icon="ui-icon-arrow-1-e"/>
         </h:form>

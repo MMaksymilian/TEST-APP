@@ -14,7 +14,7 @@
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
             <h:form id="parametersForm">
-                <p:commandButton id="nextMainWizard" action="declarations" ajax="false"
+                <p:commandButton id="nextMainWizard" action="declarations" ajax="false"  actionListener="#{parametersAddBean.fakeTick}"
                                  style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
                                  icon="ui-icon-arrow-1-e"/>
             </h:form>

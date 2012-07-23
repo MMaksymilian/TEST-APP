@@ -14,7 +14,7 @@
     <ui:composition template="/template/commonLayout.xhtml">
     <ui:define name="content">
         <h:form id="priceConditionForm">
-            <p:commandButton id="nextMainWizard" action="additionalParameter" ajax="false"
+            <p:commandButton id="nextMainWizard" action="additionalParameter" ajax="false" actionListener="#{priceConditionAddBean.fakeTick}"
                              style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
                              icon="ui-icon-arrow-1-e"/>
         </h:form>

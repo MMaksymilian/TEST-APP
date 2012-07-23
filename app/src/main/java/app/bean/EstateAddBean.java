@@ -2,6 +2,7 @@ package app.bean;
 
 import app.bean.config.ConfigUserBean;
 import app.bean.session.UserSessionBean;
+import app.bean.session.goaltick.GoalTick;
 import core.orm.entities.*;
 import core.orm.entities.estate.DictEstate;
 import org.primefaces.component.wizard.Wizard;
@@ -31,6 +32,9 @@ public class EstateAddBean implements Serializable {
 
     @ManagedProperty("#{userSessionBean}")
     private UserSessionBean userSessionBean;
+
+    @ManagedProperty("#{pageController.estate}")
+    GoalTick goalTick;
 
     private Declaration declaration;
 
@@ -110,6 +114,11 @@ public class EstateAddBean implements Serializable {
             currentMainEstate.getDeclarationRecordChildren().add(currentChildEstate);
             currentChildEstate = new DeclarationRecordChild();
         }
+    }
+
+
+    public void fakeTick() {
+        goalTick.setCompleted(true);
     }
 
     /**
@@ -228,5 +237,9 @@ public class EstateAddBean implements Serializable {
 
     public void setWizard(Wizard wizard) {
         this.wizard = wizard;
+    }
+
+    public void setGoalTick(GoalTick goalTick) {
+        this.goalTick = goalTick;
     }
 }

@@ -20,7 +20,7 @@
             </script>
 
             <h:form id="estateTreeTable">
-                <p:commandButton id="nextMainWizard" action="parameters" ajax="false"
+                <p:commandButton id="nextMainWizard" action="parameters" ajax="false" actionListener="#{estateAddBean.fakeTick}"
                                  style="position:absolute;right:0px;top:0px; margin:15px;z-index:30" value="#{msgs['common.wizard.dalej']}"
                                  icon="ui-icon-arrow-1-e"/>
                 <h:outputText

@@ -13,24 +13,10 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
-            <script type="text/javascript">
-                /* <![CDATA[ */
-
-                var totalAmount = 0;
-
-                $(function() {
-                    $('[id="formTotal:amount"]').bind('keyup', function() {
-                        totalAmount = $(this).val();
-                        $(this).delay(3000).formatCurrency({decimalSymbol:',', digitGroupSymbol:' ', symbol:' '});
-//                                val(number_format(totalAmount, 2, ',', ' '));
-                    });
-                })
-                /* ]]> */
-            </script>
-
+            <h:outputScript library="js/pages" name="2totalAmount.js"/>
             #{msgs['total.podaj']}
-            <h:form id="formTotal">
-                <p:commandButton id="nextMainWizard" action="estate" ajax="false"
+            <h:form id="formTotal">    <!--pageController="chooseMenuItemId"-->
+                <p:commandButton id="nextMainWizard" action="estate" ajax="false"  actionListener="#{totalAmountAddBean.fakeTick}"
                                  style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
                                  icon="ui-icon-arrow-1-e"/>
                 <p:inputText id="amount" value="#{userSessionBean.creditAmount}">
