@@ -1,7 +1,10 @@
 package app.bean.config;
 
+import app.services.ConfigStandardService;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.validation.constraints.Digits;
 
 /**
@@ -16,8 +19,11 @@ import javax.validation.constraints.Digits;
 public class ConfigUserBean {
     private String dateFormat = "MM/dd/yyyy";
 
-    //TODO Z BAZY DANYCH
-    private Double maxCredit = 30000d;
+    private Double maxCredit;
+
+    /*TODO mozna sprobowac wstrzyknac configUserBean do admin-a(configBean) i tam bezposrednio zmienic maxCredit, zeby nie ciagnac za kazdym razem z bazy*/
+    @ManagedProperty("#{configStandardService}")
+    private ConfigStandardService configStandardService;
 
     private Double minCredit = 20000d;
 
@@ -30,7 +36,7 @@ public class ConfigUserBean {
     }
 
     public Double getMaxCredit() {
-        return maxCredit;
+        return Double.valueOf(configStandardService.getParameterByKey("MAX_CREDIT"));
     }
 
     public void setMaxCredit(Double maxCredit) {
@@ -43,5 +49,9 @@ public class ConfigUserBean {
 
     public void setMinCredit(Double minCredit) {
         this.minCredit = minCredit;
+    }
+
+    public void setConfigStandardService(ConfigStandardService configStandardService) {
+        this.configStandardService = configStandardService;
     }
 }

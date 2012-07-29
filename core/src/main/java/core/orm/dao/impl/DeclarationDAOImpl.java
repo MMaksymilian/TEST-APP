@@ -1,16 +1,13 @@
 package core.orm.dao.impl;
 
 import core.orm.dao.DeclarationDAO;
-import core.orm.entities.ConfigStandard;
 import core.orm.entities.Declaration;
-import core.orm.entities.core.BaseEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

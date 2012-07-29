@@ -4,6 +4,7 @@ import core.orm.dao.ConfigStandardDAO;
 import core.orm.entities.AppUser;
 import core.orm.entities.ConfigStandard;
 import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
@@ -24,6 +25,14 @@ public class ConfigStandardDAOImpl extends BaseDAOImpl implements ConfigStandard
     public List<ConfigStandard> listConfigParams() {
         Criteria criteria = getSession().createCriteria(ConfigStandard.class);
         return (List<ConfigStandard>) criteria.list();
+    }
+
+    @Override
+    public String getParameterByKey(String key) {
+        Session session = getSession();
+        Criteria criteriaByKey = getSession().createCriteria(ConfigStandard.class);
+        String hql="select value from ConfigStandard where key=:valueString";
+        return (String) session.createQuery(hql).setString("valueString", key).uniqueResult();
     }
 
     public void updateConfig(ConfigStandard configStandard) {

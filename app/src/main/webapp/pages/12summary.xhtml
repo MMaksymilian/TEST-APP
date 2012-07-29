@@ -52,8 +52,17 @@
                         </p:column>
 
                     </p:treeTable>
+                    <br/><br/>
+                    <h:form>
+                        #{msgs['summary.fieldset.info.wybierz_deklaracje_od_nowa']}
+                        <p:commandButton ajax="false" action="#{summaryAddBean.startOverWithExistingDeclaration(declaration)}" value="#{msgs['summary.fieldset.button.edytuj_deklaracje']}"/>
+                    </h:form>
                 </p:fieldset>
             </ui:repeat>
+            <br/>
+            <h:form id="temporary">
+                <p:commandButton action="productType" ajax="false" value="przejdź do początku, żeby zacząć od nowa"/>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

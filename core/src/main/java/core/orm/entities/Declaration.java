@@ -109,9 +109,9 @@ public class Declaration extends BaseEntity {
     public int hashCode() {
         int result = user != null ? user.hashCode() : 0;
         result = 31 * result + (commitDate != null ? commitDate.hashCode() : 0);
-        result = 31 * result + (creditAmount != null ? creditAmount.hashCode() : 0);
-        result = 31 * result + (estateValue != null ? estateValue.hashCode() : 0);
-        result = 31 * result + (interest != null ? interest.hashCode() : 0);
+//        result = 31 * result + (creditAmount != null ? creditAmount.hashCode() : 0);
+//        result = 31 * result + (estateValue != null ? estateValue.hashCode() : 0);
+//        result = 31 * result + (interest != null ? interest.hashCode() : 0);
         return result;
     }
 }

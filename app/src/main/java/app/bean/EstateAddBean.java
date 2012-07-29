@@ -96,7 +96,7 @@ public class EstateAddBean implements Serializable {
         return event.getNewStep();
     }
 
-    public void addToList() {
+    public void addToList() throws GoalTick.GoalDoesNotExistException {
         if (!declaration.getDeclarationRecords().contains(currentMainEstate)) {
           declaration.getDeclarationRecords().add(currentMainEstate);
           currentMainEstate.setDeclaration(declaration);
@@ -114,11 +114,19 @@ public class EstateAddBean implements Serializable {
             currentMainEstate.getDeclarationRecordChildren().add(currentChildEstate);
             currentChildEstate = new DeclarationRecordChild();
         }
+        countTotalValue();
+        goalTick.tickGoal("zabezpieczenie");
     }
 
-
-    public void fakeTick() {
-        goalTick.setCompleted(true);
+    private void countTotalValue() {
+        double totalValue = 0d;
+        for(DeclarationRecord declarationRecord : declaration.getDeclarationRecords()) {
+          totalValue += declarationRecord.getValue();
+          for(DeclarationRecordChild declarationRecordChild : declarationRecord.getDeclarationRecordChildren()) {
+             totalValue += declarationRecordChild.getValue();
+          }
+        }
+        userSessionBean.setTotalDecalarations(totalValue);
     }
 
     /**
@@ -135,6 +143,26 @@ public class EstateAddBean implements Serializable {
      */
     public void setSelectedEstate(DictEstate selectedEstate) {
         currentMainEstate.setEstate(selectedEstate);
+    }
+
+    /*to nie jest zwykly setter*/
+    public void setParentShareType(DictShareType shareType) {
+        currentMainEstate.setShareType(shareType);
+    }
+
+    /*to nie jest zwykly getter*/
+    public DictShareType getParentShareType() {
+        return currentMainEstate.getShareType();
+    }
+
+    /*to nie jest zwykly setter*/
+    public void setParentOwnership(DictOwnership ownership) {
+        currentMainEstate.setOwnership(ownership);
+    }
+
+    /*to nie jest zwykly getter*/
+    public DictOwnership getParentOwnership() {
+        return currentMainEstate.getOwnership();
     }
 
     /**

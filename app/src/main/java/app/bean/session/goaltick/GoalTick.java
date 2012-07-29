@@ -15,7 +15,7 @@ public class GoalTick {
      * Time: 18:33
      * To change this template use File | Settings | File Templates.
      */
-    private class GoalDoesNotExistException extends Exception {
+    public class GoalDoesNotExistException extends Exception {
         public GoalDoesNotExistException() {
             super("Nie ma takiego zadanie na liście zadań! ");
         }

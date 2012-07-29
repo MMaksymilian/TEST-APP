@@ -77,7 +77,7 @@ public class AppUser extends BaseEntity {
     @Override
     public int hashCode() {
         int result = login != null ? login.hashCode() : 0;
-        result = 31 * result + (password != null ? password.hashCode() : 0);
+//        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 }

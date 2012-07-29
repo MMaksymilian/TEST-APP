@@ -55,6 +55,10 @@ public class PageController implements Serializable {
         chosenMenuItemId = event.getComponent().getClientId();
     }
 
+    public void chooseStringMenuItem(String menuItem) {
+        chosenMenuItemId = "menuForm:" + menuItem;
+    }
+
     /*GETTERy I SETTERy*/
     public String getChosenMenuItemId() {
         return chosenMenuItemId;

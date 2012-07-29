@@ -11,15 +11,14 @@
 <h:body>
 <ui:composition template="/template/adminLayout.xhtml">
     <ui:define name="content">
-        <h:form id="estateForm">
-            <p:dataTable id="mainRecords"  var="mainRecord" value="#{adminEditEstate.recordModel}" selection="#{adminEditEstate.selectRecord}"
+        <h:form id="listForm">
+            <p:dataTable   id="mainRecords"  rowIndexVar="rowInd"  var="mainRecord" value="#{adminEditEstate.recordModel}" selection="#{adminEditEstate.selectRecord}"
                           selectionMode="single">
-                <!--<p:ajax process=":estateForm:mainRecords"/>-->
-                <p:column selectionMode="single" style="width:18px" />
+                <p:column selectionMode="single"  style="width:18px" />
                 <!--<f:facet name="header">-->
                     <!--#{msgs['admin.estate.table.header.edycja_nieruchomosci']}-->
                 <!--</f:facet>-->
-                <p:column sortBy="#{mainRecord.value}" headerText="#{msgs['estate.tree.header.nieruchomosc']}">
+                <p:column headerText="#{msgs['estate.tree.header.nieruchomosc']}">
                     <p:cellEditor>
                         <f:facet name="output">
                             <h:outputText value="#{mainRecord.value}"/>
@@ -32,14 +31,20 @@
                 <p:column>
                     <p:rowEditor />
                 </p:column>
-
-                <!--<f:facet name="footer">-->
-                    <!--<p:commandButton id="viewButton" value="View" icon="ui-icon-search"-->
-                                     <!--update=":form:display" oncomplete="carDialog.show()"/>-->
-                <!--</f:facet>-->
+                <p:ajax event="rowSelect" immediate="true"
+                        process="@parent" listener="#{adminEditEstate.setSelectRecord(coZtym)}"
+                        update=":listForm" />
             </p:dataTable>
-            </h:form>
-            <h:form id="listForm">
+            <!--</h:form>-->
+            <!--<h:form id="listForm">-->
+
+            <!--<p:dataTable id="parentList" var="estate" value="#{adminEditEstate.recordModel}" selection="#{adminEditEstate.recordModel}" selectionMode="single">-->
+                <!--&lt;!&ndash;<p:column selectionMode="single"/>&ndash;&gt;-->
+                <!--<p:column headerText="nazwa">-->
+                    <!--#{estate.value}-->
+                <!--</p:column>-->
+            <!--</p:dataTable>-->
+
             <p:dataList style="width:200px" id="childrenList" value="#{adminEditEstate.childrenList}" var="childRecord" type="ordered" rows="5" effectSpeed="fast">
                 <p:column>
                     <h:outputText value="#{childRecord.value}"/>

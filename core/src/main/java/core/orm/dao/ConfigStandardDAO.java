@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface ConfigStandardDAO extends BaseDAO<ConfigStandard> {
     List listConfigParams();
+    String getParameterByKey(String name);
+
     void updateConfig(ConfigStandard configStandard);
     void saveConfig(ConfigStandard configStandard);
 }

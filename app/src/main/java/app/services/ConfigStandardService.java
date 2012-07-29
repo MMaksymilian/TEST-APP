@@ -19,6 +19,7 @@ import java.util.List;
 @Transactional
 public interface ConfigStandardService {
     List listConfigParams();
+    String getParameterByKey(String name);
 
     void updateConfig(ConfigStandard configStandard);
     void saveConfig(ConfigStandard configStandard);

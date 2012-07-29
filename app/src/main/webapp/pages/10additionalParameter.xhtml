@@ -12,13 +12,22 @@
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <ui:define name="content">
-        <h:form id="additionalParameterForm">
-            <p:commandButton id="nextMainWizard" action="documents" ajax="false" actionListener="#{additionalParameterAddBean.fakeTick}"
-                             style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
-                             icon="ui-icon-arrow-1-e"/>
-        </h:form>
-    </ui:define>
+        <ui:define name="content">
+            <h:form id="nextWizardForm">
+                <p:outputPanel autoUpdate="true">
+                    <p:commandButton id="nextMainWizard" action="documents" ajax="false"
+                                     actionListener="#{pageController.chooseStringMenuItem('menuDocuments')}"
+                                     style="position:absolute;right:0px;top:0px; margin:15px"
+                                     disabled="#{!pageController.additionalParameter.completed}"
+                                     value="#{msgs['common.wizard.dalej']}"
+                                     icon="ui-icon-arrow-1-e"/>
+                </p:outputPanel>
+            </h:form>
+            <h:form id="additionalParameterForm">
+                <p:commandButton value="Wciśnij, żeby przejść dalej" id="fakeTick"
+                                 action="#{additionalParameterAddBean.fakeTick}"/>
+            </h:form>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>

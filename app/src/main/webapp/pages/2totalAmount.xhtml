@@ -14,17 +14,26 @@
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
             <h:outputScript library="js/pages" name="2totalAmount.js"/>
-            #{msgs['total.podaj']}
-            <h:form id="formTotal">    <!--pageController="chooseMenuItemId"-->
-                <p:commandButton id="nextMainWizard" action="estate" ajax="false"  actionListener="#{totalAmountAddBean.fakeTick}"
-                                 style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
-                                 icon="ui-icon-arrow-1-e"/>
-                <p:inputText id="amount" value="#{userSessionBean.creditAmount}">
+            <h:form id="nextWizardForm">
+                <p:outputPanel autoUpdate="true">
+                    <p:commandButton id="nextMainWizard" action="estate" ajax="false"
+                    actionListener="#{pageController.chooseStringMenuItem('menuEstate')}"
+                    style="position:absolute;right:0px;top:0px; margin:15px"
+                    value="#{msgs['common.wizard.dalej']}" process="@none"
+                    icon="ui-icon-arrow-1-e" disabled="#{!pageController.totalAmount.completed}"/>
+                </p:outputPanel>
+            </h:form>
+            <h:form id="formTotal">
+
+                <h:outputFormat value="#{msgs['total.podaj']}" >
+                    <f:param value="#{configUserBean.minCredit}" />
+                    <f:param value="#{configUserBean.maxCredit}" />
+                </h:outputFormat><br/>
+                <p:inputText id="amount" value="#{totalAmountAddBean.creditAmount}">
                     <f:validateDoubleRange minimum="#{configUserBean.minCredit}" maximum="#{configUserBean.maxCredit}"/>
                     <f:convertNumber pattern="#,###,##0.00"/>
-                    <!--<p:ajax event="keyup" process="@none" update="@this" />-->
                 </p:inputText>
-                <p:commandButton value="#{msgs['common.button.submit']}"/>
+                <p:commandButton value="#{msgs['common.button.submit']}" process="formTotal:amount"/>
                 <p:messages autoUpdate="true"/>
             </h:form>
         </ui:define>

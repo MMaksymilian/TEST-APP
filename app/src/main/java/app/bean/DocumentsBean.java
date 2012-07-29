@@ -1,5 +1,6 @@
 package app.bean;
 
+import app.bean.session.PageController;
 import app.bean.session.UserSessionBean;
 import app.services.DeclarationService;
 
@@ -27,9 +28,14 @@ public class DocumentsBean implements Serializable {
     private UserSessionBean userSessionBean;
 
     public String saveDeclaration() {
-       declarationService.saveDeclaration(userSessionBean.getUserDeclaration());
-       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userSessionBean", new UserSessionBean());
-       return "productType";
+        declarationService.saveDeclaration(userSessionBean.getUserDeclaration());
+        UserSessionBean newUserSessionBean = new UserSessionBean();
+        newUserSessionBean.initMethod();
+        PageController newPageController = new PageController();
+        newPageController.initMethod();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userSessionBean", newUserSessionBean);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pageController", newPageController);
+        return "summary";
     }
 
     public void setDeclarationService(DeclarationService declarationService) {

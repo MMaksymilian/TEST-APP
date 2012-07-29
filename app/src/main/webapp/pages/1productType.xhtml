@@ -5,8 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:custom="http://customComponent.com">
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
     <title>#{msgs['template.nav.typ_produktu']}</title>
@@ -14,12 +13,20 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
         <ui:define name="content">
-          <!--<custom:nextButton nextPage="totalAmount"/>-->
-          <h:form id="nextButtonForm">
-            <p:commandButton id="nextMainWizard" action="totalAmount" ajax="false"  actionListener="#{pageController.chooseMenuItem('menuTotalAmount')}"
-                             style="position:absolute;right:0px;top:0px; margin:15px"  value="#{msgs['common.wizard.dalej']}"
-                             icon="ui-icon-arrow-1-e"/>
-          </h:form>
+            <!--<custom:nextButton nextPage="totalAmount"/>-->
+            <h:form id="nextWizardForm">
+                <p:outputPanel autoUpdate="true">
+                    <p:commandButton id="nextMainWizard" action="totalAmount" ajax="false"
+                                     actionListener="#{pageController.chooseStringMenuItem('menuTotalAmount')}"
+                                     disabled="#{!pageController.productType.completed}"
+                                     style="position:absolute;right:0px;top:0px; margin:15px"
+                                     value="#{msgs['common.wizard.dalej']}"
+                                     icon="ui-icon-arrow-1-e"/>
+                </p:outputPanel>
+            </h:form>
+            <h:form id="nextButtonForm">
+                <p:commandButton value="Wciśnij, żeby przejść dalej" id="fakeTick" action="#{productTypeAddBean.fakeTick}"/>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

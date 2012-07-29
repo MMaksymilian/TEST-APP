@@ -29,7 +29,7 @@ public class BaseEntityDataModel<T extends BaseEntity> extends ListDataModel<T> 
         return object.getId();
     }
 
-    /*TODO DOPISAĆ KOD KTÓRY BĘDZIE SKUTECZNY PRZY DUŻEJ LICZBIE DANYCH BRANYCH Z DB*/
+    /*TODO DOPISAC KOD KTORY BEDZIE SKUTECZNY PRZY DUZEJ LICZBIE DANYCH BRANYCH Z DB*/
     @Override
     public T getRowData(String rowKey) {
         T currentRow = null;

@@ -12,13 +12,23 @@
 </h:head>
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
-    <ui:define name="content">
-        <h:form id="creditForm">
-            <p:commandButton id="nextMainWizard" action="creditPeriod" ajax="false" actionListener="#{creditAddBean.fakeTick}"
-                             style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
-                             icon="ui-icon-arrow-1-e"/>
-        </h:form>
-    </ui:define>
+        <ui:define name="content">
+            <h:form id="nextWizardForm">
+                <p:outputPanel autoUpdate="true">
+                    <p:commandButton id="nextMainWizard" action="creditPeriod" ajax="false"
+                                     actionListener="#{pageController.chooseStringMenuItem('menuCreditPeriod')}"
+                                     disabled="#{!pageController.credit.completed}"
+                                     style="position:absolute;right:0px;top:0px; margin:15px"
+                                     value="#{msgs['common.wizard.dalej']}"
+                                     icon="ui-icon-arrow-1-e"/>
+                </p:outputPanel>
+            </h:form>
+            <h:form id="creditForm">
+                <p:commandButton value="Wciśnij, żeby przejść dalej" id="fakeTick"
+                                 action="#{creditAddBean.fakeTick}"/>
+
+            </h:form>
+        </ui:define>
     </ui:composition>
 </h:body>
 </html>

@@ -13,10 +13,23 @@
 <h:body>
     <ui:composition template="/template/commonLayout.xhtml">
     <ui:define name="content">
+        <h:form id="nextWizardForm">
+            <p:outputPanel autoUpdate="true">
+                <p:commandButton id="nextMainWizard" action="creditAmount" ajax="false"
+                                 actionListener="#{pageController.chooseStringMenuItem('menuCredit')}"
+                                 disabled="#{!pageController.interest.completed}"
+                                 style="position:absolute;right:0px;top:0px; margin:15px"
+                                 value="#{msgs['common.wizard.dalej']}"
+                                 icon="ui-icon-arrow-1-e"/>
+            </p:outputPanel>
+        </h:form>
         <h:form id="interestForm">
-            <p:commandButton id="nextMainWizard" action="creditAmount" ajax="false"   actionListener="#{interestAddBean.fakeTick}"
-                             style="position:absolute;right:0px;top:0px; margin:15px" value="#{msgs['common.wizard.dalej']}"
-                             icon="ui-icon-arrow-1-e"/>
+            #{msgs['interest.info.podaj_oprocentowanie']}
+            <p:inputText id="interestInput" value="#{interestAddBean.interest}">
+                <f:convertNumber type="percent" />
+            </p:inputText>
+            <p:commandButton process="interestForm:interestInput" value="#{msgs['common.button.submit']}"/>
+            <p:messages autoUpdate="true"/>
         </h:form>
     </ui:define>
     </ui:composition>
